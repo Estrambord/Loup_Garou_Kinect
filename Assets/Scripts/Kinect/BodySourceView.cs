@@ -124,13 +124,16 @@ public class BodySourceView : MonoBehaviour
         GameObject body = new GameObject("Body:" + id);
         GameObject jointObj;
 
-        foreach (Kinect.JointType joint in _joints)
-		{
-            if(joint == Kinect.JointType.Head)
 			{
                 jointObj = Instantiate(jointPrefabHead);
 			}
-			else
+        foreach (Kinect.JointType joint in _joints)
+		{
+            if(joint == Kinect.JointType.Head)
+            {
+                jointObj = Instantiate(jointPrefabHead);
+            }
+            else
 			{
                 jointObj = Instantiate(jointPrefabHand);
             }
