@@ -19,6 +19,14 @@ public class SoundManager : MonoBehaviour
         else Debug.Log("No clip assigned !");
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            audioSource.Play();
+        }
+    }
+
     public static AudioClip Combine(params AudioClip[] clips)
     {
         if (clips == null || clips.Length == 0)
