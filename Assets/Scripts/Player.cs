@@ -58,9 +58,9 @@ public class Player : MonoBehaviour
         Has_Voted = true;
     }
 
-    public virtual void Player_Special_Vote(Player player)
+    /*public virtual void Player_Special_Vote(Player player, )
     {
         //le script de vote des personnages à rôles spéciaux
 
-    }
+    }*/
 }
