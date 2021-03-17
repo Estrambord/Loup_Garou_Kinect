@@ -166,6 +166,7 @@ public class BodySourceView : MonoBehaviour
             Transform jointObj = bodyObject.transform.Find(jt.ToString());
             jointObj.localPosition = GetVector3FromJoint(sourceJoint);
             
+            /*
             LineRenderer lr = jointObj.GetComponent<LineRenderer>();
             if(targetJoint.HasValue)
             {
@@ -179,6 +180,7 @@ public class BodySourceView : MonoBehaviour
             {
                 lr.enabled = false;
             }
+            */
         }
     }
     
