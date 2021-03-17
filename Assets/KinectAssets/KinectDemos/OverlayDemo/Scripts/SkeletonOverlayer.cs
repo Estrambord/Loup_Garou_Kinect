@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //using Windows.Kinect;
 
 
 public class SkeletonOverlayer : MonoBehaviour 
 {
 	[Tooltip("GUI-texture used to display the color camera feed on the scene background.")]
-	public GUITexture backgroundImage;
+	public Texture backgroundImage;
 
 	[Tooltip("Camera that will be used to overlay the 3D-objects over the background.")]
 	public Camera foregroundCamera;
@@ -76,9 +77,9 @@ public class SkeletonOverlayer : MonoBehaviour
 		if(manager && manager.IsInitialized() && foregroundCamera)
 		{
 			//backgroundImage.renderer.material.mainTexture = manager.GetUsersClrTex();
-			if(backgroundImage && (backgroundImage.texture == null))
+			if(backgroundImage && (backgroundImage == null))
 			{
-				backgroundImage.texture = manager.GetUsersClrTex();
+				backgroundImage = manager.GetUsersClrTex();
 			}
 
 			// get the background rectangle (use the portrait background, if available)

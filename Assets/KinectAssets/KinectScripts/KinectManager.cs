@@ -3,7 +3,7 @@
 
 
 using UnityEngine;
-
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -100,10 +100,10 @@ public class KinectManager : MonoBehaviour
 	public List<MonoBehaviour> gestureListeners = new List<MonoBehaviour>();
 	
 	[Tooltip("GUI-Text to display user detection messages.")]
-	public GUIText calibrationText;
+	public Text calibrationText;
 	
 	[Tooltip("GUI-Text to display debug messages for the currently tracked gestures.")]
-	public GUIText gesturesDebugText;
+	public Text gesturesDebugText;
 
 	
 	// Bool to keep track of whether Kinect has been initialized
@@ -1700,7 +1700,7 @@ public class KinectManager : MonoBehaviour
 			
 			if(calibrationText != null)
 			{
-				calibrationText.GetComponent<GUIText>().text = ex.Message;
+				calibrationText.GetComponent<Text>().text = ex.Message;
 			}
 		}
 
@@ -1748,7 +1748,7 @@ public class KinectManager : MonoBehaviour
 			
 			if(calibrationText != null)
 			{
-				calibrationText.GetComponent<GUIText>().text = message;
+				calibrationText.GetComponent<Text>().text = message;
 			}
 			
 			return;
@@ -1762,7 +1762,7 @@ public class KinectManager : MonoBehaviour
 			
 			if(calibrationText != null)
 			{
-				calibrationText.GetComponent<GUIText>().text = message;
+				calibrationText.GetComponent<Text>().text = message;
 			}
 			
 			return;
@@ -1877,7 +1877,7 @@ public class KinectManager : MonoBehaviour
 		// GUI Text.
 		if(calibrationText != null)
 		{
-			calibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+			calibrationText.GetComponent<Text>().text = "WAITING FOR USERS";
 		}
 		
 		Debug.Log("Waiting for users.");
@@ -2355,7 +2355,7 @@ public class KinectManager : MonoBehaviour
 			float angle = sensorData.sensorRotDetected.eulerAngles.x;
 			angle = angle > 180f ? (angle - 360f) : angle;
 
-			calibrationText.GetComponent<GUIText>().text = string.Format("Sensor Height: {0:F1} m, Angle: {1:F0} deg", sensorData.sensorHgtDetected, -angle);
+			calibrationText.GetComponent<Text>().text = string.Format("Sensor Height: {0:F1} m, Angle: {1:F0} deg", sensorData.sensorHgtDetected, -angle);
 		}
 
 		if((autoHeightAngle == AutoHeightAngle.AutoUpdate || autoHeightAngle == AutoHeightAngle.AutoUpdateAndShowInfo) && 
@@ -2508,7 +2508,7 @@ public class KinectManager : MonoBehaviour
 				
 //				if(allowTurnArounds && calibrationText)
 //				{
-//					calibrationText.GetComponent<GUIText>().text = string.Format("{0} - BodyAngle: {1:000}", 
+//					calibrationText.GetComponent<Text>().text = string.Format("{0} - BodyAngle: {1:000}", 
 //					    (!bodyData.isTurnedAround ? "FACE" : "BACK"), bodyData.bodyTurnAngle);
 //				}
 
@@ -2821,9 +2821,9 @@ public class KinectManager : MonoBehaviour
 					
 					if(liPrimaryUserId != 0)
 					{
-						if(calibrationText != null && calibrationText.GetComponent<GUIText>().text != "")
+						if(calibrationText != null && calibrationText.GetComponent<Text>().text != "")
 						{
-							calibrationText.GetComponent<GUIText>().text = "";
+							calibrationText.GetComponent<Text>().text = "";
 						}
 					}
 				}
@@ -2943,7 +2943,7 @@ public class KinectManager : MonoBehaviour
 			
 			if(calibrationText != null)
 			{
-				calibrationText.GetComponent<GUIText>().text = "WAITING FOR USERS";
+				calibrationText.GetComponent<Text>().text = "WAITING FOR USERS";
 			}
 		}
 	}
@@ -3363,7 +3363,7 @@ public class KinectManager : MonoBehaviour
 					                                playerJointsTracked[joint] ? playerJointsPos[joint].ToString() : "");
 				}
 
-				gesturesDebugText.GetComponent<GUIText>().text = sDebugGestures;
+				gesturesDebugText.GetComponent<Text>().text = sDebugGestures;
 			}
 		}
 	}

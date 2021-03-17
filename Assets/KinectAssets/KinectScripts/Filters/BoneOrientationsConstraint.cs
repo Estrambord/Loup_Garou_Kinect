@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -26,7 +26,7 @@ public class BoneOrientationsConstraint
     {
     }
 
-	public void SetDebugText(GUIText debugText)
+	public void SetDebugText(Text debugText)
 	{
 		//this.debugText = debugText;
 	}

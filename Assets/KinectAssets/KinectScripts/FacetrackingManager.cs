@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 //using System.Runtime.InteropServices;
 
 
@@ -29,7 +30,7 @@ public class FacetrackingManager : MonoBehaviour
 	public bool mirroredModelMesh = true;
 
 	[Tooltip("GUI-Text to display the FT-manager debug messages.")]
-	public GUIText debugText;
+	public Text debugText;
 
 	// Is currently tracking user's face
 	private bool isTrackingFace = false;
@@ -433,7 +434,7 @@ public class FacetrackingManager : MonoBehaviour
 
 			if(debugText != null)
 			{
-				debugText.GetComponent<GUIText>().text = "Please, wait...";
+				debugText.GetComponent<Text>().text = "Please, wait...";
 			}
 			
 			// ensure the needed dlls are in place and face tracking is available for this interface
@@ -465,20 +466,20 @@ public class FacetrackingManager : MonoBehaviour
 
 			if(debugText != null)
 			{
-				debugText.GetComponent<GUIText>().text = "Ready.";
+				debugText.GetComponent<Text>().text = "Ready.";
 			}
 		} 
 		catch(DllNotFoundException ex)
 		{
 			Debug.LogError(ex.ToString());
 			if(debugText != null)
-				debugText.GetComponent<GUIText>().text = "Please check the Kinect and FT-Library installations.";
+				debugText.GetComponent<Text>().text = "Please check the Kinect and FT-Library installations.";
 		}
 		catch (Exception ex) 
 		{
 			Debug.LogError(ex.ToString());
 			if(debugText != null)
-				debugText.GetComponent<GUIText>().text = ex.Message;
+				debugText.GetComponent<Text>().text = ex.Message;
 		}
 	}
 
@@ -570,11 +571,11 @@ public class FacetrackingManager : MonoBehaviour
 			{
 				if(isTrackingFace)
 				{
-					debugText.GetComponent<GUIText>().text = "Tracking - BodyID: " + primaryUserID;
+					debugText.GetComponent<Text>().text = "Tracking - BodyID: " + primaryUserID;
 				}
 				else
 				{
-					debugText.GetComponent<GUIText>().text = "Not tracking...";
+					debugText.GetComponent<Text>().text = "Not tracking...";
 				}
 			}
 		}

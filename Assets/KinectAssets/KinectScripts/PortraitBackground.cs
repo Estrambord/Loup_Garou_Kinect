@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 /// <summary>
@@ -69,12 +70,13 @@ public class PortraitBackground : MonoBehaviour
 
 			float fScreenWidth = (float)Screen.height * fFactorSW;
 
-			GUITexture guiTexture = GetComponent<GUITexture>();
-			if(guiTexture)
+			Image Texture = GetComponent<Image>();
+			/*
+			if(Texture)
 			{
-				guiTexture.pixelInset = new Rect(dOffsetX, 0, fDeltaWidth, 0);
+				Texture.pixelInset = new Rect(dOffsetX, 0, fDeltaWidth, 0);
 			}
-
+			*/
 			backgroundRect = new Rect(dOffsetX, 0, fScreenWidth, Screen.height);
 			instance = this;
 		}

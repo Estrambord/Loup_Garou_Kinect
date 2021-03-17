@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.UI;
 //using Windows.Kinect;
 
 public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
 	[Tooltip("GUI-Text to display gesture-listener messages and gesture information.")]
-	public GUIText gestureInfo;
+	public Text gestureInfo;
 
 	// singleton instance of the class
 	private static ModelGestureListener instance = null;
@@ -121,7 +122,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 		
 		if(gestureInfo != null)
 		{
-			gestureInfo.GetComponent<GUIText>().text = "Zoom-in, zoom-out or wheel to rotate the model. Raise hand to reset it.";
+			gestureInfo.GetComponent<Text>().text = "Zoom-in, zoom-out or wheel to rotate the model. Raise hand to reset it.";
 		}
 	}
 
@@ -139,7 +140,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 		
 		if(gestureInfo != null)
 		{
-			gestureInfo.GetComponent<GUIText>().text = string.Empty;
+			gestureInfo.GetComponent<Text>().text = string.Empty;
 		}
 	}
 
@@ -170,7 +171,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 				if(gestureInfo != null)
 				{
 					string sGestureText = string.Format ("{0} - {1:F0}%", gesture, screenPos.z * 100f);
-					gestureInfo.GetComponent<GUIText>().text = sGestureText;
+					gestureInfo.GetComponent<Text>().text = sGestureText;
 					
 					progressDisplayed = true;
 					progressGestureTime = Time.realtimeSinceStartup;
@@ -191,7 +192,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 				if(gestureInfo != null)
 				{
 					string sGestureText = string.Format ("{0} factor: {1:F0}%", gesture, screenPos.z * 100f);
-					gestureInfo.GetComponent<GUIText>().text = sGestureText;
+					gestureInfo.GetComponent<Text>().text = sGestureText;
 					
 					progressDisplayed = true;
 					progressGestureTime = Time.realtimeSinceStartup;
@@ -212,7 +213,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 				if(gestureInfo != null)
 				{
 					string sGestureText = string.Format ("Wheel angle: {0:F0} degrees", screenPos.z);
-					gestureInfo.GetComponent<GUIText>().text = sGestureText;
+					gestureInfo.GetComponent<Text>().text = sGestureText;
 					
 					progressDisplayed = true;
 					progressGestureTime = Time.realtimeSinceStartup;
@@ -279,7 +280,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 		if(gestureInfo != null && progressDisplayed)
 		{
 			progressDisplayed = false;
-			gestureInfo.GetComponent<GUIText>().text = "Zoom-in, zoom-out or wheel to rotate the model. Raise hand to reset it.";;
+			gestureInfo.GetComponent<Text>().text = "Zoom-in, zoom-out or wheel to rotate the model. Raise hand to reset it.";;
 		}
 
 		return true;
@@ -296,7 +297,7 @@ public class ModelGestureListener : MonoBehaviour, KinectGestures.GestureListene
 		if(progressDisplayed && ((Time.realtimeSinceStartup - progressGestureTime) > 2f))
 		{
 			progressDisplayed = false;
-			gestureInfo.GetComponent<GUIText>().text = string.Empty;
+			gestureInfo.GetComponent<Text>().text = string.Empty;
 
 			Debug.Log("Forced progress to end.");
 		}

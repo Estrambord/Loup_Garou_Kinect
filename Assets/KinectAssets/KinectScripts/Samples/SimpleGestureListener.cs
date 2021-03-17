@@ -2,12 +2,12 @@ using UnityEngine;
 //using Windows.Kinect;
 using System.Collections;
 using System;
-
+using UnityEngine.UI;
 
 public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
 	[Tooltip("GUI-Text to display gesture-listener messages and gesture information.")]
-	public GUIText GestureInfo;
+	public Text GestureInfo;
 	
 	// private bool to track if progress message has been displayed
 	private bool progressDisplayed;
@@ -25,7 +25,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 
 		if(GestureInfo != null)
 		{
-			GestureInfo.GetComponent<GUIText>().text = "Swipe, Jump, Squat or Lean.";
+			GestureInfo.GetComponent<Text>().text = "Swipe, Jump, Squat or Lean.";
 		}
 	}
 	
@@ -33,7 +33,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 	{
 		if(GestureInfo != null)
 		{
-			GestureInfo.GetComponent<GUIText>().text = string.Empty;
+			GestureInfo.GetComponent<Text>().text = string.Empty;
 		}
 	}
 
@@ -45,7 +45,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 			string sGestureText = string.Format ("{0} - {1:F0}%", gesture, screenPos.z * 100f);
 			if(GestureInfo != null)
 			{
-				GestureInfo.GetComponent<GUIText>().text = sGestureText;
+				GestureInfo.GetComponent<Text>().text = sGestureText;
 			}
 
 			progressDisplayed = true;
@@ -57,7 +57,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 			string sGestureText = string.Format ("{0} - {1:F0} degrees", gesture, screenPos.z);
 			if(GestureInfo != null)
 			{
-				GestureInfo.GetComponent<GUIText>().text = sGestureText;
+				GestureInfo.GetComponent<Text>().text = sGestureText;
 			}
 
 			//Debug.Log(sGestureText);
@@ -75,7 +75,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 		string sGestureText = gesture + " detected";
 		if(GestureInfo != null)
 		{
-			GestureInfo.GetComponent<GUIText>().text = sGestureText;
+			GestureInfo.GetComponent<Text>().text = sGestureText;
 		}
 		
 		return true;
@@ -90,7 +90,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 
 			if(GestureInfo != null)
 			{
-				GestureInfo.GetComponent<GUIText>().text = String.Empty;
+				GestureInfo.GetComponent<Text>().text = String.Empty;
 			}
 		}
 		
@@ -105,7 +105,7 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 			
 			if(GestureInfo != null)
 			{
-				GestureInfo.GetComponent<GUIText>().text = String.Empty;
+				GestureInfo.GetComponent<Text>().text = String.Empty;
 			}
 
 			Debug.Log("Forced progress to end.");

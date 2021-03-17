@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.UI;
 
 
 /// <summary>
@@ -23,7 +24,7 @@ public class BackgroundRemovalManager : MonoBehaviour
 	public Color32 defaultColor = new Color32(64, 64, 64, 255);
 	
 	[Tooltip("GUI-Text to display the BR-Manager debug messages.")]
-	public GUIText debugText;
+	public Text debugText;
 
 	// buffer for the raw foreground image
 	private byte[] foregroundImage;
@@ -48,13 +49,13 @@ public class BackgroundRemovalManager : MonoBehaviour
 	/// Gets the single BackgroundRemovalManager instance.
 	/// </summary>
 	/// <value>The BackgroundRemovalManager instance.</value>
-    public static BackgroundRemovalManager Instance
-    {
-        get
-        {
-            return instance;
-        }
-    }
+	public static BackgroundRemovalManager Instance
+	{
+		get
+		{
+			return instance;
+		}
+	}
 	
 	/// <summary>
 	/// Determines whether the BackgroundRemovalManager was successfully initialized.
@@ -129,9 +130,9 @@ public class BackgroundRemovalManager : MonoBehaviour
 			bSuccess = sensorData.sensorInterface.InitBackgroundRemoval(sensorData, colorCameraResolution);
 
 			if (!bSuccess)
-	        {
+			{
 				throw new Exception("Background removal could not be initialized.");
-	        }
+			}
 
 			// create the foreground image and alpha-image
 			int imageLength = sensorData.sensorInterface.GetForegroundFrameLength(sensorData, colorCameraResolution);
@@ -167,13 +168,13 @@ public class BackgroundRemovalManager : MonoBehaviour
 		{
 			Debug.LogError(ex.ToString());
 			if(debugText != null)
-				debugText.GetComponent<GUIText>().text = "Please check the Kinect and BR-Library installations.";
+				debugText.GetComponent<Text>().text = "Please check the Kinect and BR-Library installations.";
 		}
 		catch (Exception ex) 
 		{
 			Debug.LogError(ex.ToString());
 			if(debugText != null)
-				debugText.GetComponent<GUIText>().text = ex.Message;
+				debugText.GetComponent<Text>().text = ex.Message;
 		}
 	}
 
@@ -273,7 +274,7 @@ public class BackgroundRemovalManager : MonoBehaviour
 			}
 			else if(foregroundTex)
 			{
-				GUI.DrawTexture(foregroundRect, foregroundTex);
+				GUI.DrawTexture(foregroundRect, foregroundTex); 
 			}
 		}
 	}

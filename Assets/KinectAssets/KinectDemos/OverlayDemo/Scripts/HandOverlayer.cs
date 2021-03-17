@@ -1,12 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //using Windows.Kinect;
 
 
 public class HandOverlayer : MonoBehaviour 
 {
 	[Tooltip("GUI-texture used to display the color camera feed on the scene background.")]
-	public GUITexture backgroundImage;
+	public Texture backgroundImage;
 
 	[Tooltip("Index of the player, tracked by this component. 0 means the 1st player, 1 - the 2nd one, 2 - the 3rd one, etc.")]
 	public int playerIndex = 0;
@@ -60,9 +61,9 @@ public class HandOverlayer : MonoBehaviour
 		if(manager && manager.IsInitialized())
 		{
 			//backgroundImage.renderer.material.mainTexture = manager.GetUsersClrTex();
-			if(backgroundImage && (backgroundImage.texture == null))
+			if(backgroundImage && (backgroundImage == null))
 			{
-				backgroundImage.texture = manager.GetUsersClrTex();
+				backgroundImage = manager.GetUsersClrTex();
 			}
 
 			// overlay the joint

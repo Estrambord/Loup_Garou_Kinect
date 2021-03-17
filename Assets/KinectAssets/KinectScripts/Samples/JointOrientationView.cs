@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //using Windows.Kinect;
 
 
@@ -15,7 +16,7 @@ public class JointOrientationView : MonoBehaviour
 	public float smoothFactor = 5f;
 
 	[Tooltip("GUI-Text to display the current joint rotation.")]
-	public GUIText debugText;
+	public Text debugText;
 	
 	private Quaternion initialRotation = Quaternion.identity;
 
@@ -46,7 +47,7 @@ public class JointOrientationView : MonoBehaviour
 					if(debugText)
 					{
 						Vector3 vRotAngles = qRotObject.eulerAngles;
-						debugText.GetComponent<GUIText>().text = string.Format("{0} - R({1:000}, {2:000}, {3:000})", trackedJoint, 
+						debugText.GetComponent<Text>().text = string.Format("{0} - R({1:000}, {2:000}, {3:000})", trackedJoint, 
 						                                       vRotAngles.x, vRotAngles.y, vRotAngles.z);
 					}
 

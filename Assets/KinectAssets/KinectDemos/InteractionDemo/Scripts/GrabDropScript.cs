@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GrabDropScript : MonoBehaviour 
 {
@@ -19,7 +20,7 @@ public class GrabDropScript : MonoBehaviour
 	public bool resetObjects = false;
 
 	[Tooltip("GUI-Text used to display information messages.")]
-	public GUIText infoGuiText;
+	public Text infoGuiText;
 
 
 	// interaction manager reference
@@ -201,7 +202,7 @@ public class GrabDropScript : MonoBehaviour
 				}
 			}
 			
-			infoGuiText.GetComponent<GUIText>().text = sInfo;
+			infoGuiText.GetComponent<Text>().text = sInfo;
 		}
 	}
 	

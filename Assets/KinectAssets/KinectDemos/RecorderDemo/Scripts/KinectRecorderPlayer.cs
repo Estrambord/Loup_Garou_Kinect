@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO;
+using UnityEngine.UI;
 
 public class KinectRecorderPlayer : MonoBehaviour 
 {
@@ -8,7 +9,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 	public string filePath = "BodyRecording.txt";
 
 	[Tooltip("GUI-Text to display information messages.")]
-	public GUIText infoText;
+	public Text infoText;
 
 	[Tooltip("Whether to start playing the recorded data, right after the scene start.")]
 	public bool playAtStart = false;
@@ -99,7 +100,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 			Debug.LogError("No file to save.");
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "No file to save.";
+				infoText.GetComponent<Text>().text = "No file to save.";
 			}
 		}
 		
@@ -108,7 +109,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 			Debug.Log("Recording started.");
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "Recording... Say 'Stop' to stop the recorder.";
+				infoText.GetComponent<Text>().text = "Recording... Say 'Stop' to stop the recorder.";
 			}
 			
 			// delete the old csv file
@@ -149,7 +150,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "No file to play.";
+				infoText.GetComponent<Text>().text = "No file to play.";
 			}
 		}
 		
@@ -158,7 +159,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 			Debug.Log("Playing started.");
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "Playing... Say 'Stop' to stop the player.";
+				infoText.GetComponent<Text>().text = "Playing... Say 'Stop' to stop the player.";
 			}
 
 			// initialize times
@@ -190,7 +191,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 			Debug.Log("Recording stopped.");
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "Recording stopped.";
+				infoText.GetComponent<Text>().text = "Recording stopped.";
 			}
 		}
 
@@ -203,13 +204,13 @@ public class KinectRecorderPlayer : MonoBehaviour
 			Debug.Log("Playing stopped.");
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "Playing stopped.";
+				infoText.GetComponent<Text>().text = "Playing stopped.";
 			}
 		}
 
 		if(infoText != null)
 		{
-			infoText.GetComponent<GUIText>().text = "Say: 'Record' to start the recorder, or 'Play' to start the player.";
+			infoText.GetComponent<Text>().text = "Say: 'Record' to start the recorder, or 'Play' to start the player.";
 		}
 	}
 
@@ -237,7 +238,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 	{
 		if(infoText != null)
 		{
-			infoText.GetComponent<GUIText>().text = "Say: 'Record' to start the recorder, or 'Play' to start the player.";
+			infoText.GetComponent<Text>().text = "Say: 'Record' to start the recorder, or 'Play' to start the player.";
 		}
 
 		if(!manager)
@@ -250,7 +251,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = "KinectManager not found, probably not initialized.";
+				infoText.GetComponent<Text>().text = "KinectManager not found, probably not initialized.";
 			}
 		}
 		
@@ -278,7 +279,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 
 						if(infoText != null)
 						{
-							infoText.GetComponent<GUIText>().text = string.Format("Recording @ {0}s., frame {1}. Say 'Stop' to stop the player.", sRelTime, fCurrentFrame);
+							infoText.GetComponent<Text>().text = string.Format("Recording @ {0}s., frame {1}. Say 'Stop' to stop the player.", sRelTime, fCurrentFrame);
 						}
 
 						fCurrentFrame++;
@@ -343,7 +344,7 @@ public class KinectRecorderPlayer : MonoBehaviour
 
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = string.Format("Playing @ {0:F3}s., frame {1}. Say 'Stop' to stop the player.", fPlayTime, fCurrentFrame);
+				infoText.GetComponent<Text>().text = string.Format("Playing @ {0:F3}s., frame {1}. Say 'Stop' to stop the player.", fPlayTime, fCurrentFrame);
 			}
 
 			return true;

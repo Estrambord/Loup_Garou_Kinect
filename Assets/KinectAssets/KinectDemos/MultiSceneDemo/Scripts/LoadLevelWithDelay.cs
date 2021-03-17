@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class LoadLevelWithDelay : MonoBehaviour 
 {
@@ -13,7 +15,7 @@ public class LoadLevelWithDelay : MonoBehaviour
 	public bool validateKinectManager = true;
 
 	[Tooltip("GUI-Text used to display the debug messages.")]
-	public GUIText debugText;
+	public Text debugText;
 
 	private float timeToLoadLevel = 0f;
 	private bool levelLoaded = false;
@@ -29,7 +31,7 @@ public class LoadLevelWithDelay : MonoBehaviour
 
 			if(manager == null || !manager.IsInitialized())
 			{
-				debugText.GetComponent<GUIText>().text = "KinectManager is not initialized!";
+				debugText.GetComponent<Text>().text = "KinectManager is not initialized!";
 				levelLoaded = true;
 			}
 		}
@@ -43,7 +45,8 @@ public class LoadLevelWithDelay : MonoBehaviour
 			if(Time.realtimeSinceStartup >= timeToLoadLevel)
 			{
 				levelLoaded = true;
-				Application.LoadLevel(nextLevel);
+				SceneManager.LoadScene(nextLevel);
+				//Application.LoadLevel(nextLevel);
 			}
 			else
 			{
@@ -51,7 +54,7 @@ public class LoadLevelWithDelay : MonoBehaviour
 
 				if(debugText != null)
 				{
-					debugText.GetComponent<GUIText>().text = string.Format("Time to the next level: {0:F0} s.", timeRest);
+					debugText.GetComponent<Text>().text = string.Format("Time to the next level: {0:F0} s.", timeRest);
 				}
 			}
 		}

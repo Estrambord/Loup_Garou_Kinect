@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Animator))]
 public class AvatarScaler : MonoBehaviour 
@@ -24,7 +25,7 @@ public class AvatarScaler : MonoBehaviour
 	public float smoothFactor = 5f;
 
 	[Tooltip("GUI-Text to display the avatar-scaler debug messages.")]
-	public GUIText debugText;
+	public Text debugText;
 	
 	// used by the controller to store current userId
 	[System.NonSerialized]
@@ -241,7 +242,7 @@ public class AvatarScaler : MonoBehaviour
 			                              fScaleRightUpperArm, fScaleRightLowerArm,
 			                              fScaleLeftUpperLeg, fScaleLeftLowerLeg,
 			                              fScaleRightUpperLeg, fScaleRightLowerLeg);
-			debugText.GetComponent<GUIText>().text = sDebug;
+			debugText.GetComponent<Text>().text = sDebug;
 		}
 		
 	}

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class OverlayController : MonoBehaviour 
 {
 	[Tooltip("GUI-texture used to display the color camera feed on the scene background.")]
-	public GUITexture backgroundImage;
+	public Texture backgroundImage;
 
 	[Tooltip("Camera that will be set-up to display the background image in the Kinect FOV.")]
 	public Camera backgroundCamera;
@@ -17,7 +18,7 @@ public class OverlayController : MonoBehaviour
 	public float adjustedCameraOffset = 0f;
 
 	[Tooltip("GUI-Text used to display the overlay controller messages.")]
-	public GUIText debugText;
+	public Text debugText;
 
 
 	// variable to track the current camera offset
@@ -50,7 +51,7 @@ public class OverlayController : MonoBehaviour
 
 			if(debugText != null)
 			{
-				debugText.GetComponent<GUIText>().text = "Please stand in T-pose for calibration.";
+				debugText.GetComponent<Text>().text = "Please stand in T-pose for calibration.";
 			}
 		}
 		else
@@ -60,7 +61,7 @@ public class OverlayController : MonoBehaviour
 
 			if(debugText != null)
 			{
-				debugText.GetComponent<GUIText>().text = sMessage;
+				debugText.GetComponent<Text>().text = sMessage;
 			}
 		}
 	}
@@ -94,9 +95,9 @@ public class OverlayController : MonoBehaviour
 				
 			}
 			
-			if(backgroundImage && (backgroundImage.texture == null))
+			if(backgroundImage && (backgroundImage == null))
 			{
-				backgroundImage.texture = manager.GetUsersClrTex();
+				backgroundImage = manager.GetUsersClrTex();
 			}
 
 			MonoBehaviour[] monoScripts = FindObjectsOfType(typeof(MonoBehaviour)) as MonoBehaviour[];
@@ -129,7 +130,7 @@ public class OverlayController : MonoBehaviour
 			{
 				if(debugText != null)
 				{
-					debugText.GetComponent<GUIText>().text = "Please stand in T-pose for calibration.";
+					debugText.GetComponent<Text>().text = "Please stand in T-pose for calibration.";
 				}
 			}
 

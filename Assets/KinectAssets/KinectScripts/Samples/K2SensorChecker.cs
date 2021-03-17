@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using System;
+using UnityEngine.UI;
 
 public class K2SensorChecker : MonoBehaviour 
 {
 
 	[Tooltip("GUI-Text to display information messages.")]
-	public GUIText infoText;
+	public Text infoText;
 
 
 	// the sensor interface
@@ -65,7 +66,7 @@ public class K2SensorChecker : MonoBehaviour
 					
 					if(infoText != null)
 					{
-						infoText.GetComponent<GUIText>().text = bSensorAvailable ? "Sensor is connected." : "No sensor is connected.";
+						infoText.GetComponent<Text>().text = bSensorAvailable ? "Sensor is connected." : "No sensor is connected.";
 					}
 				}
 			}
@@ -82,7 +83,7 @@ public class K2SensorChecker : MonoBehaviour
 			
 			if(infoText != null)
 			{
-				infoText.GetComponent<GUIText>().text = ex.Message;
+				infoText.GetComponent<Text>().text = ex.Message;
 			}
 		}
 		

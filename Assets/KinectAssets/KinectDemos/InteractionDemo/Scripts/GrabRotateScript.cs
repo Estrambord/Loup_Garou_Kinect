@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class GrabRotateScript : MonoBehaviour 
 {
@@ -10,7 +11,7 @@ public class GrabRotateScript : MonoBehaviour
 	public float smoothFactor = 3.0f;
 
 	[Tooltip("GUI-Text used to display information messages.")]
-	public GUIText infoGuiText;
+	public Text infoGuiText;
 
 	
 	private InteractionManager manager;
@@ -130,7 +131,7 @@ public class GrabRotateScript : MonoBehaviour
 				}
 			}
 			
-			infoGuiText.GetComponent<GUIText>().text = sInfo;
+			infoGuiText.GetComponent<Text>().text = sInfo;
 		}
 	}
 

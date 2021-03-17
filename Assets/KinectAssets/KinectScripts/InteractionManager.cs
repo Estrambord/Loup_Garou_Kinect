@@ -5,6 +5,7 @@ using System.Collections;
 using System.Runtime.InteropServices;
 using System;
 using System.IO;
+using UnityEngine.UI;
 
 /// <summary>
 /// Interaction manager is the component that deals with hand interactions.
@@ -50,7 +51,7 @@ public class InteractionManager : MonoBehaviour
 	//public bool convertMouseToFullScreen = false;
 	
 	[Tooltip("GUI-Text to display the interaction-manager debug messages.")]
-	public GUIText debugText;
+	public Text debugText;
 	
 	private long primaryUserID = 0;
 	
@@ -640,65 +641,65 @@ public class InteractionManager : MonoBehaviour
 		// display debug information
 		if(debugText)
 		{
-			string sGuiText = string.Empty;
+			string sText = string.Empty;
 
 			//if(isLeftHandPrimary)
 			{
-				sGuiText += "LCursor: " + leftHandScreenPos.ToString();
+				sText += "LCursor: " + leftHandScreenPos.ToString();
 				
 				if(lastLeftHandEvent == HandEventType.Grip)
 				{
-					sGuiText += "  LeftGrip";
+					sText += "  LeftGrip";
 				}
 				else if(lastLeftHandEvent == HandEventType.Release)
 				{
-					sGuiText += "  LeftRelease";
+					sText += "  LeftRelease";
 				}
 				
 				if(isLeftHandClick)
 				{
-					sGuiText += "  LeftClick";
+					sText += "  LeftClick";
 				}
 //				else if(leftHandClickProgress > 0.5f)
 //				{
-//					sGuiText += String.Format("  {0:F0}%", leftHandClickProgress * 100);
+//					sText += String.Format("  {0:F0}%", leftHandClickProgress * 100);
 //				}
 				
 				if(isLeftHandPress)
 				{
-					sGuiText += "  LeftPress";
+					sText += "  LeftPress";
 				}
 			}
 			
 			//if(isRightHandPrimary)
 			{
-				sGuiText += "\nRCursor: " + rightHandScreenPos.ToString();
+				sText += "\nRCursor: " + rightHandScreenPos.ToString();
 				
 				if(lastRightHandEvent == HandEventType.Grip)
 				{
-					sGuiText += "  RightGrip";
+					sText += "  RightGrip";
 				}
 				else if(lastRightHandEvent == HandEventType.Release)
 				{
-					sGuiText += "  RightRelease";
+					sText += "  RightRelease";
 				}
 				
 				if(isRightHandClick)
 				{
-					sGuiText += "  RightClick";
+					sText += "  RightClick";
 				}
 //				else if(rightHandClickProgress > 0.5f)
 //				{
-//					sGuiText += String.Format("  {0:F0}%", rightHandClickProgress * 100);
+//					sText += String.Format("  {0:F0}%", rightHandClickProgress * 100);
 //				}
 
 				if(isRightHandPress)
 				{
-					sGuiText += "  RightPress";
+					sText += "  RightPress";
 				}
 			}
 			
-			debugText.GetComponent<GUIText>().text = sGuiText;
+			debugText.GetComponent<Text>().text = sText;
 		}
 		
 		// display the cursor status and position
@@ -728,9 +729,9 @@ public class InteractionManager : MonoBehaviour
 			
 			if(useHandCursor)
 			{
-//				if(handCursor.guiTexture && texture)
+//				if(handCursor.Texture && texture)
 //				{
-//					handCursor.guiTexture.texture = texture;
+//					handCursor.Texture.texture = texture;
 //				}
 
 				if((texture != null) && (isLeftHandPrimary || isRightHandPrimary))

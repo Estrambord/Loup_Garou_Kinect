@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SetBackgroundImage : MonoBehaviour 
 {
 	[Tooltip("GUI-texture used to display the color camera feed on the scene background.")]
-	public GUITexture backgroundImage;
+	public Texture backgroundImage;
 
 	[Tooltip("Camera that will be set-up to display 3D-models in the Kinect FOV.")]
 	public Camera foregroundCamera;
@@ -47,9 +48,9 @@ public class SetBackgroundImage : MonoBehaviour
 		KinectManager manager = KinectManager.Instance;
 		if(manager && manager.IsInitialized())
 		{
-			if(backgroundImage && (backgroundImage.texture == null))
+			if(backgroundImage && (backgroundImage == null))
 			{
-				backgroundImage.texture = manager.GetUsersClrTex();
+				backgroundImage = manager.GetUsersClrTex();
 			}
 
 			if(currentCameraOffset != adjustedCameraOffset)

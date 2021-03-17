@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SetBackgroundRemovalImage : MonoBehaviour 
 {
 	[Tooltip("GUI-texture used to display the color camera feed on the scene background.")]
-	public GUITexture backgroundImage;
+	public Texture backgroundImage;
 
 	[Tooltip("Camera that will be set-up to display 3D-models in the Kinect FOV.")]
 	public Camera foregroundCamera;
@@ -49,9 +50,9 @@ public class SetBackgroundRemovalImage : MonoBehaviour
 		{
 			Texture foregroundTex = backManager.GetForegroundTex();
 
-			if(backgroundImage && (backgroundImage.texture == null) && foregroundTex)
+			if(backgroundImage && (backgroundImage == null) && foregroundTex)
 			{
-				backgroundImage.texture = foregroundTex;
+				backgroundImage = foregroundTex;
 			}
 		}
 

@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerInterface
 {
 	[Tooltip("GUI-Text to display the discrete gesture information.")]
-	public GUIText discreteInfo;
+	public Text discreteInfo;
 
 	[Tooltip("GUI-Text to display the continuous gesture information.")]
-	public GUIText continuousInfo;
+	public Text continuousInfo;
 
 
 	private bool discreteGestureDisplayed;
@@ -22,7 +23,7 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 		if(continuousInfo != null)
 		{
 			string sGestureText = string.Format ("{0} {1:F0}%", gesture, progress * 100f);
-			continuousInfo.GetComponent<GUIText>().text = sGestureText;
+			continuousInfo.GetComponent<Text>().text = sGestureText;
 
 			continuousGestureDisplayed = true;
 			continuousGestureTime = Time.realtimeSinceStartup;
@@ -34,7 +35,7 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 		if(discreteInfo != null)
 		{
 			string sGestureText = string.Format ("{0}-gesture detected, confidence: {1:F0}%", gesture, confidence * 100f);
-			discreteInfo.GetComponent<GUIText>().text = sGestureText;
+			discreteInfo.GetComponent<Text>().text = sGestureText;
 
 			discreteGestureDisplayed = true;
 			discreteGestureTime = Time.realtimeSinceStartup;
@@ -53,7 +54,7 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 
 			if(continuousInfo != null)
 			{
-				continuousInfo.GetComponent<GUIText>().text = string.Empty;
+				continuousInfo.GetComponent<Text>().text = string.Empty;
 			}
 		}
 
@@ -63,7 +64,7 @@ public class SimpleVisualGestureListener : MonoBehaviour, VisualGestureListenerI
 			
 			if(discreteInfo != null)
 			{
-				discreteInfo.GetComponent<GUIText>().text = string.Empty;
+				discreteInfo.GetComponent<Text>().text = string.Empty;
 			}
 		}
 	}

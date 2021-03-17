@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 //using Windows.Kinect;
 
 
@@ -20,7 +21,7 @@ public class JointPositionView : MonoBehaviour
 	public float smoothFactor = 5f;
 
 	[Tooltip("GUI-Text to display the current joint position.")]
-	public GUIText debugText;
+	public Text debugText;
 
 
 	private Vector3 initialPosition = Vector3.zero;
@@ -61,7 +62,7 @@ public class JointPositionView : MonoBehaviour
 					
 					if(debugText)
 					{
-						debugText.GetComponent<GUIText>().text = string.Format("{0} - ({1:F3}, {2:F3}, {3:F3})", trackedJoint, 
+						debugText.GetComponent<Text>().text = string.Format("{0} - ({1:F3}, {2:F3}, {3:F3})", trackedJoint, 
 						                                                       vPosObject.x, vPosObject.y, vPosObject.z);
 					}
 
