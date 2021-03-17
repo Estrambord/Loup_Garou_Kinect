@@ -15,8 +15,9 @@ public class Chasseur : Player
     {
         
     }
+    /*
     public override void Player_Special_Vote()
     {
         // script qui désigne le joueur que le chasseur va tuer
-    }
+    */
 }
