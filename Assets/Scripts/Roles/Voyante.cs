@@ -15,12 +15,12 @@ public class Voyante : Player
     {
         
     }
-    public override void Player_Special_Vote(Player player, Voyante voyante)
+    /*public override void Player_Special_Vote(Player player, Voyante voyante)
     {
         // script qui désigne le joueur dont la voyante va dévoiler le rôle
         if (voyante.Voting_Countdown == 0)
         {
             player.Role_Visible = true; 
         }
-    }
+    }*/
 }

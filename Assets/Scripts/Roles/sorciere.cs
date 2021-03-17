@@ -15,8 +15,8 @@ public class Sorciere : Player
     {
         
     }
-    public override void Player_Special_Vote()
+    /*public override void Player_Special_Vote()
     { 
     // sript qui désigne la potion choisi par la sorcière et la personne sur laquelle elle l'utilise
-    }
+    }*/
 }
