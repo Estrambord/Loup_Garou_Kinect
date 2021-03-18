@@ -4,13 +4,13 @@ using System;
 using UnityEngine.UI;
 //using Windows.Kinect;
 
-public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
+public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
 	[Tooltip("GUI-Text to display gesture-listener messages and gesture information.")]
 	public Text gestureInfo;
 
 	// singleton instance of the class
-	private static CubeGestureListener instance = null;
+	private static LoupGarouGestureListener instance = null;
 
 	// internal variables to track if progress message has been displayed
 	private bool progressDisplayed;
@@ -20,32 +20,34 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	private bool swipeLeft;
 	private bool swipeRight;
 	private bool swipeUp;
-	
+	private bool leftHandUp;
+	private bool rightHandUp;
+
 
 	/// <summary>
 	/// Gets the singleton CubeGestureListener instance.
 	/// </summary>
 	/// <value>The CubeGestureListener instance.</value>
-	public static CubeGestureListener Instance
+	public static LoupGarouGestureListener Instance
 	{
 		get
 		{
 			return instance;
 		}
 	}
-	
+
 	/// <summary>
 	/// Determines whether swipe left is detected.
 	/// </summary>
 	/// <returns><c>true</c> if swipe left is detected; otherwise, <c>false</c>.</returns>
 	public bool IsSwipeLeft()
 	{
-		if(swipeLeft)
+		if (swipeLeft)
 		{
 			swipeLeft = false;
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -55,12 +57,12 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	/// <returns><c>true</c> if swipe right is detected; otherwise, <c>false</c>.</returns>
 	public bool IsSwipeRight()
 	{
-		if(swipeRight)
+		if (swipeRight)
 		{
 			swipeRight = false;
 			return true;
 		}
-		
+
 		return false;
 	}
 
@@ -70,15 +72,44 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	/// <returns><c>true</c> if swipe up is detected; otherwise, <c>false</c>.</returns>
 	public bool IsSwipeUp()
 	{
-		if(swipeUp)
+		if (swipeUp)
 		{
 			swipeUp = false;
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
+	/// <summary>
+	/// Determines whether left hand is up.
+	/// </summary>
+	/// <returns><c>true</c> if left hand is up; otherwise, <c>false</c>.</returns>
+	public bool IsLeftHandRaised()
+	{
+		if (leftHandUp)
+		{
+			leftHandUp = false;
+			return true;
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// Determines whether right hand is up.
+	/// </summary>
+	/// <returns><c>true</c> if right hand is up; otherwise, <c>false</c>.</returns>
+	public bool IsRightHandRaised()
+	{
+		if (rightHandUp)
+		{
+			rightHandUp = false;
+			return true;
+		}
+
+		return false;
+	}
 
 	/// <summary>
 	/// Invoked when a new user is detected. Here you can start gesture tracking by invoking KinectManager.DetectGesture()-function.
@@ -89,18 +120,12 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	{
 		// the gestures are allowed for the primary user only
 		KinectManager manager = KinectManager.Instance;
-		if(!manager || (userId != manager.GetPrimaryUserID()))
+		if (!manager || (userId != manager.GetPrimaryUserID()))
 			return;
-		
-		// detect these user specific gestures
-		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeLeft);
-		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeRight);
-		manager.DetectGesture(userId, KinectGestures.Gestures.SwipeUp);
 
-		if(gestureInfo != null)
-		{
-			gestureInfo.GetComponent<Text>().text = "Swipe left, right or up to change the slides.";
-		}
+		// detect these user specific gestures
+		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
+		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
 	}
 
 	/// <summary>
@@ -112,10 +137,10 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	{
 		// the gestures are allowed for the primary user only
 		KinectManager manager = KinectManager.Instance;
-		if(!manager || (userId != manager.GetPrimaryUserID()))
+		if (!manager || (userId != manager.GetPrimaryUserID()))
 			return;
-		
-		if(gestureInfo != null)
+
+		if (gestureInfo != null)
 		{
 			gestureInfo.GetComponent<Text>().text = string.Empty;
 		}
@@ -130,37 +155,37 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	/// <param name="progress">Gesture progress [0..1]</param>
 	/// <param name="joint">Joint type</param>
 	/// <param name="screenPos">Normalized viewport position</param>
-	public void GestureInProgress(long userId, int userIndex, KinectGestures.Gestures gesture, 
-	                              float progress, KinectInterop.JointType joint, Vector3 screenPos)
+	public void GestureInProgress(long userId, int userIndex, KinectGestures.Gestures gesture,
+								  float progress, KinectInterop.JointType joint, Vector3 screenPos)
 	{
 		// the gestures are allowed for the primary user only
 		KinectManager manager = KinectManager.Instance;
-		if(!manager || (userId != manager.GetPrimaryUserID()))
+		if (!manager || (userId != manager.GetPrimaryUserID()))
 			return;
 
 		// this function is currently needed only to display gesture progress, skip it otherwise
-		if(gestureInfo == null)
+		if (gestureInfo == null)
 			return;
-		
-		if((gesture == KinectGestures.Gestures.ZoomOut || gesture == KinectGestures.Gestures.ZoomIn) && progress > 0.5f)
+
+		if ((gesture == KinectGestures.Gestures.ZoomOut || gesture == KinectGestures.Gestures.ZoomIn) && progress > 0.5f)
 		{
-			if(gestureInfo != null)
+			if (gestureInfo != null)
 			{
-				string sGestureText = string.Format ("{0} - {1:F0}%", gesture, screenPos.z * 100f);
+				string sGestureText = string.Format("{0} - {1:F0}%", gesture, screenPos.z * 100f);
 				gestureInfo.GetComponent<Text>().text = sGestureText;
-				
+
 				progressDisplayed = true;
 				progressGestureTime = Time.realtimeSinceStartup;
 			}
 		}
-		else if((gesture == KinectGestures.Gestures.Wheel || gesture == KinectGestures.Gestures.LeanLeft || 
-		         gesture == KinectGestures.Gestures.LeanRight) && progress > 0.5f)
+		else if ((gesture == KinectGestures.Gestures.Wheel || gesture == KinectGestures.Gestures.LeanLeft ||
+				 gesture == KinectGestures.Gestures.LeanRight) && progress > 0.5f)
 		{
-			if(gestureInfo != null)
+			if (gestureInfo != null)
 			{
-				string sGestureText = string.Format ("{0} - {1:F0} degrees", gesture, screenPos.z);
+				string sGestureText = string.Format("{0} - {1:F0} degrees", gesture, screenPos.z);
 				gestureInfo.GetComponent<Text>().text = sGestureText;
-				
+
 				progressDisplayed = true;
 				progressGestureTime = Time.realtimeSinceStartup;
 			}
@@ -177,26 +202,36 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	/// <param name="gesture">Gesture type</param>
 	/// <param name="joint">Joint type</param>
 	/// <param name="screenPos">Normalized viewport position</param>
-	public bool GestureCompleted (long userId, int userIndex, KinectGestures.Gestures gesture, 
-	                              KinectInterop.JointType joint, Vector3 screenPos)
+	public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
+								  KinectInterop.JointType joint, Vector3 screenPos)
 	{
 		// the gestures are allowed for the primary user only
 		KinectManager manager = KinectManager.Instance;
-		if(!manager || (userId != manager.GetPrimaryUserID()))
+		if (!manager || (userId != manager.GetPrimaryUserID()))
 			return false;
-		
-		if(gestureInfo != null)
+
+		if (gestureInfo != null)
 		{
 			string sGestureText = gesture + " detected";
 			gestureInfo.GetComponent<Text>().text = sGestureText;
 		}
-		
-		if(gesture == KinectGestures.Gestures.SwipeLeft)
+
+		if (gesture == KinectGestures.Gestures.SwipeLeft)
 			swipeLeft = true;
-		else if(gesture == KinectGestures.Gestures.SwipeRight)
+		else if (gesture == KinectGestures.Gestures.SwipeRight)
 			swipeRight = true;
-		else if(gesture == KinectGestures.Gestures.SwipeUp)
+		else if (gesture == KinectGestures.Gestures.SwipeUp)
 			swipeUp = true;
+		else if (gesture == KinectGestures.Gestures.RaiseLeftHand)
+        {
+            Debug.Log("left hand up");
+			leftHandUp = true;
+        }
+		else if (gesture == KinectGestures.Gestures.RaiseRightHand)
+        {
+            Debug.Log("right hand up");
+			rightHandUp = true;
+        }
 
 		return true;
 	}
@@ -210,28 +245,28 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 	/// <param name="userIndex">User index</param>
 	/// <param name="gesture">Gesture type</param>
 	/// <param name="joint">Joint type</param>
-	public bool GestureCancelled (long userId, int userIndex, KinectGestures.Gestures gesture, 
-	                              KinectInterop.JointType joint)
+	public bool GestureCancelled(long userId, int userIndex, KinectGestures.Gestures gesture,
+								  KinectInterop.JointType joint)
 	{
 		// the gestures are allowed for the primary user only
 		KinectManager manager = KinectManager.Instance;
-		if(!manager || (userId != manager.GetPrimaryUserID()))
+		if (!manager || (userId != manager.GetPrimaryUserID()))
 			return false;
-		
-		if(progressDisplayed)
+
+		if (progressDisplayed)
 		{
 			progressDisplayed = false;
-			
-			if(gestureInfo != null)
+
+			if (gestureInfo != null)
 			{
 				gestureInfo.GetComponent<Text>().text = String.Empty;
 			}
 		}
-		
+
 		return true;
 	}
 
-	
+
 	void Awake()
 	{
 		instance = this;
@@ -239,7 +274,7 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 
 	void Update()
 	{
-		if(progressDisplayed && ((Time.realtimeSinceStartup - progressGestureTime) > 2f))
+		if (progressDisplayed && ((Time.realtimeSinceStartup - progressGestureTime) > 2f))
 		{
 			progressDisplayed = false;
 			gestureInfo.GetComponent<Text>().text = String.Empty;
