@@ -17,8 +17,9 @@ public class LoupGarou : Player
     {
         
     }
-    /* public override void PlayerSpecialVote()
+    public override void PlayerSpecialVote()
     {
     // script qui désigne le joueur que les loups-garous vont tuer
-    }*/
+
+    }
 }

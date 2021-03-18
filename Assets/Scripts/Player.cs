@@ -21,6 +21,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         role.enabled = false;
+        nbVote = 0;
     }
 
     void Update()
@@ -59,13 +60,11 @@ public class Player : MonoBehaviour
         isAlive = true;
     }
 
-    public void PlayerStandardVote()
+    public void PlayerStandardVote(Player player)
     {
         //le script de vote standard de tous les joueurs
-        if (votingCountdown ==0)
-        {
-            hasVoted = true; 
-        }
+        player.nbVote ++ ;
+        Debug.Log("le " +player+ " a " + player.nbVote + " votes contre lui");
     }
 
     public virtual void PlayerSpecialVote()
