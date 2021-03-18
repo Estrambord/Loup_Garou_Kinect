@@ -124,9 +124,6 @@ public class BodySourceView : MonoBehaviour
         GameObject body = new GameObject("Body:" + id);
         GameObject jointObj;
 
-			{
-                jointObj = Instantiate(jointPrefabHead);
-			}
         foreach (Kinect.JointType joint in _joints)
 		{
             if(joint == Kinect.JointType.Head)
@@ -228,7 +225,7 @@ public class BodySourceView : MonoBehaviour
 		#endregion
 	}
 
-	private static Color GetColorForState(Kinect.TrackingState state)
+    private static Color GetColorForState(Kinect.TrackingState state)
     {
         switch (state)
         {
@@ -247,4 +244,6 @@ public class BodySourceView : MonoBehaviour
     {
         return new Vector3(joint.Position.X * 10, joint.Position.Y * 10, joint.Position.Z * 10);
     }
+
+   
 }
