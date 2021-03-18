@@ -2939,7 +2939,7 @@ public class KinectManager : MonoBehaviour
 		
 		if(liPrimaryUserId == 0)
 		{
-			Debug.Log("Waiting for users.");
+			//Debug.Log("Waiting for users.");
 			
 			if(calibrationText != null)
 			{
