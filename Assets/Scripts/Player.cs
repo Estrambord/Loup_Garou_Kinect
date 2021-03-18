@@ -5,62 +5,72 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    protected int Nb_Vote;
-    protected bool Alive;
-    protected bool Mayor;
-    protected bool Has_Voted;
-    protected bool Awaken;
-    protected bool Can_Die;
-    protected bool Role_Visible;
-    protected float Voting_Countdown;
-    protected Canvas Vote_UI;
-    // Start is called before the first frame update
+    protected int nbVote;
+    protected bool isAlive;
+    protected bool isMayor;
+    protected bool hasVoted;
+    protected bool isAwake;
+    protected bool canDie;
+    protected bool roleVisible;
+    protected float votingCountdown;
+    public GameObject voteUI;
+    public Button Reveiller, Voter;
+    public TMPro.TMP_Text role;
+    public TMPro.TMP_Text player;
+
     void Start()
     {
-        
+        role.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void Player_Sleep()
+
+    public void PlayerSleep()
     {
         //endort un player
-        Awaken = false;
+        role.enabled = false;
+        player.enabled = true;
+        isAwake = false;
     }
 
-    public void Player_Awake()
+    public void PlayerAwake()
     {
         //réveille un player
-        Awaken = true;
+        role.enabled = true;
+        player.enabled = false;
+        isAwake = true;
     }
 
-    public void Player_Die()
+    public void PlayerDie()
     {
         //tue possiblement un joueur sous réserve d'intervention de la sorcière
-        Alive = false;
-        Can_Die = true;
+        isAlive = false;
+        canDie = true;
     }
 
-    public void Player_Revive()
+    public void PlayerRevive()
     {
         //réssuscite un joueur g^râce à la sorcière
-        Can_Die = false;
-        Alive = true;
+        canDie = false;
+        isAlive = true;
     }
 
-    public void Player_Standard_Vote()
+    public void PlayerStandardVote()
     {
         //le script de vote standard de tous les joueurs
-        Has_Voted = true;
+        if (votingCountdown ==0)
+        {
+            hasVoted = true; 
+        }
     }
 
-    /*public virtual void Player_Special_Vote(Player player,Voyante voyante, Sorciere sorciere, Loup_Garou loup_garou, Chasseur chasseur )
+    public virtual void PlayerSpecialVote()
     {
         //le script de vote des personnages à rôles spéciaux
 
-    }*/
+    }
 }
