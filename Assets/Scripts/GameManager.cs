@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     private Canvas timer_UI;
     void Start()
     {
-
+        
     }
 
     void Update()
