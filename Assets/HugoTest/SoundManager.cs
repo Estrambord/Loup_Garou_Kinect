@@ -14,14 +14,34 @@ public class SoundManager : MonoBehaviour
     
     public List<AudioClip> narrationList = new List<AudioClip>(); //Narration 1....10
 
-    private AudioClip currentClip;
-
     public AudioSource audioSource;
 
-    public AudioClip clip1;
-    public AudioClip clip2;
+    private void Start()
+    {
+        /***Exemple***/
 
-    private AudioClip clipFinal;
+        //PlayNarration(0); //Intro
+        PlayInstruction(0); //Levez un bras au-dessus de votre tête pour indiquer que vous êtes prêts
+        PlayNarration(1); //C’est la nuit, tout le village s’endort
+        PlayInstruction(1); //Placez votre masque sur vos yeux
+        PlayInstruction(2); //Vous allez à présent découvrir tout à tour vos rôles
+
+        PlayerAndAction(1, 0); //Joueur 1 - se réveille
+        PlayInstruction(3); //voici ton rôle, appuie dessus pour le valider
+        PlayerAndAction(1, 1); //Joueur 1 - se rendors
+
+        PlayNarration(3); //Règle du jeu
+        PlayNarration(2); //C’est le matin, tout le village se réveille
+        PlayInstruction(4); //Vous pouvez relever vos masques
+        PlayNarration(4); //A présent vous devez voter et élire votre capitaine.
+        PlayInstruction(6); //Le capitaine tranchera en cas d’égalité lors d’un vote. Choisissez-le bien ! Utilisez le système de vote pour élire votre capitaine.
+        PlayNarration(1); //C’est la nuit, tout le village s’endort
+        PlayInstruction(1); //Placez votre masque sur vos yeux
+
+        PlayerAndAction(9, 0); //Joueur 1 - se réveille
+        PlayInstruction(6); //Instruction voyante
+        PlayerAndAction(9, 1); //Joueur 1 - se rendors
+    }
 
     private AudioClip Combine(params AudioClip[] clips)
     {
@@ -103,36 +123,7 @@ public class SoundManager : MonoBehaviour
     IEnumerator PlayClipASAP(AudioClip nextClip)
     {
         yield return new WaitWhile(() => audioSource.isPlaying);
-        audioSource.clip = nextClip;
-        audioSource.Play();
+        //audioSource.clip = nextClip;
+        audioSource.PlayOneShot(nextClip);
     }
-
-    #region TO DELETE
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            TestDoubleSound(1);
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            TestDoubleSound(3);
-        }
-    }
-
-    public void TestDoubleSound(int id)
-    {
-        if (audioSource.isPlaying)
-        {
-            if (id == 1) StartCoroutine(PlayClipASAP(Combine(clip1, clip1, clip1)));
-            else StartCoroutine(PlayClipASAP(Combine(clip2, clip2, clip2)));
-        }
-        else
-        {
-            if (id == 1) { audioSource.clip = Combine(clip1, clip1, clip1); audioSource.Play(); }
-            else { audioSource.clip = Combine(clip2, clip2, clip2); audioSource.Play(); }
-        }
-    }
-    #endregion
 }

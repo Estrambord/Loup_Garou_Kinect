@@ -1,5 +1,4 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
 guid: 3e28aeb3296aa314d8072810e4a31653
 AudioImporter:
   externalObjects: {}
@@ -7,8 +6,8 @@ AudioImporter:
   defaultSettings:
     loadType: 0
     sampleRateSetting: 0
-    sampleRateOverride: 44100
-    compressionFormat: 1
+    sampleRateOverride: 0
+    compressionFormat: 0
     quality: 1
     conversionMode: 0
   platformSettingOverrides: {}
@@ -21,6 +20,3 @@ AudioImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-=======
-guid: 3e28aeb3296aa314d8072810e4a31653
->>>>>>> Stashed changes
