@@ -1,21 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Chasseur : Player
 {
-    // Start is called before the first frame update
+    public Button Tuer;
     void Start()
     {
-        
+        role.enabled = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
     }
-    /*public override void Player_Special_Vote()
+    /*public override void PlayerSpecialVote()
     {
         // script qui désigne le joueur que le chasseur va tuer
     }*/

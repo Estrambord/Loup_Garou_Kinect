@@ -306,15 +306,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6367311
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.435312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2884922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -349,9 +349,13 @@ PrefabInstance:
       value: Hugo_Mesh_Final_2
       objectReference: {fileID: 0}
     - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: e216373dc9ea9ca42aaa26022cbb4cf0, type: 2}
+    - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -464,15 +468,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.6367311
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.435312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2884922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -507,9 +511,13 @@ PrefabInstance:
       value: Hugo_Mesh_Final_1
       objectReference: {fileID: 0}
     - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+    - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: eccc66af4bd7828428c78913eee95cbf, type: 2}
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -660,7 +668,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 897445492}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.6367311, y: 1.435312, z: -17.011507}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 15961019}
@@ -685,15 +693,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.3632689
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.435312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2884922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -728,9 +736,13 @@ PrefabInstance:
       value: Hugo_Mesh_Final_5
       objectReference: {fileID: 0}
     - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+    - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -860,15 +872,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.36326885
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.435312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2884922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -903,9 +915,13 @@ PrefabInstance:
       value: Hugo_Mesh_Final_4
       objectReference: {fileID: 0}
     - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: bbddcac330f8d0a4f96b3960cb16148e, type: 2}
+    - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -925,15 +941,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.63673115
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.435312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2884922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -968,9 +984,13 @@ PrefabInstance:
       value: Hugo_Mesh_Final_3
       objectReference: {fileID: 0}
     - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+    - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1054,8 +1074,8 @@ MonoBehaviour:
   lateUpdateAvatars: 0
   smoothing: 1
   useBoneOrientationConstraints: 0
-  allowTurnArounds: 0
-  allowedHandRotations: 1
+  allowTurnArounds: 1
+  allowedHandRotations: 2
   avatarControllers: []
   playerCalibrationPose: 0
   playerCommonGestures: 
@@ -1090,15 +1110,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.3632689
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1.435312
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.2884922
+      value: -17
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1133,9 +1153,13 @@ PrefabInstance:
       value: Hugo_Mesh_Final_6
       objectReference: {fileID: 0}
     - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
-      propertyPath: m_Materials.Array.data[1]
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ca2416314af34e74285829cab8ccb726, type: 2}
+    - target: {fileID: 4123177642777943866, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
       propertyPath: m_Enabled
       value: 0

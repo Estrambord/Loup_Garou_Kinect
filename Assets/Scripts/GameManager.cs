@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +8,9 @@ public class Game_Manager : MonoBehaviour
     private List<Player> Players;
     private float timer;
     private Canvas timer_UI;
+    public GameObject Loup_Garou1;
+    public Loup_Garou loup2;
+    // Start is called before the first frame update
     public GameObject Loup_Garou1;
     public Loup_Garou loup2;
     public AvatarController[] avatars;
@@ -89,4 +92,3 @@ public class Game_Manager : MonoBehaviour
         // script qui reload la partie si il y a un problème de tracking
     }
 }
-

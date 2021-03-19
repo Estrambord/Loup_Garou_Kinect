@@ -59,9 +59,12 @@ public class CubePresentationScript : MonoBehaviour
 	
 	void Update() 
 	{
-		// dont run Update() if there is no gesture listener
-		if(!gestureListener)
+        // dont run Update() if there is no gesture listener
+        if (!gestureListener)
+        {
+            Debug.Log("No gesture listener");
 			return;
+        }
 		
 		if(!isSpinning)
 		{
