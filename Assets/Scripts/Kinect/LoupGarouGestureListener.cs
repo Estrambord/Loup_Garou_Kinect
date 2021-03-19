@@ -10,38 +10,40 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 	private bool rightHandUp;
 	private bool bothHandsUp;
 
+	public int allowedUserIndex;
+
 	// singleton instance of the class
 	private static LoupGarouGestureListener instance = null;
 
-	void Awake()
-	{
-		instance = this;
-	}
+	void Awake() { instance = this; }
 
-	/// <summary>
-	/// Gets the singleton CubeGestureListener instance.
-	/// </summary>
-	/// <value>The CubeGestureListener instance.</value>
-	public static LoupGarouGestureListener Instance
-	{
-		get
-		{
-			return instance;
-		}
-	}
+    /// <summary>
+    /// Gets the singleton CubeGestureListener instance.
+    /// </summary>
+    /// <value>The CubeGestureListener instance.</value>
+    public static LoupGarouGestureListener Instance { get { return instance; } }
 
 	public void UserDetected(long userId, int userIndex)
 	{
 		KinectManager manager = KinectManager.Instance;
-
+		if (!manager || (userId != manager.GetUserIdByIndex(allowedUserIndex)))
+			return;
+		
 		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
 		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
 		manager.DetectGesture(userId, KinectGestures.Gestures.Psi);
+
+
+        Debug.Log(userId.ToString());
 	}
 
 	public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
 								  KinectInterop.JointType joint, Vector3 screenPos)
 	{
+		KinectManager manager = KinectManager.Instance;
+		if (!manager || (userId != manager.GetUserIdByIndex(allowedUserIndex)))
+			return false;
+
 		if (gesture == KinectGestures.Gestures.RaiseLeftHand)
 		{
 			leftHandUp = true;
