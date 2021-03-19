@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class Voyante : Player
 {
-    public Button Voir;
+    public Canvas voteVoyante;
 
     void Start()
     {
+        voteVoyante.enabled = false;
         role.enabled = false;
     }
 
@@ -16,8 +17,14 @@ public class Voyante : Player
     {
         
     }
-    public override void PlayerSpecialVote()
+    
+    public void Voir()
     {
-        
+        voteVoyante.enabled = true;
+    }
+    public override void PlayerSpecialVote(Player player)
+    {
+        player.PlayerAwake();
+        Debug.Log(player + "(" + player.role + ") est mort");
     }
 }
