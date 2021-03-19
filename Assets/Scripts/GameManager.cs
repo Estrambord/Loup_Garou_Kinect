@@ -1,86 +1,91 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class Game_Manager : MonoBehaviour
 {
     private List<Player> Players;
     private float timer;
     private Canvas timer_UI;
+    public GameObject Loup_Garou1;
+    public LoupGarou loup2;
+    public AvatarController[] avatars;
+    public KinectManager[] kinectManagers;
+    // Start is called before the first frame update
     void Start()
     {
         
     }
 
+    // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-    public void GetReady()
-    {
-        // script qui indique que le jeu commence lorsque tous les joueurs sont prêts et détecter par le Kinect
+    public void Get_Ready()
+    { 
+    // script qui indique que le jeu commence lorsque tous les joueurs sont prêts et détecter par le Kinect
     }
 
-    public void DiscoverRoles()
+    public void Discover_roles()
     {
         // script qui permet aux joueurs chacun leur tour de découvrir leur rôle
     }
 
-    public void ElectMayor()
+    public void Elect_Mayor()
     {
         // script qui permet de faire un premier vote pour élire le maire
     }
 
-    public void TourVoyante()
+    public void Tour_Voyante()
     {
         // script qui gère le tour de la voyante
     }
 
-    public void TourLoupGarou()
+    public void Tour_Loup_Garou()
     {
         // script qui gère le tour des Loups-Garous
     }
-    public void TourSorciere()
+    public void Tour_Sorciere() 
     {
         // script qui gère le tour de la sorcière
     }
-    public void TourChasseur()
+    public void Tour_Chasseur()
     {
         // script qui gère le tour du chasseur
     }
-    public void VoteVillage()
+    public void Vote_village() 
     {
         // script qui gère le vote quotidien
-
     }
-    public void Nuit()
+    public void Nuit() 
     {
         // script qui lance la nuit
     }
-    public void Jour()
+    public void jour() 
     {
         // script qui lance la journée
     }
-    public void DisplayUI() { }
+    public void Display_UI() { }
     //public Player Get_Vote_Result(int Nb_Vote) { 
     // script qui gère le résultat du vote quotidien
     //}
-    public void Execution()
+    public void Execution() 
     {
-        // script qui gère la mort d'un player
+    // script qui gère la mort d'un player
     }
-    public void SetPlayersRoles()
+    public void Set_Players_Roles() 
     {
         // script qui attribue les rôles aux players
     }
-    public void Victory()
+    public void Victory() 
     {
         // script qui donne le vainqueur de la partie
     }
-    public void ReloadPlayers()
+    public void Reload_Players()
     {
         // script qui reload la partie si il y a un problème de tracking
     }
 }
-

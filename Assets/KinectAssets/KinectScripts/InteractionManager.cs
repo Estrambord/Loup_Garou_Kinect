@@ -324,6 +324,7 @@ public class InteractionManager : MonoBehaviour
 			{
 				HandEventType handEvent = HandEventType.None;
 				
+				/*
 				// get the left hand state
 				leftHandState = kinectManager.GetLeftHandState(primaryUserID);
 				
@@ -395,7 +396,7 @@ public class InteractionManager : MonoBehaviour
 				{
 					isLeftHandInteracting = false;
 					isLeftHandPress = false;
-				}
+				}*/
 				
 				// get the right hand state
 				rightHandState = kinectManager.GetRightHandState(primaryUserID);
@@ -744,6 +745,7 @@ public class InteractionManager : MonoBehaviour
 					if(controlMouseCursor)
 					{
 						MouseControl.MouseMove(cursorScreenPos, debugText);
+						MouseControl.MouseClick();
 					}
 				}
 			}
