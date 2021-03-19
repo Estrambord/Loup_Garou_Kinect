@@ -14,7 +14,6 @@ public class Player : MonoBehaviour
     protected bool roleVisible;
     protected float votingCountdown;
     public GameObject voteUI;
-    public Button Reveiller, Voter;
     public TMPro.TMP_Text role;
     public TMPro.TMP_Text player;
 
@@ -67,7 +66,7 @@ public class Player : MonoBehaviour
         Debug.Log("le " +player+ " a " + player.nbVote + " votes contre lui");
     }
 
-    public virtual void PlayerSpecialVote()
+    public virtual void PlayerSpecialVote(Player player)
     {
         //le script de vote des personnages à rôles spéciaux
 

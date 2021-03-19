@@ -41,12 +41,17 @@ public class TestGameObject : MonoBehaviour
             // script qui permet de faire un premier vote pour élire le maire
         }
 
+        public void AsVoted(Canvas vote)
+        {
+        vote.enabled = false;
+        }
+
         public void TourVoyante()
         {
             // script qui gère le tour de la voyante
         }
 
-        public void TourLoup_Garou()
+        public void TourLoupGarou()
         {
             // script qui gère le tour des Loups-Garous
         }

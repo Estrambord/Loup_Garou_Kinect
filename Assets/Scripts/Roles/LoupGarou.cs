@@ -5,11 +5,12 @@ using UnityEngine.UI;
 
 public class LoupGarou : Player
 {
-    public Button Tuer;
+    public Canvas voteLoupGarou;
     // Start is called before the first frame update
     void Start()
     {
         role.enabled = false;
+        voteLoupGarou.enabled = false;
     }
 
     // Update is called once per frame
@@ -17,9 +18,16 @@ public class LoupGarou : Player
     {
         
     }
-    public override void PlayerSpecialVote()
+    public void Action()
     {
-    // script qui désigne le joueur que les loups-garous vont tuer
+        voteLoupGarou.enabled = true;
+    }
+    public override void PlayerSpecialVote(Player player)
+    {
+        // script qui désigne le joueur que les loups-garous vont tuer
+        voteLoupGarou.enabled = true;
+        player.PlayerDie();
+        Debug.Log(player + " est mort");
 
     }
 }
