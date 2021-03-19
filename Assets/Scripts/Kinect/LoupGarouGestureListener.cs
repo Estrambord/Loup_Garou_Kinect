@@ -1,28 +1,22 @@
 using UnityEngine;
+//using Windows.Kinect;
 using System.Collections;
 using System;
 using UnityEngine.UI;
-//using Windows.Kinect;
 
 public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
-	[Tooltip("GUI-Text to display gesture-listener messages and gesture information.")]
-	public Text gestureInfo;
+	private bool leftHandUp;
+	private bool rightHandUp;
+	private bool bothHandsUp;
 
 	// singleton instance of the class
 	private static LoupGarouGestureListener instance = null;
 
-	// internal variables to track if progress message has been displayed
-	private bool progressDisplayed;
-	private float progressGestureTime;
-
-	// whether the needed gesture has been detected or not
-	private bool swipeLeft;
-	private bool swipeRight;
-	private bool swipeUp;
-	private bool leftHandUp;
-	private bool rightHandUp;
-
+	void Awake()
+	{
+		instance = this;
+	}
 
 	/// <summary>
 	/// Gets the singleton CubeGestureListener instance.
@@ -36,55 +30,38 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 		}
 	}
 
-	/// <summary>
-	/// Determines whether swipe left is detected.
-	/// </summary>
-	/// <returns><c>true</c> if swipe left is detected; otherwise, <c>false</c>.</returns>
-	public bool IsSwipeLeft()
+	public void UserDetected(long userId, int userIndex)
 	{
-		if (swipeLeft)
+		KinectManager manager = KinectManager.Instance;
+
+		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
+		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
+		manager.DetectGesture(userId, KinectGestures.Gestures.Psi);
+	}
+
+	public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
+								  KinectInterop.JointType joint, Vector3 screenPos)
+	{
+		if (gesture == KinectGestures.Gestures.RaiseLeftHand)
 		{
-			swipeLeft = false;
-			return true;
+			leftHandUp = true;
+		}
+		if (gesture == KinectGestures.Gestures.RaiseRightHand)
+		{
+			rightHandUp = true;
+		}
+		if (gesture == KinectGestures.Gestures.Psi)
+		{
+			bothHandsUp = true;
 		}
 
-		return false;
+		return true;
 	}
 
 	/// <summary>
-	/// Determines whether swipe right is detected.
+	/// Determines whether left hand is raised.
 	/// </summary>
-	/// <returns><c>true</c> if swipe right is detected; otherwise, <c>false</c>.</returns>
-	public bool IsSwipeRight()
-	{
-		if (swipeRight)
-		{
-			swipeRight = false;
-			return true;
-		}
-
-		return false;
-	}
-
-	/// <summary>
-	/// Determines whether swipe up is detected.
-	/// </summary>
-	/// <returns><c>true</c> if swipe up is detected; otherwise, <c>false</c>.</returns>
-	public bool IsSwipeUp()
-	{
-		if (swipeUp)
-		{
-			swipeUp = false;
-			return true;
-		}
-
-		return false;
-	}
-
-	/// <summary>
-	/// Determines whether left hand is up.
-	/// </summary>
-	/// <returns><c>true</c> if left hand is up; otherwise, <c>false</c>.</returns>
+	/// <returns><c>true</c> if left hand is raised; otherwise, <c>false</c>.</returns>
 	public bool IsLeftHandRaised()
 	{
 		if (leftHandUp)
@@ -97,9 +74,9 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 	}
 
 	/// <summary>
-	/// Determines whether right hand is up.
+	/// Determines whether right hand is raised.
 	/// </summary>
-	/// <returns><c>true</c> if right hand is up; otherwise, <c>false</c>.</returns>
+	/// <returns><c>true</c> if right hand is raised; otherwise, <c>false</c>.</returns>
 	public bool IsRightHandRaised()
 	{
 		if (rightHandUp)
@@ -112,175 +89,41 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 	}
 
 	/// <summary>
-	/// Invoked when a new user is detected. Here you can start gesture tracking by invoking KinectManager.DetectGesture()-function.
+	/// Determines whether both arms are raised.
 	/// </summary>
-	/// <param name="userId">User ID</param>
-	/// <param name="userIndex">User index</param>
-	public void UserDetected(long userId, int userIndex)
+	/// <returns><c>true</c> if both arms are raised; otherwise, <c>false</c>.</returns>
+	public bool AreBothHandsRaised()
 	{
-		// the gestures are allowed for the primary user only
-		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetPrimaryUserID()))
-			return;
+		if (bothHandsUp)
+		{
+			bothHandsUp = false;
+			return true;
+		}
 
-		// detect these user specific gestures
-		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
-		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
+		return false;
 	}
 
-	/// <summary>
-	/// Invoked when a user gets lost. All tracked gestures for this user are cleared automatically.
-	/// </summary>
-	/// <param name="userId">User ID</param>
-	/// <param name="userIndex">User index</param>
+	#region Useless Methods needed for the Kinect Gestures library to work properly
 	public void UserLost(long userId, int userIndex)
 	{
-		// the gestures are allowed for the primary user only
-		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetPrimaryUserID()))
-			return;
 
-		if (gestureInfo != null)
-		{
-			gestureInfo.GetComponent<Text>().text = string.Empty;
-		}
 	}
 
-	/// <summary>
-	/// Invoked when a gesture is in progress.
-	/// </summary>
-	/// <param name="userId">User ID</param>
-	/// <param name="userIndex">User index</param>
-	/// <param name="gesture">Gesture type</param>
-	/// <param name="progress">Gesture progress [0..1]</param>
-	/// <param name="joint">Joint type</param>
-	/// <param name="screenPos">Normalized viewport position</param>
 	public void GestureInProgress(long userId, int userIndex, KinectGestures.Gestures gesture,
 								  float progress, KinectInterop.JointType joint, Vector3 screenPos)
 	{
-		// the gestures are allowed for the primary user only
-		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetPrimaryUserID()))
-			return;
 
-		// this function is currently needed only to display gesture progress, skip it otherwise
-		if (gestureInfo == null)
-			return;
-
-		if ((gesture == KinectGestures.Gestures.ZoomOut || gesture == KinectGestures.Gestures.ZoomIn) && progress > 0.5f)
-		{
-			if (gestureInfo != null)
-			{
-				string sGestureText = string.Format("{0} - {1:F0}%", gesture, screenPos.z * 100f);
-				gestureInfo.GetComponent<Text>().text = sGestureText;
-
-				progressDisplayed = true;
-				progressGestureTime = Time.realtimeSinceStartup;
-			}
-		}
-		else if ((gesture == KinectGestures.Gestures.Wheel || gesture == KinectGestures.Gestures.LeanLeft ||
-				 gesture == KinectGestures.Gestures.LeanRight) && progress > 0.5f)
-		{
-			if (gestureInfo != null)
-			{
-				string sGestureText = string.Format("{0} - {1:F0} degrees", gesture, screenPos.z);
-				gestureInfo.GetComponent<Text>().text = sGestureText;
-
-				progressDisplayed = true;
-				progressGestureTime = Time.realtimeSinceStartup;
-			}
-		}
 	}
 
-	/// <summary>
-	/// Invoked if a gesture is completed.
-	/// </summary>
-	/// <returns>true</returns>
-	/// <c>false</c>
-	/// <param name="userId">User ID</param>
-	/// <param name="userIndex">User index</param>
-	/// <param name="gesture">Gesture type</param>
-	/// <param name="joint">Joint type</param>
-	/// <param name="screenPos">Normalized viewport position</param>
-	public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
-								  KinectInterop.JointType joint, Vector3 screenPos)
-	{
-		// the gestures are allowed for the primary user only
-		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetPrimaryUserID()))
-			return false;
-
-		if (gestureInfo != null)
-		{
-			string sGestureText = gesture + " detected";
-			gestureInfo.GetComponent<Text>().text = sGestureText;
-		}
-
-		if (gesture == KinectGestures.Gestures.SwipeLeft)
-			swipeLeft = true;
-		else if (gesture == KinectGestures.Gestures.SwipeRight)
-			swipeRight = true;
-		else if (gesture == KinectGestures.Gestures.SwipeUp)
-			swipeUp = true;
-		else if (gesture == KinectGestures.Gestures.RaiseLeftHand)
-        {
-            Debug.Log("left hand up");
-			leftHandUp = true;
-        }
-		else if (gesture == KinectGestures.Gestures.RaiseRightHand)
-        {
-            Debug.Log("right hand up");
-			rightHandUp = true;
-        }
-
-		return true;
-	}
-
-	/// <summary>
-	/// Invoked if a gesture is cancelled.
-	/// </summary>
-	/// <returns>true</returns>
-	/// <c>false</c>
-	/// <param name="userId">User ID</param>
-	/// <param name="userIndex">User index</param>
-	/// <param name="gesture">Gesture type</param>
-	/// <param name="joint">Joint type</param>
 	public bool GestureCancelled(long userId, int userIndex, KinectGestures.Gestures gesture,
 								  KinectInterop.JointType joint)
 	{
-		// the gestures are allowed for the primary user only
-		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetPrimaryUserID()))
-			return false;
-
-		if (progressDisplayed)
-		{
-			progressDisplayed = false;
-
-			if (gestureInfo != null)
-			{
-				gestureInfo.GetComponent<Text>().text = String.Empty;
-			}
-		}
-
 		return true;
 	}
 
-
-	void Awake()
+	public void Update()
 	{
-		instance = this;
+
 	}
-
-	void Update()
-	{
-		if (progressDisplayed && ((Time.realtimeSinceStartup - progressGestureTime) > 2f))
-		{
-			progressDisplayed = false;
-			gestureInfo.GetComponent<Text>().text = String.Empty;
-
-			Debug.Log("Forced progress to end.");
-		}
-	}
-
+    #endregion
 }

@@ -22,8 +22,9 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 		manager.DetectGesture(userId, KinectGestures.Gestures.Squat);
 		manager.DetectGesture(userId, KinectGestures.Gestures.LeanLeft);
 		manager.DetectGesture(userId, KinectGestures.Gestures.LeanRight);
+		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
 
-		if(GestureInfo != null)
+		if (GestureInfo != null)
 		{
 			GestureInfo.GetComponent<Text>().text = "Swipe, Jump, Squat or Lean.";
 		}
@@ -77,6 +78,12 @@ public class SimpleGestureListener : MonoBehaviour, KinectGestures.GestureListen
 		{
 			GestureInfo.GetComponent<Text>().text = sGestureText;
 		}
+
+        if (gesture == KinectGestures.Gestures.RaiseLeftHand)
+        {
+
+            Debug.Log("left hand raised");
+        }
 		
 		return true;
 	}
