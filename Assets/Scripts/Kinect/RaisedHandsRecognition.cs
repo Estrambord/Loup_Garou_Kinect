@@ -6,6 +6,8 @@ public class RaisedHandsRecognition : MonoBehaviour
 {
     private LoupGarouGestureListener gestureListener;
 
+    [SerializeField][Range(0, 5)] private int allowedUserIndex = 0;
+
     private new Renderer renderer;
 
     [SerializeField] private Material m_red;
@@ -17,6 +19,8 @@ public class RaisedHandsRecognition : MonoBehaviour
         renderer = GetComponent<Renderer>();
 
         gestureListener = LoupGarouGestureListener.Instance;
+
+        gestureListener.allowedUserIndex = allowedUserIndex;
     }
 
     void Update()
