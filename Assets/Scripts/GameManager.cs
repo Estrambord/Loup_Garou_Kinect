@@ -1,4 +1,4 @@
-using System.Collections
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,7 +9,7 @@ public class Game_Manager : MonoBehaviour
     private float timer;
     private Canvas timer_UI;
     public GameObject Loup_Garou1;
-    public Loup_Garou loup2;
+    public LoupGarou loup2;
     public AvatarController[] avatars;
     public KinectManager[] kinectManagers;
     // Start is called before the first frame update
