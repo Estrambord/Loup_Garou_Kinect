@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 public class TestGameObject : MonoBehaviour
 {
-        private List<Player> Players;
-        private float timer;
-        private Canvas timer_UI;
-        public LoupGarou loup1;
-        public LoupGarou loup2;
-        public Voyante voyante;
-        public Sorciere sorciere;
-        public Chasseur chasseur;
-        public Player villageois;
+    private List<Player> Players;
+    private float timer;
+    private Canvas timer_UI;
+    public LoupGarou loup1;
+    public LoupGarou loup2;
+    public Voyante voyante;
+    public Sorciere sorciere;
+    public Chasseur chasseur;
+    public Player villageois;
+    public Canvas Vote;
 
-        void Start()
-        {
-
-        }
+    void Start()
+    {
+        Vote.enabled = false;
+    }
 
         void Update()
         {
@@ -59,7 +60,8 @@ public class TestGameObject : MonoBehaviour
         }
         public void VoteVillage()
         {
-            // script qui gère le vote quotidien
+        // script qui gère le vote quotidien
+        Vote.enabled = true;
         }
         public void Nuit()
         {

@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviour
     public void VoteVillage()
     {
         // script qui gère le vote quotidien
+
     }
     public void Nuit()
     {
