@@ -10,7 +10,8 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 	private bool rightHandUp;
 	private bool bothHandsUp;
 
-	public int allowedUserIndex;
+	public bool trackOnlySpecificUser = false;
+	public int allowedUserIndex = 0;
 
 	// singleton instance of the class
 	private static LoupGarouGestureListener instance = null;
@@ -26,23 +27,32 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 	public void UserDetected(long userId, int userIndex)
 	{
 		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetUserIdByIndex(allowedUserIndex)))
-			return;
-		
+		if (trackOnlySpecificUser)
+		{
+			if (!manager || (userId != manager.GetUserIdByIndex(allowedUserIndex)))
+			{
+				return;
+			}
+		}
+
 		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseLeftHand);
 		manager.DetectGesture(userId, KinectGestures.Gestures.RaiseRightHand);
 		manager.DetectGesture(userId, KinectGestures.Gestures.Psi);
-
-
-        Debug.Log(userId.ToString());
 	}
 
 	public bool GestureCompleted(long userId, int userIndex, KinectGestures.Gestures gesture,
 								  KinectInterop.JointType joint, Vector3 screenPos)
 	{
 		KinectManager manager = KinectManager.Instance;
-		if (!manager || (userId != manager.GetUserIdByIndex(allowedUserIndex)))
-			return false;
+
+        if (trackOnlySpecificUser)
+        {
+			if (!manager || (userId != manager.GetUserIdByIndex(allowedUserIndex)))
+            {
+				return false;
+            }			
+        }
+        
 
 		if (gesture == KinectGestures.Gestures.RaiseLeftHand)
 		{

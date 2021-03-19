@@ -6,6 +6,7 @@ public class RaisedHandsRecognition : MonoBehaviour
 {
     private LoupGarouGestureListener gestureListener;
 
+    [SerializeField] private bool trackOnlySpecificUser = true;
     [SerializeField][Range(0, 5)] private int allowedUserIndex = 0;
 
     private new Renderer renderer;
@@ -20,7 +21,12 @@ public class RaisedHandsRecognition : MonoBehaviour
 
         gestureListener = LoupGarouGestureListener.Instance;
 
-        gestureListener.allowedUserIndex = allowedUserIndex;
+        gestureListener.trackOnlySpecificUser = trackOnlySpecificUser;
+
+        if (trackOnlySpecificUser)
+        {
+            gestureListener.allowedUserIndex = allowedUserIndex;
+        }
     }
 
     void Update()
@@ -34,17 +40,17 @@ public class RaisedHandsRecognition : MonoBehaviour
         if (gestureListener.IsLeftHandRaised())
         {
             renderer.material = m_red;
-            Debug.Log("LEFT hand up");
+            //Debug.Log("LEFT hand up");
         }
         if (gestureListener.IsRightHandRaised())
         {
             renderer.material = m_green;
-            Debug.Log("RIGHT hand up");
+            //Debug.Log("RIGHT hand up");
         }
         if (gestureListener.AreBothHandsRaised())
         {
             renderer.material = m_flesh;
-            Debug.Log("BOTH hands up");
+            //Debug.Log("BOTH hands up");
         }
     }
 }

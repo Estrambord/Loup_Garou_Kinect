@@ -1126,6 +1126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f3c10f8c76f55429a56f8ad052d2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackOnlySpecificUser: 0
   allowedUserIndex: 0
 --- !u!1001 &1980795503
 PrefabInstance:
@@ -1232,6 +1233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55ef241e38566544a94463d06bb1beb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackOnlySpecificUser: 1
   allowedUserIndex: 0
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_green: {fileID: 2100000, guid: bbddcac330f8d0a4f96b3960cb16148e, type: 2}
