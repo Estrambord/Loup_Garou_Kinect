@@ -356,9 +356,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c4645fd41be9ac468ee8ce674e9a975, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberList: []
+  nameList: []
+  actionList: []
+  instructionList: []
+  narrationList: []
   audioSource: {fileID: 622245402}
-  clip1: {fileID: 8300000, guid: 5aa9a5d2ba6133e45b5b681a9600eb66, type: 3}
-  clip2: {fileID: 8300000, guid: 1c2c3d1d9dd83964c8779e4e4a6744f4, type: 3}
+  clip1: {fileID: 8300000, guid: f8888badaabb47e4ebe1eee0f5da22a4, type: 3}
+  clip2: {fileID: 8300000, guid: b485cac5edd3a3f4386ae662b2761613, type: 3}
 --- !u!1 &2092222637
 GameObject:
   m_ObjectHideFlags: 0
