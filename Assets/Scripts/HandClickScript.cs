@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class HandClickScript : MonoBehaviour 
 {
 	[Tooltip("List of the objects that may be dragged and dropped.")]
-	public GameObject[] clickableObjects;
+	public Player[] clickableObjects;
+
+	public Player associatedPlayer;
 
 	[Tooltip("Material used to outline the currently selected object.")]
 	public Material selectedObjectMaterial;
@@ -24,14 +26,16 @@ public class HandClickScript : MonoBehaviour
 
 
 	// interaction manager reference
-	private InteractionManager manager;
+	[SerializeField] private InteractionManager manager;
 	private bool isLeftHandDrag;
 
 	// currently dragged object and its parameters
-	private GameObject clickedObject;
+	public Player clickedObject;
 	private float clickedObjectDepth;
 	private Vector3 clickedObjectOffset;
 	private Material clickedObjectMaterial;
+	private GameObject tops;
+	private Material topsMat;
 
 	// initial objects' positions and rotations (used for resetting objects)
 	private Vector3[] initialObjPos;
@@ -60,11 +64,13 @@ public class HandClickScript : MonoBehaviour
 			ResetObjects ();
 		}
 
+		/*
 		// get the interaction manager instance
 		if(manager == null)
 		{
 			manager = InteractionManager.Instance;
 		}
+		*/
 
 		if(manager != null && manager.IsInteractionInited())
 		{
@@ -105,18 +111,26 @@ public class HandClickScript : MonoBehaviour
 					RaycastHit hit;
 					if(Physics.Raycast(ray, out hit))
 					{
-						foreach(GameObject obj in clickableObjects)
+						foreach(Player obj in clickableObjects)
 						{
-							if(hit.collider.gameObject == obj)
+							//Debug.Log(obj);
+							if (hit.collider.gameObject == obj.gameObject)
 							{
 								// an object was hit by the ray. select it and start drgging
 								clickedObject = obj;
+								associatedPlayer.PlayerStandardVote(clickedObject);
 								clickedObjectDepth = clickedObject.transform.position.z - Camera.main.transform.position.z;
 								clickedObjectOffset = hit.point - clickedObject.transform.position;
-								
+
 								// set selection material
 								clickedObjectMaterial = clickedObject.GetComponent<Renderer>().material;
 								clickedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
+								/*tops = clickedObject.gameObject.transform.Find("Tops").gameObject;
+								topsMat = tops.GetComponent<SkinnedMeshRenderer>().materials[0];
+								clickedObjectMaterial = topsMat;*/
+								//clickedObjectMaterial = clickedObject.gameObject.transform.Find("Tops").gameObject.GetComponent<SkinnedMeshRenderer>().materials[0];
+
+								//clickedObject.gameObject.transform.Find("Tops").gameObject.GetComponent<SkinnedMeshRenderer>().materials[0] = selectedObjectMaterial;
 
 								// stop using gravity while dragging object
 								clickedObject.GetComponent<Rigidbody>().useGravity = false;
@@ -150,8 +164,11 @@ public class HandClickScript : MonoBehaviour
 				{
 					// restore the object's material and stop dragging the object
 					clickedObject.GetComponent<Renderer>().material = clickedObjectMaterial;
+					//clickedObject.transform.Find("Tops").gameObject.GetComponent<SkinnedMeshRenderer>().materials[0] = clickedObjectMaterial;
+					
 
-					if(useGravity)
+
+					if (useGravity)
 					{
 						// add gravity to the object
 						clickedObject.GetComponent<Rigidbody>().useGravity = true;
