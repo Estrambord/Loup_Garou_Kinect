@@ -10,9 +10,6 @@ public class Game_Manager : MonoBehaviour
     private Canvas timer_UI;
     public GameObject Loup_Garou1;
     public Loup_Garou loup2;
-    // Start is called before the first frame update
-    public GameObject Loup_Garou1;
-    public Loup_Garou loup2;
     public AvatarController[] avatars;
     public KinectManager[] kinectManagers;
     // Start is called before the first frame update
