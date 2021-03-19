@@ -34,16 +34,19 @@ public class Sorciere : Player
     public void TaskOnClickVie()
     { potionVie = true; }
     public void TaskOnClickMort()
-    { potionMort = true; }
+    {   
+        potionMort = true;
+        PotionMort.enabled = true;
+    }
     public override void PlayerSpecialVote(Player player)
     { 
    // sript qui désigne la potion choisi par la sorcière et la personne sur laquelle elle l'utilise
-   if(potionVie) 
+        if(potionVie) 
         { 
             player.PlayerRevive();
             Debug.Log(player + " est réscucité");
         }
-   if(potionMort) 
+        if(potionMort) 
         { 
             player.PlayerDie();
             Debug.Log(player + " est mort");

@@ -62,6 +62,8 @@ public class TestGameObject : MonoBehaviour
         public void TourChasseur()
         {
             // script qui gère le tour du chasseur
+
+            
         }
         public void VoteVillage()
         {
