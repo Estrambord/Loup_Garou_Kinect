@@ -288,7 +288,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 2
   mirroredMovement: 1
-  verticalMovement: 0
+  verticalMovement: 1
   moveRate: 1
   smoothFactor: 5
   offsetNode: {fileID: 0}
@@ -626,7 +626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Name
-      value: Paysan4
+      value: Paysan3
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
@@ -699,7 +699,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Name
-      value: Paysan1
+      value: Paysan0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
@@ -772,7 +772,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Name
-      value: Paysan2
+      value: Paysan1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
@@ -804,7 +804,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 5
   mirroredMovement: 1
-  verticalMovement: 0
+  verticalMovement: 1
   moveRate: 1
   smoothFactor: 5
   offsetNode: {fileID: 0}
@@ -917,7 +917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Name
-      value: Paysan5
+      value: Paysan4
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
@@ -1038,7 +1038,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Name
-      value: Paysan6
+      value: Paysan5
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
@@ -1214,7 +1214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 1
   mirroredMovement: 1
-  verticalMovement: 0
+  verticalMovement: 1
   moveRate: 1
   smoothFactor: 5
   offsetNode: {fileID: 0}
@@ -1243,7 +1243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 0
   mirroredMovement: 1
-  verticalMovement: 0
+  verticalMovement: 1
   moveRate: 1
   smoothFactor: 5
   offsetNode: {fileID: 0}
@@ -1455,7 +1455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 4
   mirroredMovement: 1
-  verticalMovement: 0
+  verticalMovement: 1
   moveRate: 1
   smoothFactor: 5
   offsetNode: {fileID: 0}
@@ -1525,7 +1525,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Name
-      value: Paysan3
+      value: Paysan2
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
@@ -1557,7 +1557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerIndex: 3
   mirroredMovement: 1
-  verticalMovement: 0
+  verticalMovement: 1
   moveRate: 1
   smoothFactor: 5
   offsetNode: {fileID: 0}
@@ -1748,8 +1748,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7f3c10f8c76f55429a56f8ad052d2e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  trackOnlySpecificUser: 0
-  allowedUserIndex: 0
+  avatar0: {fileID: 1071386921}
+  avatar1: {fileID: 1034036136}
+  avatar2: {fileID: 150024417}
+  avatar3: {fileID: 1807775252}
+  avatar4: {fileID: 1563421383}
+  avatar5: {fileID: 526409201}
 --- !u!1001 &1980795503
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1860,6 +1864,12 @@ MonoBehaviour:
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_green: {fileID: 2100000, guid: bbddcac330f8d0a4f96b3960cb16148e, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  avatar0: {fileID: 1071386921}
+  avatar1: {fileID: 1034036136}
+  avatar2: {fileID: 150024417}
+  avatar3: {fileID: 1807775252}
+  avatar4: {fileID: 1563421383}
+  avatar5: {fileID: 526409201}
 --- !u!135 &2081172254
 SphereCollider:
   m_ObjectHideFlags: 0
