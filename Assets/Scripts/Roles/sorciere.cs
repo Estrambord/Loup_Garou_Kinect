@@ -20,7 +20,7 @@ public class Sorciere : Player
         potionMort = false;
     }
 
-    public void Action()
+    public void ChoisirPotion()
     {
         voteSorciere.enabled = true;
     }
@@ -50,7 +50,7 @@ public class Sorciere : Player
         { 
             player.PlayerDie();
             Debug.Log(player + " est mort");
-        } 
+        }   
 
     }
 }

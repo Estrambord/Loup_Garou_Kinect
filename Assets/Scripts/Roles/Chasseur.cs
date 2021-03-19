@@ -16,7 +16,7 @@ public class Chasseur : Player
     {
         
     }
-    public void Action()
+    public void Tirer()
     {
         voteChasseur.enabled = true;
     }

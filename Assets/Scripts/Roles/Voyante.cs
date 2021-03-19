@@ -18,7 +18,7 @@ public class Voyante : Player
         
     }
     
-    public void Action()
+    public void Voir()
     {
         voteVoyante.enabled = true;
     }

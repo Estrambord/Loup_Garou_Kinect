@@ -18,7 +18,7 @@ public class LoupGarou : Player
     {
         
     }
-    public void Action()
+    public void Tuer()
     {
         voteLoupGarou.enabled = true;
     }
