@@ -190,7 +190,8 @@ public class CubeGestureListener : MonoBehaviour, KinectGestures.GestureListener
 			string sGestureText = gesture + " detected";
 			gestureInfo.GetComponent<Text>().text = sGestureText;
 		}
-		
+
+        Debug.Log("Gesture completed");
 		if(gesture == KinectGestures.Gestures.SwipeLeft)
 			swipeLeft = true;
 		else if(gesture == KinectGestures.Gestures.SwipeRight)
