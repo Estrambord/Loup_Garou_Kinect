@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    #region Unity Base Methods
     void Start()
     {
         playersList = new List<AvatarController>();
@@ -124,7 +125,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    #endregion
 
     #region Methodes generales
 
@@ -222,7 +223,6 @@ public class GameManager : MonoBehaviour
 
     }
     #endregion
-
 
     #region Methodes que je sais pas si elles seront utiles ou pas
     public void DisplayUI() { }
