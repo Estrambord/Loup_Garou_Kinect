@@ -574,7 +574,7 @@ public class AvatarController : MonoBehaviour
 	//	}
 	#endregion
 
-	#region Methods and Variables I added to the source AvatarController
+	#region Methods and Variables added to the source AvatarController
 	public bool IsLeftHandUp { get; set; } = false;
 
 	public bool IsRightHandUp { get; set; } = false;
@@ -586,6 +586,17 @@ public class AvatarController : MonoBehaviour
 	public string Role { get; set; } = "villageois";
 
 	public bool IsCapitaine { get; set; } = false;
+
+    public bool IsDead { get; set; }
+
+    /// <summary>
+    /// Tue le joueur, modifie son apparence et l'empêche d'interagir avec le jeu
+    /// </summary>
+    public void Die()
+    {
+		IsDead = true;
+
+    }
     #endregion
 
     #region Dictionaries
