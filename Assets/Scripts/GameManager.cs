@@ -10,10 +10,30 @@ public class GameManager : MonoBehaviour
     private List<Player> Players;
     private float timer;
     private Canvas timer_UI;
-    public GameObject Loup_Garou1;
-    public LoupGarou loup2;
-    public List<AvatarController> playersList;
-    public KinectManager[] kinectManagers;
+    //public GameObject Loup_Garou1;
+    //public LoupGarou loup2;
+    
+    
+    [SerializeField] private List<AvatarController> playersList;
+    [SerializeField] private List<KinectManager> kinectManagers;
+
+    /*
+    [SerializeField] private AvatarController player0;
+    [SerializeField] private AvatarController player1;
+    [SerializeField] private AvatarController player2;
+    [SerializeField] private AvatarController player3;
+    [SerializeField] private AvatarController player4;
+    [SerializeField] private AvatarController player5;
+    */
+
+    [Header("Roles Settings")]
+    public bool randomizeNbLoupGarou = false;
+    public int nbLoupGarou = 2;
+    public bool randomizeOtherRoles = false;
+    public bool voyante = true;
+    public bool sorciere = true;
+    public bool chasseur = true;
+
 
     private int nbPlayersAlive;
     private int nbLoupGarouAlive;
@@ -24,7 +44,7 @@ public class GameManager : MonoBehaviour
     private bool rolesDiscovered = false;
     private bool capitaineElected = false;
 
-    public AvatarController playerKilled;
+    [System.NonSerialized] public List<AvatarController> playersKilledThisTurn;
 
     private bool gameOver = false;
 
@@ -33,7 +53,8 @@ public class GameManager : MonoBehaviour
     #region Unity Base Methods
     void Start()
     {
-        playersList = new List<AvatarController>();
+        //playersList = new List<AvatarController>() { player0, player1, player2, player3, player4, player5 };
+        playersKilledThisTurn = new List<AvatarController>();
     }
 
     void Update()
@@ -78,14 +99,24 @@ public class GameManager : MonoBehaviour
 
         else if (!jour) //nuit
         {
+            playersKilledThisTurn.Clear();
+
             //Son pour que tout le monde mette son masque sur ses yeux
             TourVoyante();
             TourLoupGarou();
             TourSorciere();
+
+            for (int i = 0; i < playersKilledThisTurn.Count; i++)
+            {
+                KillPlayer(playersKilledThisTurn[i]);
+            }
+
             jour = true;
         }
         else if (jour) //jour
         {
+            playersKilledThisTurn.Clear();
+
             //Son pour que tout le monde enleve son masque des yeux
 
             //Annonce des morts (fonction ? plusieurs ifs a la suite ?)
@@ -102,14 +133,20 @@ public class GameManager : MonoBehaviour
                 //Son fin du vote et elimination d'un joueur
             }
 
-            if (playerKilled.Role == "chasseur")
+            for (int i = 0; i < playersKilledThisTurn.Count; i++)
             {
-                TourChasseur();
+                if (playersKilledThisTurn[i].Role == "chasseur")
+                {
+                    TourChasseur();
+                }
+                else if (playersKilledThisTurn[i].IsCapitaine)
+                {
+                    NouveauCapitaine();
+                }
+
+                KillPlayer(playersKilledThisTurn[i]);
             }
-            else if (playerKilled.IsCapitaine)
-            {
-                NouveauCapitaine();
-            }
+
             jour = false;
         }
 
@@ -149,7 +186,111 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SetPlayersRoles()
     {
-        //Affecter les roles aux joueurs
+        nbPlayersAlive = 6;
+
+        if (randomizeNbLoupGarou)
+        {
+            nbLoupGarou = Random.Range(1, 3);
+        }
+
+        if (randomizeOtherRoles)
+        {
+            voyante = Random.value >= 0.5f;
+            sorciere = Random.value >= 0.5f;
+            chasseur = Random.value >= 0.5f;
+        }
+
+        List<int> numberList = new List<int>() { 0, 1, 2, 3, 4, 5 };
+        numberList.Shuffle();
+
+        for (int i = 0; i < 6; i++)
+        {
+            switch (i)
+            {
+                case 0:
+                    playersList[numberList[i]].Role = "loup garou";
+                    break;
+                case 1:
+                    if (nbLoupGarou == 2)
+                    {
+                        playersList[numberList[i]].Role = "loup garou";
+                    }
+                    else if(voyante)
+                    {
+                        playersList[numberList[i]].Role = "voyante";
+                        voyante = false;
+                    }
+                    else if (sorciere)
+                    {
+                        playersList[numberList[i]].Role = "sorciere";
+                        sorciere = false;
+                    }
+                    else if (chasseur)
+                    {
+                        playersList[numberList[i]].Role = "chasseur";
+                        chasseur = false;
+                    }
+                    else
+                    {
+                        playersList[numberList[i]].Role = "villageois";
+                    }
+                    break;
+                case 2:
+                    if (voyante)
+                    {
+                        playersList[numberList[i]].Role = "voyante";
+                        voyante = false;
+                    }
+                    else if (sorciere)
+                    {
+                        playersList[numberList[i]].Role = "sorciere";
+                        sorciere = false;
+                    }
+                    else if (chasseur)
+                    {
+                        playersList[numberList[i]].Role = "chasseur";
+                        chasseur = false;
+                    }
+                    else
+                    {
+                        playersList[numberList[i]].Role = "villageois";
+                    }
+                    break;
+                case 3:
+                    if (sorciere)
+                    {
+                        playersList[numberList[i]].Role = "sorciere";
+                        sorciere = false;
+                    }
+                    else if (chasseur)
+                    {
+                        playersList[numberList[i]].Role = "chasseur";
+                        chasseur = false;
+                    }
+                    else
+                    {
+                        playersList[numberList[i]].Role = "villageois";
+                    }
+                    break;
+                case 4:
+                    if (chasseur)
+                    {
+                        playersList[numberList[i]].Role = "chasseur";
+                        chasseur = false;
+                    }
+                    else
+                    {
+                        playersList[numberList[i]].Role = "villageois";
+                    }
+                    break;
+                case 5:
+                    playersList[numberList[i]].Role = "villageois";
+                    break;
+                default:
+                    break;
+            }
+        }
+
         rolesSet = true;
     }
 
@@ -181,6 +322,16 @@ public class GameManager : MonoBehaviour
     public void VoteVillage()
     {
 
+    }
+
+    /// <summary>
+    /// Tue le joueur, le supprime de la liste des joueurs vivants, et change son apparence en jeu
+    /// </summary>
+    public void KillPlayer(AvatarController player)
+    {
+        playersList.Remove(player);
+        player.Die();
+        nbPlayersAlive = playersList.Count;
     }
     #endregion
 
@@ -227,17 +378,12 @@ public class GameManager : MonoBehaviour
     #region Methodes que je sais pas si elles seront utiles ou pas
     public void DisplayUI() { }
 
-    //public Player Get_Vote_Result(int Nb_Vote) { 
-    // script qui gère le résultat du vote quotidien
-    //}
-
-    public void Execution() 
+    /*
+    public Player Get_Vote_Result(int Nb_Vote)
     {
-    // script qui gère la mort d'un player
+        //script qui gère le résultat du vote quotidien
     }
-    
-    
-
+    */
 
     public void Victory() 
     {
