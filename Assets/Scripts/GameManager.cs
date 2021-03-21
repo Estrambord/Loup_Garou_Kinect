@@ -7,26 +7,30 @@ public class GameManager : MonoBehaviour
 {
     #region Variables
 
-    private List<Player> Players;
-    private float timer;
-    private Canvas timer_UI;
+
+
+    //PUBLIC
     public GameObject Loup_Garou1;
     public LoupGarou loup2;
     public List<AvatarController> playersList;
     public KinectManager[] kinectManagers;
+    public AvatarController playerKilled;
+    
 
-    private int nbPlayersAlive;
-    private int nbLoupGarouAlive;
 
+    //PRIVATE
     private bool beforeGameStart = true;
     private bool jour = true;
     private bool rolesSet = false;
     private bool rolesDiscovered = false;
-    private bool capitaineElected = false;
-
-    public AvatarController playerKilled;
-
+    private bool mayorElected = false;
+    private int nbPlayersAlive;
+    private int nbLoupGarouAlive;
+    private List<Player> Players;
+    private float timer;
+    private Canvas timer_UI;
     private bool gameOver = false;
+    private bool skip;
 
     #endregion
 
@@ -61,10 +65,10 @@ public class GameManager : MonoBehaviour
                 //Son qui dit que tout le monde peut relever son masque
                 rolesDiscovered = true;
             }
-            if (!capitaineElected)
+            if (!mayorElected)
             {
                 //Son election du maire
-                ElectionCapitaine();
+                ElectionMayor();
             }
 
         }
@@ -73,6 +77,7 @@ public class GameManager : MonoBehaviour
         else if (tourDeChauffe)
         {
             EST CE QU'ON FAIT UN TOUR POUR RIEN ? SYLVAIN AVAIT PROPOSE MAIS JE TROUVE QUE CA FERAIT PERDRE TROP DE TEMPS AUX JOUEURS
+            NON JE PENSE PAS IL SUFFIT DE DONNER DES EXPLICATIONS AU DEBUT
         }
         */
 
@@ -106,9 +111,9 @@ public class GameManager : MonoBehaviour
             {
                 TourChasseur();
             }
-            else if (playerKilled.IsCapitaine)
+            else if (playerKilled.IsMayor)
             {
-                NouveauCapitaine();
+                NewMayor();
             }
             jour = false;
         }
@@ -149,38 +154,69 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void SetPlayersRoles()
     {
+        //Détermination du nombre de loups (1 ou 2)
+        Random nbWolvesSeed = new Random();
+        int nbWolves = nbWolvesSeed.Next(1,2);
+        
+        Lit<string> roles = new List<string>(){ "witch", "hunter", "citizen", "teller", "wolf" };
+        if(nbWolves == 1)
+        {
+            roles.Add("citizen");
+        }
+        else if(nbWolves == 2)
+        {
+            roles.Add("wolf");
+        }
+        var randomizedRoles = roles.OrderBy(item => rnd.Next());
+
         //Affecter les roles aux joueurs
+        for(int i = 0; i < Players.Count; i++)
+        {
+            Players[i].Role() = randomizedRoles[i];
+        }
         rolesSet = true;
     }
 
     /// <summary>
     /// Permet à un joueur donne de decouvrir son role
     /// </summary>
-    public void DiscoverOwnRole(AvatarController player)
+    //public void DiscoverOwnRole(AvatarController player)
+    public void DiscoverOwnRole(Player player)
     {
         //Son qui demande à un joueur specifique d'enlever son masque
 
         //Afficher le rôle du joueur
-
         //Son qui lui demande d'interagir avec son role pour passer à la suite
-
+        if (!skip) //Mouvement de la main pour skip ?
+        {
+            player.role.enabled = true;
+            //Afficher UI
+        }
+        else
+        {
+            player.role.enabled = false;
+        }
+        skip = false;
         //Son qui lui demande de remettre son masque
     }
 
     /// <summary>
     /// Lance l'election du maire
     /// </summary>
-    public void ElectionCapitaine()
+    public void Electionmayor()
     {
-
+        if ( ! mayorElected ){
+            Player newMayor = VoteVillage();
+            mayorElected = true;
+        }
     }
 
     /// <summary>
     /// Déclenche un vote d'elimination
     /// </summary>
-    public void VoteVillage()
+    public Player VoteVillage()
     {
-
+        
     }
     #endregion
 
@@ -218,7 +254,7 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void NouveauCapitaine()
+    public void NewMayor()
     {
 
     }
