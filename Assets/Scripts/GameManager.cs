@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,70 +6,74 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    //public LoupGarou loup2;
-    //public AvatarController[] avatars;
+
     #region Variables
     //PUBLIC
-    //[SerializeField] private List<AvatarController> playersList;
     [SerializeField] private List<KinectManager> kinectManagers;
-    [System.NonSerialized] public List<AvatarController> playersKilledThisTurn;
-    public AvatarController playerKilled;
+    [System.NonSerialized] public List<Player> playersKilledThisTurn;
     public List<Player> Players;
+    [SerializeField] private List<Player> playersList;
     private float timer;
     private Canvas timer_UI;
-    //public GameObject Loup_Garou1;
-    //public LoupGarou loup2;
-
-
 
     [Header("Roles Settings")]
-    public bool randomizeNbLoupGarou = false;
-    public int nbLoupGarou = 2;
+    public bool randomizeNbWolves = false;
+    public int nbWolves = 2;
     public bool randomizeOtherRoles = false;
-    public bool voyante = true;
-    public bool sorciere = true;
-    public bool chasseur = true;
+    public bool teller = true;
+    public bool witch = true;
+    public bool hunter = true;
     public List<GameObject> remainingPotions;
-        
-
 
     //PRIVATE
-    private bool beforeGameStart = true;
-    private bool jour = true;
-    private bool rolesSet = false;
-    private bool rolesDiscovered = false;
-    private bool mayorElected = false;
     private int nbPlayersAlive;
-    private int nbLoupGarouAlive;
-    private bool capitaineElected = false;
-    private bool gameOver = false;
+    private int nbWolvesAlive;
     private bool skip;
 
-    private int nbVoters = 0;
+
+	#region Voting Variables
+	private int nbVoters = 0;
     private int nbVotes = 0;
     private bool everybodyVoted = false;
     private bool votingTime = true;
+    #endregion
 
+    #region GamePlay bools
 
+    private bool beforeGameStart = true;
+    private bool jour = true;
 
+    private bool rolesSet = false;
 
-    /*
-[SerializeField] private AvatarController player0;
-[SerializeField] private AvatarController player1;
-[SerializeField] private AvatarController player2;
-[SerializeField] private AvatarController player3;
-[SerializeField] private AvatarController player4;
-[SerializeField] private AvatarController player5;
-*/
+    private List<bool> rolesDiscovered;
+    private List<bool> rolesDisplayed;
+
+    private bool mayorElected = false;
+
+    private bool tellerTurnOngoing = false;
+    private bool wolvesTurnOngoing = false;
+    private bool witchTurnOngoing = false;
+    private bool hunterTurnOngoing = false;
+
+    private bool voteOngoing = false;
+    private bool newMayorOngoing = false;
+
+    private bool gameOver = false;
+    private bool endPlaying = false;
+    #endregion
 
     #endregion
+
 
     #region Unity Base Methods
     void Start()
     {
-        //playersList = new List<AvatarController>() { player0, player1, player2, player3, player4, player5 };
-        playersKilledThisTurn = new List<AvatarController>();
+        playersKilledThisTurn = new List<Player>();
+        rolesDiscovered = new List<bool>() { false, false, false, false, false, false };
+        rolesDisplayed = new List<bool>() { false, false, false, false, false, false };
     }
+
+
 
     void Update()
     {
@@ -100,16 +105,12 @@ public class GameManager : MonoBehaviour
                 votingTime = false;
             }
         }
-        
-        //merge moi ca n+1 = n² = ca marche
-
-
         /*
         if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
-            while (ArePlayersReady() == false)
+            if (ArePlayersReady() == false)
             {
                 //Afficher à l'écran que les joueurs ne sont pas prêts
             }
@@ -117,48 +118,55 @@ public class GameManager : MonoBehaviour
             {
                 SetPlayersRoles();
             }
-            if (rolesDiscovered == false)
+            //Son qui lance la nuit pour les joueurs
+            if (rolesDiscovered[-1] == false)
             {
-                //Son qui lance la nuit pour les joueurs
                 for (int i = 0; i < playersList.Count; i++)
                 {
-                    //DiscoverOwnRole(playersList[i]);
+                    if (i == 0 && !rolesDisplayed[i])
+                    {
+                        rolesDisplayed[i] = true;
+                        DiscoverOwnRole(playersList[i], i);
+                    }
+                    else if (!rolesDisplayed[i] && rolesDiscovered[i - 1])
+                    {
+                        rolesDisplayed[i] = true;
+                        DiscoverOwnRole(playersList[i], i);
+                    }
                 }
-                //Son qui explique le but du jeu
-                //Son qui dit que tout le monde peut relever son masque
-                rolesDiscovered = true;
             }
-            if (!mayorElected)
+            //Son qui explique le but du jeu
+            //Son qui dit que tout le monde peut relever son masque
+            if (!mayorElected && !voteOngoing)
             {
                 //Son election du maire
-                //ElectionMayor();
+                ElectMayor();
             }
-
+            else if (!voteOngoing)
+            {
+                beforeGameStart = false;
+            }
         }
-        */
-
-        /*
-        else if (tourDeChauffe)
-        {
-            EST CE QU'ON FAIT UN TOUR POUR RIEN ? SYLVAIN AVAIT PROPOSE MAIS JE TROUVE QUE CA FERAIT PERDRE TROP DE TEMPS AUX JOUEURS
-            NON JE PENSE PAS IL SUFFIT DE DONNER DES EXPLICATIONS AU DEBUT
-        }
-        */
-
-        /*
         else if (!jour) //nuit
         {
             playersKilledThisTurn.Clear();
 
             //Son pour que tout le monde mette son masque sur ses yeux
-            TourVoyante();
-            //TourLoupGarou();
-            //TourSorciere();
 
-            for (int i = 0; i < playersKilledThisTurn.Count; i++)
+            if (teller && !tellerTurnOngoing) TellerTurn();
+
+            if (!tellerTurnOngoing && !wolvesTurnOngoing) WolvesTurn();
+
+            if (witch && !wolvesTurnOngoing && !witchTurnOngoing) WitchTurn();
+
+            if (!witchTurnOngoing)
             {
-                KillPlayer(playersKilledThisTurn[i]);
+                for (int i = 0; i < playersKilledThisTurn.Count; i++)
+                {
+                    KillPlayer(playersKilledThisTurn[i]);
+                }
             }
+
 
             jour = true;
         }
@@ -168,39 +176,54 @@ public class GameManager : MonoBehaviour
 
             //Son pour que tout le monde enleve son masque des yeux
 
-            //Annonce des morts (fonction ? plusieurs ifs a la suite ?)
+            //Annonce des morts
 
-            if (nbPlayersAlive <= 2*nbLoupGarouAlive)
+            if (nbPlayersAlive <= 2 * nbWolvesAlive - 1)
             {
                 gameOver = true;
             }
 
-            if (!gameOver)
+            if (!gameOver && !voteOngoing)
             {
                 //Son debut du vote
                 VoteVillage();
                 //Son fin du vote et elimination d'un joueur
             }
-            for (int i = 0; i < playersKilledThisTurn.Count; i++)
-            {
-                if (playersKilledThisTurn[i].Role == "chasseur")
-                {
-                    //TourChasseur();
-                }
-                else if (playersKilledThisTurn[i].IsCapitaine)
-                {
-                    //NouveauCapitaine();
-                }
 
-                KillPlayer(playersKilledThisTurn[i]);
+            if (!voteOngoing)
+            {
+                for (int i = 0; i < playersKilledThisTurn.Count; i++)
+                {
+                    if (!hunterTurnOngoing && playersKilledThisTurn[i].Role == "hunter")
+                    {
+                        HunterTurn();
+                    }
+                    else if (!hunterTurnOngoing && !newMayorOngoing && playersKilledThisTurn[i].IsMayor)
+                    {
+                        NewMayor();
+                    }
+
+                    if (!hunterTurnOngoing && !newMayorOngoing)
+                    {
+                        KillPlayer(playersKilledThisTurn[i]);
+                    }
+                }
+            }
+
+
+            if (nbPlayersAlive <= 2 * nbWolvesAlive)
+            {
+                gameOver = true;
             }
 
             jour = false;
         }
 
-        if (gameOver)
+        if (gameOver && !endPlaying)
         {
-            if (nbLoupGarouAlive == 0)
+            endPlaying = true;
+
+            if (nbWolvesAlive == 0)
             {
                 //Son Bonne fin
             }
@@ -212,161 +235,123 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
+
     #region Methodes generales
 
-    /// <summary>
-    /// Indique si tous les joueurs sont detectes par la Kinect et prets
-    /// </summary>
-    /*public bool ArePlayersReady()
+    public bool ArePlayersReady()
     {
         for (int i = 0; i < playersList.Count; i++)
         {
-            if (!playersList[i].IsAvatarReady)
+            if (!playersList[i].IsPlayerReady)
             {
                 return false;
             }
         }
         return true;
-    }*/
+    }
 
-	/// <summary>
-	/// Attribue un role a chaque joueur aleatoirement
-	/// </summary>
-	/// 
-	/*
+    /// <summary>
+    /// Attribue un role a chaque joueur aleatoirement
+    /// </summary>
     public void SetPlayersRoles()
     {
-
-        //Détermination du nombre de loups (1 ou 2)
-        Random nbWolvesSeed = new Random();
-        int nbWolves = nbWolvesSeed.Next(1,2);
-        
-        Lit<string> roles = new List<string>(){ "witch", "hunter", "citizen", "teller", "wolf" };
-        if(nbWolves == 1)
-        {
-            roles.Add("citizen");
-        }
-        else if(nbWolves == 2)
-        {
-            roles.Add("wolf");
-        }
-        var randomizedRoles = roles.OrderBy(item => rnd.Next());
-
-        //Affecter les roles aux joueurs
-        for(int i = 0; i < Players.Count; i++)
-        {
-            Players[i].Role() = randomizedRoles[i];
-        }
-
+        rolesSet = true;
         nbPlayersAlive = 6;
 
-        if (randomizeNbLoupGarou)
+        if (randomizeNbWolves)
         {
-            nbLoupGarou = Random.Range(1, 3);
+            nbWolves = Random.Range(1, 3);
         }
 
         if (randomizeOtherRoles)
         {
-            voyante = Random.value >= 0.5f;
-            sorciere = Random.value >= 0.5f;
-            chasseur = Random.value >= 0.5f;
+            teller = Random.value >= 0.5f;
+            witch = Random.value >= 0.5f;
+            hunter = Random.value >= 0.5f;
         }
 
-        List<int> numberList = new List<int>() { 0, 1, 2, 3, 4, 5 };
-        numberList.Shuffle();
+        List<string> rolesList = new List<string>() { "citizen", "wolf" };
 
-        for (int i = 0; i < 6; i++)
+        if (nbWolves == 1) { rolesList.Add("citizen"); }
+        else { rolesList.Add("wolf"); }
+
+        if (teller) rolesList.Add("teller");
+        else rolesList.Add("citizen");
+
+        if (witch) rolesList.Add("witch");
+        else rolesList.Add("citizen");
+
+        if (hunter) rolesList.Add("hunter");
+        else rolesList.Add("citizen");
+
+        rolesList.Shuffle();
+
+        //Affecter les roles aux joueurs
+        for (int i = 0; i < playersList.Count; i++)
         {
-            switch (i)
-            {
-                case 0:
-                    playersList[numberList[i]].Role = "loup garou";
-                    break;
-                case 1:
-                    if (nbLoupGarou == 2)
-                    {
-                        playersList[numberList[i]].Role = "loup garou";
-                    }
-                    else if(voyante)
-                    {
-                        playersList[numberList[i]].Role = "voyante";
-                        voyante = false;
-                    }
-                    else if (sorciere)
-                    {
-                        playersList[numberList[i]].Role = "sorciere";
-                        sorciere = false;
-                    }
-                    else if (chasseur)
-                    {
-                        playersList[numberList[i]].Role = "chasseur";
-                        chasseur = false;
-                    }
-                    else
-                    {
-                        playersList[numberList[i]].Role = "villageois";
-                    }
-                    break;
-                case 2:
-                    if (voyante)
-                    {
-                        playersList[numberList[i]].Role = "voyante";
-                        voyante = false;
-                    }
-                    else if (sorciere)
-                    {
-                        playersList[numberList[i]].Role = "sorciere";
-                        sorciere = false;
-                    }
-                    else if (chasseur)
-                    {
-                        playersList[numberList[i]].Role = "chasseur";
-                        chasseur = false;
-                    }
-                    else
-                    {
-                        playersList[numberList[i]].Role = "villageois";
-                    }
-                    break;
-                case 3:
-                    if (sorciere)
-                    {
-                        playersList[numberList[i]].Role = "sorciere";
-                        sorciere = false;
-                    }
-                    else if (chasseur)
-                    {
-                        playersList[numberList[i]].Role = "chasseur";
-                        chasseur = false;
-                    }
-                    else
-                    {
-                        playersList[numberList[i]].Role = "villageois";
-                    }
-                    break;
-                case 4:
-                    if (chasseur)
-                    {
-                        playersList[numberList[i]].Role = "chasseur";
-                        chasseur = false;
-                    }
-                    else
-                    {
-                        playersList[numberList[i]].Role = "villageois";
-                    }
-                    break;
-                case 5:
-                    playersList[numberList[i]].Role = "villageois";
-                    break;
-                default:
-                    break;
-            }
+            playersList[i].Role = rolesList[i];
         }
-        
-        rolesSet = true;
-    }*/
+    }
+
+    /// <summary>
+    /// Permet à un joueur donne de decouvrir son role
+    /// </summary>
+    public void DiscoverOwnRole(Player player, int i)
+    {
+        //Son qui demande à un joueur specifique d'enlever son masque
+
+        //Afficher le rôle du joueur
+        //Son qui lui demande d'interagir avec son role pour passer à la suite
+        if (!skip) //Mouvement de la main pour skip ?
+        {
+            player.roleText.enabled = true;
+            //Afficher UI
+        }
+        else
+        {
+            player.roleText.enabled = false;
+        }
+        skip = false;
+        //Son qui lui demande de remettre son masque
+
+        rolesDiscovered[i] = true;
+    }
+
+    /// <summary>
+    /// Lance l'election du maire
+    /// </summary>
+    public void ElectMayor()
+    {
+        voteOngoing = true;
+
+        if (!mayorElected)
+        {
+            Player newMayor = VoteVillage();
+            mayorElected = true;
+        }
+
+        voteOngoing = false;
+    }
+
+    /// <summary>
+    /// Déclenche un vote d'elimination
+    /// </summary>
 
 
+    /// <summary>
+    /// Tue le joueur et change son apparence en jeu
+    /// </summary>
+    public void KillPlayer(Player player)
+    {
+        player.Die();
+        nbPlayersAlive--;
+    }
+
+
+    /// <summary>
+    /// Permet le vote des joueurs vivants
+    /// </summary>
+    /// <returns></returns>
     public Player VoteVillage()
     {
         Player chosenPlayer = null;
@@ -443,94 +428,79 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// Permet à un joueur donne de decouvrir son role
-    /// </summary>
-    //public void DiscoverOwnRole(AvatarController player)
-    public void DiscoverOwnRole(Player player)
-    {
-        //Son qui demande à un joueur specifique d'enlever son masque
-
-        //Afficher le rôle du joueur
-        //Son qui lui demande d'interagir avec son role pour passer à la suite
-        if (!skip) //Mouvement de la main pour skip ?
-        {
-            //player.roleText.enabled = true;
-            //Afficher UI
-        }
-        else
-        {
-            //player.roleText.enabled = false;
-        }
-        skip = false;
-        //Son qui lui demande de remettre son masque
-    }
-
-    /// <summary>
-    /// Lance l'election du maire
-    /// </summary>
-    public void Electionmayor()
-    {
-        if ( ! mayorElected ){
-            Player newMayor = VoteVillage();
-            mayorElected = true;
-        }
-    }
-
-    /// <summary>
-    /// Déclenche un vote d'elimination
-    /// </summary>
-
-
-    /// <summary>
-    /// Tue le joueur, le supprime de la liste des joueurs vivants, et change son apparence en jeu
-    /// </summary>
-    /*public void KillPlayer(AvatarController player)
-    {
-        playersList.Remove(player);
-        player.Die();
-        nbPlayersAlive = playersList.Count;
-    }*/
     #endregion
 
     #region Methodes specifiques a un joueur
+
     /// <summary>
-    /// Lance les actions de la Voyante
+    /// Lance le tour des Loups Garous
     /// </summary>
-    /// 
-    public void TourVoyante()
+    public void WolvesTurn()
     {
+        wolvesTurnOngoing = true;
 
-    }
+        //DO something
 
+        Debug.Log("tour des Loups Garous");
 
-	/// <summary>
-	/// Lance le tour des Loups Garous
-	/// </summary>
-	public void TourLoupGarou()
-    {
+        wolvesTurnOngoing = false;
 
     }
 
     /// <summary>
     /// Lance le tour de la Sorciere
     /// </summary>
-    public void TourSorciere() 
+    public void WitchTurn()
     {
+        witchTurnOngoing = true;
 
+        //DO something
+
+        Debug.Log("tour de la Socriere");
+
+        witchTurnOngoing = false;
     }
 
     /// <summary>
-    /// Lance le tour du Chasseur
+    /// Lance le tour du hunter
     /// </summary>
-    public void TourChasseur()
+    public void HunterTurn()
     {
+        hunterTurnOngoing = true;
 
+        //DO something
+
+        Debug.Log("tour du hunter");
+
+        hunterTurnOngoing = false;
     }
 
+    /// <summary>
+    /// Le Maire choisit son successeur à sa mort
+    /// </summary>
     public void NewMayor()
     {
+        newMayorOngoing = true;
 
+        //DO something
+
+        Debug.Log("Choix d'un nouveau maire");
+
+        newMayorOngoing = false;
+    }
+
+    /// <summary>
+    /// Lance les actions de la Voyante
+    /// </summary>
+    public void TellerTurn()
+    {
+        tellerTurnOngoing = true;
+
+        //DO something
+
+        Debug.Log("tour de la Voyante");
+
+        tellerTurnOngoing = false;
     }
     #endregion
 
@@ -570,6 +540,6 @@ public class GameManager : MonoBehaviour
         //Debug.Log("le " + votedPlayer + " a " + votedPlayer.nbVote + " votes contre lui");
         return votedPlayer;
 	}*/
-}
     #endregion
-
+}
+    

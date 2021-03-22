@@ -583,6 +583,7 @@ public class AvatarController : MonoBehaviour
 
 	public bool IsAvatarReady { get; set; } = false;
 
+	/*
 	public string Role { get; set; } = "villageois";
 
 	public bool IsCapitaine { get; set; } = false;
@@ -597,6 +598,7 @@ public class AvatarController : MonoBehaviour
 		IsDead = true;
 
     }
+	*/
     #endregion
 
     #region Dictionaries

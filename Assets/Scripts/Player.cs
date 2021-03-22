@@ -5,19 +5,24 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region Variables
+
+    public bool IsPlayerReady { get; set; } = false;
+
 
     [System.NonSerialized] public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
-    protected bool isAwake = true;
-    public string role;
-    public string Role
-    {
-        get { return role; }
-        set { role = value; }
-    }
 
+    protected bool isAwake = true;
+
+
+
+
+    public string Role { get; set; } = "citizen";
+
+    public bool IsMayor { get; set; } = false;
     protected bool canDie;
     protected bool roleVisible;
     protected float votingCountdown;
@@ -30,7 +35,9 @@ public class Player : MonoBehaviour
     public HandClickScript handClick;
     public Marmite marmite;
 
+    #endregion
 
+    #region Unity Base Methods
     void Start()
     {
         //role.enabled = false;
@@ -47,7 +54,7 @@ public class Player : MonoBehaviour
     {
         
     }
-    
+    #endregion
 
     public void Sleep()
     {
@@ -57,7 +64,7 @@ public class Player : MonoBehaviour
         isAwake = false;
     }
 
-    public void Awake()
+    public void WakeUp()
     {
         //réveille un player
         roleText.enabled = true;
@@ -96,7 +103,7 @@ public class Player : MonoBehaviour
     public virtual void SpecialVote(Player player)
     {
 
-        switch (this.role)
+        switch (this.Role)
         {
             case ("witch"):
                 if (remainingPotionsString.Contains("life")){
