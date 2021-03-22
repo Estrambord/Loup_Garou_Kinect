@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    public List<Player> Players;
+    private float timer;
+    private Canvas timer_UI;
+    //public GameObject Loup_Garou1;
+    //public LoupGarou loup2;
+    //public AvatarController[] avatars;
     #region Variables
     
 
@@ -73,6 +79,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+<<<<<<< HEAD
+        Player eliminatedPlayer = Vote_village();
+        eliminatedPlayer.enabled = false;
+=======
         if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
             //Son d'introduction
@@ -175,6 +185,7 @@ public class GameManager : MonoBehaviour
                 //Son mauvaise fin
             }
         }
+>>>>>>> ffa1ce936b6c0f17e429fb3f7870c948a7276bfa
     }
     #endregion
 
@@ -392,6 +403,61 @@ public class GameManager : MonoBehaviour
     {
 
     }
+<<<<<<< HEAD
+    public Player Vote_village() 
+    {
+        List <Player> votedPlayers = new List<Player>();
+
+        Player chosenPlayer = null;
+        timer = 60f;
+        int nbVoters = 0;
+        int nbVotes = 0;
+        int maxVotes = 0;
+
+        for (int i = 0; i < Players.Count; i++)
+		{
+			if (Players[i].isAlive)
+			{
+                //Players[i].handClick.enabled = true;
+                nbVoters++;
+			}
+		}
+
+        while (nbVotes < 2)
+        //while (nbVotes < nbVoters)
+        {
+            for (int i = 0; i < Players.Count; i++)
+            {
+                if(Players[i].isAlive && !Players[i].hasVoted)
+				{
+                    if(Players[i].voice != null)
+					{
+                        nbVotes++;
+                        Players[i].hasVoted = true;
+                    }
+				}
+            }
+        }
+        foreach(Player player in Players)
+		{
+			if(player.nbVote > maxVotes)
+			{
+                chosenPlayer = player;
+                maxVotes = player.nbVote;
+			}
+            else if(player.nbVote == maxVotes)
+			{
+                chosenPlayer = null;
+                Debug.Log("Deux joueurs ont le même nombre de voix");
+			}
+		}
+        foreach (Player player in Players)
+        {
+            player.hasVoted = false;
+            player.nbVote = 0;
+        }
+            return chosenPlayer;
+=======
 
     /// <summary>
     /// Lance le tour des Loups Garous
@@ -399,6 +465,7 @@ public class GameManager : MonoBehaviour
     public void TourLoupGarou()
     {
 
+>>>>>>> ffa1ce936b6c0f17e429fb3f7870c948a7276bfa
     }
 
     /// <summary>
@@ -441,5 +508,25 @@ public class GameManager : MonoBehaviour
     {
         // script qui reload la partie si il y a un problème de tracking
     }
+
+    /*public Player Get_Vote(Player player, KinectManager kinectManager)
+	{
+        Player votedPlayer = null;
+        if(kinectManager.GetComponent<HandClickScript>().enabled == true)
+		{
+            votedPlayer = kinectManager.GetComponent<HandClickScript>().clickedObject;
+		}
+        //PlayerStandardVote(player);
+        if(votedPlayer != null)
+		{
+            player.hasVoted = true;
+            kinectManager.GetComponent<HandClickScript>().enabled = false;
+            votedPlayer.nbVote += 1;
+        }
+        //Debug.Log("le " + votedPlayer + " a " + votedPlayer.nbVote + " votes contre lui");
+        return votedPlayer;
+	}*/
+}
+=======
     #endregion
 }

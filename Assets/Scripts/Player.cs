@@ -5,6 +5,12 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
+    [System.NonSerialized] public bool isAlive = true;
+    [System.NonSerialized] public int nbVote = 0;
+    protected bool isMayor = false;
+    [System.NonSerialized] public bool hasVoted = false;
+    protected bool isAwake = true;
     private string role;
     public string Role
     {
@@ -25,12 +31,14 @@ public class Player : MonoBehaviour
     public GameObject voteUI;
     public TMPro.TMP_Text role;
     public TMPro.TMP_Text player;
+    public Player voice = null;
+    public HandClickScript handClick;
     public GameObject marmite;
 
 
     void Start()
     {
-        role.enabled = false;
+        //role.enabled = false;
         nbVote = 0;
         hasVoted = false;
         isAwake = false;
@@ -77,9 +85,11 @@ public class Player : MonoBehaviour
 
     public void StandardVote(Player player)
     {
-        //le script de vote standard de tous les joueurs
+        voice = player;
         player.nbVote ++ ;
-        Debug.Log("le " +player+ " a " + player.nbVote + " votes contre lui");
+        handClick.enabled = true;
+        Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
+        Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
     }
     
 
