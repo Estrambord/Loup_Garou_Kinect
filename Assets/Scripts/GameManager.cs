@@ -365,6 +365,10 @@ public class GameManager : MonoBehaviour
             {
                 //Players[i].handClick.enabled = true;
                 nbVoters++;
+				if (!Players[i].hasVoted)
+				{
+                    Players[i].ActivateVote();
+                }
             }
         }
         //Debug.Log("Number of voters : " + nbVoters);
@@ -379,6 +383,7 @@ public class GameManager : MonoBehaviour
                     {
                         nbVotes++;
                         Players[i].hasVoted = true;
+                        Players[i].DeactivateVote();
                         Debug.Log("Number of votes : " + nbVotes);
 
                         //kinectManagers[i].GetComponent<HandClickScript>.enabled = false;

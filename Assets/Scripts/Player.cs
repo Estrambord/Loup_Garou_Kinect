@@ -33,6 +33,7 @@ public class Player : MonoBehaviour
     public TMPro.TMP_Text player;
     public Player voice = null;
     public HandClickScript handClick;
+    public InteractionManager interactionManager;
     public Marmite marmite;
 
     #endregion
@@ -153,11 +154,13 @@ public class Player : MonoBehaviour
     {
         //Activer le vote à la main
         handClick.enabled = true;
+        interactionManager.enabled = true;
     }
 
     public void DeactivateVote()
     {
-        //Activer le vote à la main
+        handClick.enabled = false;
+        interactionManager.enabled = false;
     }
 
 }
