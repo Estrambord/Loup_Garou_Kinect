@@ -7,8 +7,13 @@ public class Player : MonoBehaviour
 {
     #region Variables
 
-    public bool IsPlayerReady { get; set; } = false;
+    #region Gesture Variables
+    public bool IsLeftHandUp { get; set; } = false;
 
+    public bool IsRightHandUp { get; set; } = false;
+
+    public bool IsPlayerReady { get; set; } = false;
+    #endregion
 
     [System.NonSerialized] public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
@@ -53,7 +58,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        
+       
     }
     #endregion
 
