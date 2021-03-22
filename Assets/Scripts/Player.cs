@@ -11,29 +11,24 @@ public class Player : MonoBehaviour
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
     protected bool isAwake = true;
-    private string role;
+    public string role;
     public string Role
     {
         get { return role; }
         set { role = value; }
     }
 
-    protected int nbVote;
-    protected bool isAlive;
-    protected bool isMayor;
-    protected bool hasVoted;
-    protected bool isAwake;
     protected bool canDie;
     protected bool roleVisible;
     protected float votingCountdown;
     public List<GameObject> remainingPotions;
     public List<string> remainingPotionsString;
     public GameObject voteUI;
-    public TMPro.TMP_Text role;
+    public TMPro.TMP_Text roleText;
     public TMPro.TMP_Text player;
     public Player voice = null;
     public HandClickScript handClick;
-    public GameObject marmite;
+    public Marmite marmite;
 
 
     void Start()
@@ -44,7 +39,8 @@ public class Player : MonoBehaviour
         isAwake = false;
         roleVisible = false;
         canDie = false;
-        remainingPotionsString.Add("life", "dead");
+        remainingPotionsString.Add("life");
+        remainingPotionsString.Add("dead");
     }
 
     void Update()
@@ -56,7 +52,7 @@ public class Player : MonoBehaviour
     public void Sleep()
     {
         //endort un player
-        role.enabled = false;
+        roleText.enabled = false;
         player.enabled = true;
         isAwake = false;
     }
@@ -64,7 +60,7 @@ public class Player : MonoBehaviour
     public void Awake()
     {
         //réveille un player
-        role.enabled = true;
+        roleText.enabled = true;
         player.enabled = false;
         isAwake = true;
     }
@@ -74,6 +70,7 @@ public class Player : MonoBehaviour
         //tue possiblement un joueur sous réserve d'intervention de la sorcière
         isAlive = false;
         canDie = true;
+        enabled = false;
     }
 
     public void Revive()
@@ -87,7 +84,7 @@ public class Player : MonoBehaviour
     {
         voice = player;
         player.nbVote ++ ;
-        handClick.enabled = true;
+        handClick.enabled = false;
         Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
         Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
     }
@@ -102,14 +99,14 @@ public class Player : MonoBehaviour
         switch (this.role)
         {
             case ("witch"):
-                if (remainingPotions.Contains("life")){
+                if (remainingPotionsString.Contains("life")){
                     //Activer les potions grabbable
-                    remainingPotions[0].enabled = true;
+                    remainingPotions[0].SetActive(true);
                 }
-                if (remainingPotions.Contains("dead"))
+                if (remainingPotionsString.Contains("dead"))
                 {
                     //Activer les potions grabbable
-                    remainingPotions[1].enabled = true;
+                    remainingPotions[1].SetActive(true);
                 }
                 //Demander de choisir une potion (son)
                 //Au trigger de la marmite faire
@@ -148,6 +145,7 @@ public class Player : MonoBehaviour
     public void ActivateVote()
     {
         //Activer le vote à la main
+        handClick.enabled = true;
     }
 
     public void DeactivateVote()

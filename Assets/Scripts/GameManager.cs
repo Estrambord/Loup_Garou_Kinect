@@ -5,40 +5,21 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
+    //public LoupGarou loup2;
+    //public AvatarController[] avatars;
+    #region Variables
+    //PUBLIC
+    //[SerializeField] private List<AvatarController> playersList;
+    [SerializeField] private List<KinectManager> kinectManagers;
+    [System.NonSerialized] public List<AvatarController> playersKilledThisTurn;
+    public AvatarController playerKilled;
     public List<Player> Players;
     private float timer;
     private Canvas timer_UI;
     //public GameObject Loup_Garou1;
     //public LoupGarou loup2;
-    //public AvatarController[] avatars;
-    #region Variables
-    
 
 
-    //PUBLIC
-    public GameObject Loup_Garou1;
-    public LoupGarou loup2;
-    public List<AvatarController> playersList;
-    public KinectManager[] kinectManagers;
-    public AvatarController playerKilled;
-    private List<Player> Players;
-    private float timer;
-    private Canvas timer_UI;
-    //public GameObject Loup_Garou1;
-    //public LoupGarou loup2;
-    
-    
-    [SerializeField] private List<AvatarController> playersList;
-    [SerializeField] private List<KinectManager> kinectManagers;
-
-    /*
-    [SerializeField] private AvatarController player0;
-    [SerializeField] private AvatarController player1;
-    [SerializeField] private AvatarController player2;
-    [SerializeField] private AvatarController player3;
-    [SerializeField] private AvatarController player4;
-    [SerializeField] private AvatarController player5;
-    */
 
     [Header("Roles Settings")]
     public bool randomizeNbLoupGarou = false;
@@ -47,6 +28,7 @@ public class GameManager : MonoBehaviour
     public bool voyante = true;
     public bool sorciere = true;
     public bool chasseur = true;
+    public List<GameObject> remainingPotions;
         
 
 
@@ -58,15 +40,26 @@ public class GameManager : MonoBehaviour
     private bool mayorElected = false;
     private int nbPlayersAlive;
     private int nbLoupGarouAlive;
-    private List<Player> Players;
-    private float timer;
-    private Canvas timer_UI;
     private bool capitaineElected = false;
-
-    [System.NonSerialized] public List<AvatarController> playersKilledThisTurn;
-        
     private bool gameOver = false;
     private bool skip;
+
+    private int nbVoters = 0;
+    private int nbVotes = 0;
+    private bool everybodyVoted = false;
+    private bool votingTime = true;
+
+
+
+
+    /*
+[SerializeField] private AvatarController player0;
+[SerializeField] private AvatarController player1;
+[SerializeField] private AvatarController player2;
+[SerializeField] private AvatarController player3;
+[SerializeField] private AvatarController player4;
+[SerializeField] private AvatarController player5;
+*/
 
     #endregion
 
@@ -79,10 +72,39 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-<<<<<<< HEAD
-        Player eliminatedPlayer = Vote_village();
-        eliminatedPlayer.enabled = false;
-=======
+
+        for(int i = 2; i< Players.Count; i++)
+		{
+            Players[i].Die();
+		}
+        
+		if (votingTime)
+		{
+            Player eliminatedPlayer = null;
+            if (!everybodyVoted)
+            {
+                //Debug.Log("Voting time");
+                eliminatedPlayer = VoteVillage();
+            }
+            if (everybodyVoted)
+            {
+                if (eliminatedPlayer != null)
+                {
+                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
+                    eliminatedPlayer.enabled = false;
+                }
+                else
+                {
+                    Debug.Log("Everybody voted : Nobody was eliminated");
+                }
+                votingTime = false;
+            }
+        }
+        
+        //merge moi ca n+1 = n² = ca marche
+
+
+        /*
         if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
             //Son d'introduction
@@ -100,7 +122,7 @@ public class GameManager : MonoBehaviour
                 //Son qui lance la nuit pour les joueurs
                 for (int i = 0; i < playersList.Count; i++)
                 {
-                    DiscoverOwnRole(playersList[i]);
+                    //DiscoverOwnRole(playersList[i]);
                 }
                 //Son qui explique le but du jeu
                 //Son qui dit que tout le monde peut relever son masque
@@ -109,10 +131,11 @@ public class GameManager : MonoBehaviour
             if (!mayorElected)
             {
                 //Son election du maire
-                ElectionMayor();
+                //ElectionMayor();
             }
 
         }
+        */
 
         /*
         else if (tourDeChauffe)
@@ -122,14 +145,15 @@ public class GameManager : MonoBehaviour
         }
         */
 
+        /*
         else if (!jour) //nuit
         {
             playersKilledThisTurn.Clear();
 
             //Son pour que tout le monde mette son masque sur ses yeux
             TourVoyante();
-            TourLoupGarou();
-            TourSorciere();
+            //TourLoupGarou();
+            //TourSorciere();
 
             for (int i = 0; i < playersKilledThisTurn.Count; i++)
             {
@@ -161,11 +185,11 @@ public class GameManager : MonoBehaviour
             {
                 if (playersKilledThisTurn[i].Role == "chasseur")
                 {
-                    TourChasseur();
+                    //TourChasseur();
                 }
                 else if (playersKilledThisTurn[i].IsCapitaine)
                 {
-                    NouveauCapitaine();
+                    //NouveauCapitaine();
                 }
 
                 KillPlayer(playersKilledThisTurn[i]);
@@ -184,8 +208,7 @@ public class GameManager : MonoBehaviour
             {
                 //Son mauvaise fin
             }
-        }
->>>>>>> ffa1ce936b6c0f17e429fb3f7870c948a7276bfa
+        }*/
     }
     #endregion
 
@@ -194,7 +217,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Indique si tous les joueurs sont detectes par la Kinect et prets
     /// </summary>
-    public bool ArePlayersReady()
+    /*public bool ArePlayersReady()
     {
         for (int i = 0; i < playersList.Count; i++)
         {
@@ -204,14 +227,16 @@ public class GameManager : MonoBehaviour
             }
         }
         return true;
-    }
+    }*/
 
-    /// <summary>
-    /// Attribue un role a chaque joueur aleatoirement
-    /// </summary>
+	/// <summary>
+	/// Attribue un role a chaque joueur aleatoirement
+	/// </summary>
+	/// 
+	/*
     public void SetPlayersRoles()
     {
-/*
+
         //Détermination du nombre de loups (1 ou 2)
         Random nbWolvesSeed = new Random();
         int nbWolves = nbWolvesSeed.Next(1,2);
@@ -232,7 +257,7 @@ public class GameManager : MonoBehaviour
         {
             Players[i].Role() = randomizedRoles[i];
         }
-*/
+
         nbPlayersAlive = 6;
 
         if (randomizeNbLoupGarou)
@@ -339,6 +364,83 @@ public class GameManager : MonoBehaviour
         }
         
         rolesSet = true;
+    }*/
+
+
+    public Player VoteVillage()
+    {
+        Player chosenPlayer = null;
+        timer = 60f;
+        int maxVotes = 0;
+        nbVoters = 0;
+
+        for (int i = 0; i < Players.Count; i++)
+        {
+            if (Players[i].isAlive)
+            {
+                //Players[i].handClick.enabled = true;
+                nbVoters++;
+            }
+        }
+        //Debug.Log("Number of voters : " + nbVoters);
+
+        if(nbVotes < nbVoters)
+        {
+            for (int i = 0; i < Players.Count; i++)
+            {
+                if (Players[i].isAlive && !Players[i].hasVoted)
+                {
+                    if (Players[i].voice != null)
+                    {
+                        nbVotes++;
+                        Players[i].hasVoted = true;
+                        Debug.Log("Number of votes : " + nbVotes);
+
+                        //kinectManagers[i].GetComponent<HandClickScript>.enabled = false;
+                    }
+                }
+            }
+        }
+        
+        everybodyVoted = true;
+        foreach (Player player in Players)
+        {
+            if (player.isAlive && player.hasVoted == false)
+            {
+                everybodyVoted = false;
+            }
+        }
+        if (everybodyVoted)
+        {
+            foreach (Player player in Players)
+            {
+                if (player.nbVote > maxVotes)
+                {
+                    chosenPlayer = player;
+                    maxVotes = player.nbVote;
+                }
+                else if (player.nbVote == maxVotes)
+                {
+                    chosenPlayer = null;
+                    //Debug.Log("Deux joueurs ont le même nombre de voix");
+                }
+            }
+        }
+        else
+        {
+            chosenPlayer = null;
+        }
+        return chosenPlayer;
+    }
+
+    public void ResetVotes()
+    {
+        foreach (Player player in Players)
+        {
+            player.hasVoted = false;
+            player.nbVote = 0;
+            player.voice = null;
+        }
     }
 
     /// <summary>
@@ -353,12 +455,12 @@ public class GameManager : MonoBehaviour
         //Son qui lui demande d'interagir avec son role pour passer à la suite
         if (!skip) //Mouvement de la main pour skip ?
         {
-            player.role.enabled = true;
+            //player.roleText.enabled = true;
             //Afficher UI
         }
         else
         {
-            player.role.enabled = false;
+            //player.roleText.enabled = false;
         }
         skip = false;
         //Son qui lui demande de remettre son masque
@@ -378,20 +480,17 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Déclenche un vote d'elimination
     /// </summary>
-    public Player VoteVillage()
-    {
-        
-    }
+
 
     /// <summary>
     /// Tue le joueur, le supprime de la liste des joueurs vivants, et change son apparence en jeu
     /// </summary>
-    public void KillPlayer(AvatarController player)
+    /*public void KillPlayer(AvatarController player)
     {
         playersList.Remove(player);
         player.Die();
         nbPlayersAlive = playersList.Count;
-    }
+    }*/
     #endregion
 
     #region Methodes specifiques a un joueur
@@ -403,69 +502,14 @@ public class GameManager : MonoBehaviour
     {
 
     }
-<<<<<<< HEAD
-    public Player Vote_village() 
-    {
-        List <Player> votedPlayers = new List<Player>();
 
-        Player chosenPlayer = null;
-        timer = 60f;
-        int nbVoters = 0;
-        int nbVotes = 0;
-        int maxVotes = 0;
 
-        for (int i = 0; i < Players.Count; i++)
-		{
-			if (Players[i].isAlive)
-			{
-                //Players[i].handClick.enabled = true;
-                nbVoters++;
-			}
-		}
-
-        while (nbVotes < 2)
-        //while (nbVotes < nbVoters)
-        {
-            for (int i = 0; i < Players.Count; i++)
-            {
-                if(Players[i].isAlive && !Players[i].hasVoted)
-				{
-                    if(Players[i].voice != null)
-					{
-                        nbVotes++;
-                        Players[i].hasVoted = true;
-                    }
-				}
-            }
-        }
-        foreach(Player player in Players)
-		{
-			if(player.nbVote > maxVotes)
-			{
-                chosenPlayer = player;
-                maxVotes = player.nbVote;
-			}
-            else if(player.nbVote == maxVotes)
-			{
-                chosenPlayer = null;
-                Debug.Log("Deux joueurs ont le même nombre de voix");
-			}
-		}
-        foreach (Player player in Players)
-        {
-            player.hasVoted = false;
-            player.nbVote = 0;
-        }
-            return chosenPlayer;
-=======
-
-    /// <summary>
-    /// Lance le tour des Loups Garous
-    /// </summary>
-    public void TourLoupGarou()
+	/// <summary>
+	/// Lance le tour des Loups Garous
+	/// </summary>
+	public void TourLoupGarou()
     {
 
->>>>>>> ffa1ce936b6c0f17e429fb3f7870c948a7276bfa
     }
 
     /// <summary>
@@ -527,6 +571,5 @@ public class GameManager : MonoBehaviour
         return votedPlayer;
 	}*/
 }
-=======
     #endregion
-}
+

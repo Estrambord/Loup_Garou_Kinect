@@ -904,13 +904,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 
+  remainingPotions: []
+  remainingPotionsString: []
   voteUI: {fileID: 0}
-  Reveiller: {fileID: 0}
-  Voter: {fileID: 0}
-  role: {fileID: 0}
+  roleText: {fileID: 0}
   player: {fileID: 0}
   voice: {fileID: 0}
   handClick: {fileID: 1109011837}
+  marmite: {fileID: 0}
 --- !u!1 &320609171 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5896463089159051011, guid: f262128ccc1ecc94587e3a2b3a981e4c, type: 3}
@@ -1839,13 +1841,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 
+  remainingPotions: []
+  remainingPotionsString: []
   voteUI: {fileID: 0}
-  Reveiller: {fileID: 0}
-  Voter: {fileID: 0}
-  role: {fileID: 0}
+  roleText: {fileID: 0}
   player: {fileID: 0}
   voice: {fileID: 0}
   handClick: {fileID: 201278593}
+  marmite: {fileID: 0}
 --- !u!1 &1020585068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1856,13 +1860,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1020585069}
   - component: {fileID: 1020585070}
+  - component: {fileID: 1020585071}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1020585069
 Transform:
   m_ObjectHideFlags: 0
@@ -1884,7 +1889,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1020585068}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 655b20bf82e00fa4c8a560b47a980fc5, type: 3}
   m_Name: 
@@ -1903,6 +1908,42 @@ MonoBehaviour:
   - {fileID: 1656374800}
   - {fileID: 201278591}
   - {fileID: 1109011835}
+--- !u!114 &1020585071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1020585068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2bb9efc162d1fe47a1085aae65f50ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kinectManagers:
+  - {fileID: 2032786463}
+  - {fileID: 253668071}
+  - {fileID: 1387604472}
+  - {fileID: 1656374800}
+  - {fileID: 201278591}
+  - {fileID: 1109011835}
+  playerKilled: {fileID: 0}
+  Players:
+  - {fileID: 919132149377506363}
+  - {fileID: 1947544767}
+  - {fileID: 2069605441}
+  - {fileID: 1983424441}
+  - {fileID: 854488050}
+  - {fileID: 288237349}
+  randomizeNbLoupGarou: 0
+  nbLoupGarou: 2
+  randomizeOtherRoles: 0
+  voyante: 1
+  sorciere: 1
+  chasseur: 1
+  remainingPotions:
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1052703625
 GameObject:
   m_ObjectHideFlags: 0
@@ -3770,13 +3811,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 
+  remainingPotions: []
+  remainingPotionsString: []
   voteUI: {fileID: 0}
-  Reveiller: {fileID: 0}
-  Voter: {fileID: 0}
-  role: {fileID: 0}
+  roleText: {fileID: 0}
   player: {fileID: 0}
   voice: {fileID: 0}
   handClick: {fileID: 253668073}
+  marmite: {fileID: 0}
 --- !u!1 &1983424435 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 7379bb462ed2f4d47a9c229e2d77394b, type: 3}
@@ -3889,13 +3932,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 
+  remainingPotions: []
+  remainingPotionsString: []
   voteUI: {fileID: 0}
-  Reveiller: {fileID: 0}
-  Voter: {fileID: 0}
-  role: {fileID: 0}
+  roleText: {fileID: 0}
   player: {fileID: 0}
   voice: {fileID: 0}
   handClick: {fileID: 1656374802}
+  marmite: {fileID: 0}
 --- !u!1 &1983795161 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6393161904937991790, guid: f262128ccc1ecc94587e3a2b3a981e4c, type: 3}
@@ -4317,13 +4362,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 
+  remainingPotions: []
+  remainingPotionsString: []
   voteUI: {fileID: 0}
-  Reveiller: {fileID: 0}
-  Voter: {fileID: 0}
-  role: {fileID: 0}
+  roleText: {fileID: 0}
   player: {fileID: 0}
   voice: {fileID: 0}
   handClick: {fileID: 1387604474}
+  marmite: {fileID: 0}
 --- !u!1001 &2121749732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4452,13 +4499,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  role: 
+  remainingPotions: []
+  remainingPotionsString: []
   voteUI: {fileID: 0}
-  Reveiller: {fileID: 0}
-  Voter: {fileID: 0}
-  role: {fileID: 0}
+  roleText: {fileID: 0}
   player: {fileID: 0}
   voice: {fileID: 0}
   handClick: {fileID: 2032786466}
+  marmite: {fileID: 0}
 --- !u!1001 &2212699225376158636
 PrefabInstance:
   m_ObjectHideFlags: 0

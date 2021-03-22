@@ -4,27 +4,27 @@ using UnityEngine;
 
 public class Marmite : MonoBehaviour
 {
-    [NonSerialized] public bool isChosen = false;
-    [NonSerialized] public string chosen;
-    [SerializedField] private GameManager gameManager;
+    [System.NonSerialized] public bool isChosen = false;
+    [System.NonSerialized] public string chosen;
+    [SerializeField] private GameManager gameManager;
     // Start is called before the first frame update
-    private void OnCollisionEnter(collision col)
+    private void OnCollisionEnter(Collision col)
     {
-        if (col.GameObject.CompareTag("PotionLife"))
+        if (col.gameObject.CompareTag("PotionLife"))
         {
-            if (gameManager.remainingPotions.Contains(col.GameObject))
+            if (gameManager.remainingPotions.Contains(col.gameObject))
             {
-                gameManager.remainingPotions.Remove(col.GameObject);
+                gameManager.remainingPotions.Remove(col.gameObject);
                 chosen = "life";
                 isChosen = true;
             }
             
         }
-        else if (col.GameObject.CompareTag("PotionDead"))
+        else if (col.gameObject.CompareTag("PotionDead"))
         {
-            if (gameManager.remainingPotions.Contains(col.GameObject))
+            if (gameManager.remainingPotions.Contains(col.gameObject))
             {
-                gameManager.remainingPotions.Remove(col.GameObject);
+                gameManager.remainingPotions.Remove(col.gameObject);
                 chosen = "dead";
                 isChosen = true;
             }
