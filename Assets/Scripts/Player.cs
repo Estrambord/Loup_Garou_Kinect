@@ -5,22 +5,21 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region Variables
+
+    public bool IsPlayerReady { get; set; } = false;
+
 
     [System.NonSerialized] public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
     protected bool isAwake = true;
-    private string role;
-    public string Role
-    {
-        get { return role; }
-        set { role = value; }
-    }
+
+    public string Role { get; set; } = "citizen";
 
     protected int nbVote;
-    protected bool isAlive;
-    protected bool isMayor;
+    public bool IsMayor { get; set; } = false;
     protected bool hasVoted;
     protected bool isAwake;
     protected bool canDie;
@@ -29,13 +28,15 @@ public class Player : MonoBehaviour
     public List<GameObject> remainingPotions;
     public List<string> remainingPotionsString;
     public GameObject voteUI;
-    public TMPro.TMP_Text role;
+    public TMPro.TMP_Text roleText;
     public TMPro.TMP_Text player;
     public Player voice = null;
     public HandClickScript handClick;
     public GameObject marmite;
 
+    #endregion
 
+    #region Unity Base Methods
     void Start()
     {
         //role.enabled = false;
@@ -51,12 +52,12 @@ public class Player : MonoBehaviour
     {
         
     }
-    
+    #endregion
 
     public void Sleep()
     {
         //endort un player
-        role.enabled = false;
+        Role.enabled = false;
         player.enabled = true;
         isAwake = false;
     }
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour
     public void Awake()
     {
         //réveille un player
-        role.enabled = true;
+        Role.enabled = true;
         player.enabled = false;
         isAwake = true;
     }
@@ -99,7 +100,7 @@ public class Player : MonoBehaviour
     public virtual void SpecialVote(Player player)
     {
 
-        switch (this.role)
+        switch (this.Role)
         {
             case ("witch"):
                 if (remainingPotions.Contains("life")){

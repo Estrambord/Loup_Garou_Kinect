@@ -13,7 +13,7 @@ public class Sorciere : Player
     // Start is called before the first frame update
     void Start()
     {
-        role.enabled = false;
+        Role.enabled = false;
         voteSorciere.enabled = false;
         PotionMort.enabled = false;
         potionVie = false;

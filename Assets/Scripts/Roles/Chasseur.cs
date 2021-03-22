@@ -8,7 +8,7 @@ public class Chasseur : Player
     public Canvas voteChasseur;
     void Start()
     {
-        role.enabled = false;
+        Role.enabled = false;
         voteChasseur.enabled = false;
     }
 

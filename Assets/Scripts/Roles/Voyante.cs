@@ -10,7 +10,7 @@ public class Voyante : Player
     void Start()
     {
         voteVoyante.enabled = false;
-        role.enabled = false;
+        Role.enabled = false;
     }
 
     void Update()
@@ -25,6 +25,6 @@ public class Voyante : Player
     public override void PlayerSpecialVote(Player player)
     {
         player.PlayerAwake();
-        Debug.Log(player + "(" + player.role + ") est mort");
+        Debug.Log(player + "(" + player.Role + ") est mort");
     }
 }
