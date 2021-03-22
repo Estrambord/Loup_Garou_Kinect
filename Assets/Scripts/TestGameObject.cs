@@ -9,11 +9,6 @@ public class TestGameObject : MonoBehaviour
     private bool timer;
     private bool jour;
     private Canvas timer_UI;
-    public LoupGarou loup1;
-    public LoupGarou loup2;
-    public Voyante voyante;
-    public Sorciere sorciere;
-    public Chasseur chasseur;
     public Player villageois;
     public Canvas Vote;
 

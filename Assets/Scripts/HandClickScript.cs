@@ -118,7 +118,7 @@ public class HandClickScript : MonoBehaviour
 							{
 								// an object was hit by the ray. select it and start drgging
 								clickedObject = obj;
-								associatedPlayer.PlayerStandardVote(clickedObject);
+								associatedPlayer.StandardVote(clickedObject);
 								clickedObjectDepth = clickedObject.transform.position.z - Camera.main.transform.position.z;
 								clickedObjectOffset = hit.point - clickedObject.transform.position;
 

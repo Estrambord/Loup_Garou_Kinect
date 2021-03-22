@@ -5,37 +5,45 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    #region Variables
+
+    #region Gesture Variables
+    public bool IsLeftHandUp { get; set; } = false;
+
+    public bool IsRightHandUp { get; set; } = false;
+
+    public bool IsPlayerReady { get; set; } = false;
+    #endregion
 
     [System.NonSerialized] public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
-    protected bool isAwake = true;
-    private string role;
-    public string Role
-    {
-        get { return role; }
-        set { role = value; }
-    }
 
-    protected int nbVote;
-    protected bool isAlive;
-    protected bool isMayor;
-    protected bool hasVoted;
-    protected bool isAwake;
+    protected bool isAwake = true;
+
+
+
+
+    public string Role { get; set; } = "citizen";
+
+    public bool IsMayor { get; set; } = false;
     protected bool canDie;
     protected bool roleVisible;
     protected float votingCountdown;
     public List<GameObject> remainingPotions;
     public List<string> remainingPotionsString;
     public GameObject voteUI;
-    public TMPro.TMP_Text role;
+    public TMPro.TMP_Text roleText;
     public TMPro.TMP_Text player;
     public Player voice = null;
     public HandClickScript handClick;
-    public GameObject marmite;
+    public InteractionManager interactionManager;
+    public Marmite marmite;
 
+    #endregion
 
+    #region Unity Base Methods
     void Start()
     {
         //role.enabled = false;
@@ -44,27 +52,28 @@ public class Player : MonoBehaviour
         isAwake = false;
         roleVisible = false;
         canDie = false;
-        remainingPotionsString.Add("life", "dead");
+        remainingPotionsString.Add("life");
+        remainingPotionsString.Add("dead");
     }
 
     void Update()
     {
-        
+       
     }
-    
+    #endregion
 
     public void Sleep()
     {
         //endort un player
-        role.enabled = false;
+        roleText.enabled = false;
         player.enabled = true;
         isAwake = false;
     }
 
-    public void Awake()
+    public void WakeUp()
     {
         //réveille un player
-        role.enabled = true;
+        roleText.enabled = true;
         player.enabled = false;
         isAwake = true;
     }
@@ -74,6 +83,7 @@ public class Player : MonoBehaviour
         //tue possiblement un joueur sous réserve d'intervention de la sorcière
         isAlive = false;
         canDie = true;
+        enabled = false;
     }
 
     public void Revive()
@@ -85,11 +95,17 @@ public class Player : MonoBehaviour
 
     public void StandardVote(Player player)
     {
-        voice = player;
-        player.nbVote ++ ;
-        handClick.enabled = true;
-        Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
-        Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
+		if (player.isAlive)
+		{
+            voice = player;
+            player.nbVote++;
+            Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
+            Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
+        }
+		else
+		{
+            Debug.Log("Le joueur " + player + " est mort, vous ne pouvez pas voter contre lui.");
+        }
     }
     
 
@@ -99,17 +115,17 @@ public class Player : MonoBehaviour
     public virtual void SpecialVote(Player player)
     {
 
-        switch (this.role)
+        switch (this.Role)
         {
             case ("witch"):
-                if (remainingPotions.Contains("life")){
+                if (remainingPotionsString.Contains("life")){
                     //Activer les potions grabbable
-                    remainingPotions[0].enabled = true;
+                    remainingPotions[0].SetActive(true);
                 }
-                if (remainingPotions.Contains("dead"))
+                if (remainingPotionsString.Contains("dead"))
                 {
                     //Activer les potions grabbable
-                    remainingPotions[1].enabled = true;
+                    remainingPotions[1].SetActive(true);
                 }
                 //Demander de choisir une potion (son)
                 //Au trigger de la marmite faire
@@ -148,11 +164,14 @@ public class Player : MonoBehaviour
     public void ActivateVote()
     {
         //Activer le vote à la main
+        handClick.enabled = true;
+        interactionManager.enabled = true;
     }
 
     public void DeactivateVote()
     {
-        //Activer le vote à la main
+        handClick.enabled = false;
+        interactionManager.enabled = false;
     }
 
 }

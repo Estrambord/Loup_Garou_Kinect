@@ -574,31 +574,6 @@ public class AvatarController : MonoBehaviour
 	//	}
 	#endregion
 
-	#region Methods and Variables added to the source AvatarController
-	public bool IsLeftHandUp { get; set; } = false;
-
-	public bool IsRightHandUp { get; set; } = false;
-
-	public bool AreBothHandsUp { get; set; } = false;
-
-	public bool IsAvatarReady { get; set; } = false;
-
-	public string Role { get; set; } = "villageois";
-
-	public bool IsCapitaine { get; set; } = false;
-
-    public bool IsDead { get; set; }
-
-    /// <summary>
-    /// Tue le joueur, modifie son apparence et l'empêche d'interagir avec le jeu
-    /// </summary>
-    public void Die()
-    {
-		IsDead = true;
-
-    }
-    #endregion
-
     #region Dictionaries
     // dictionaries to speed up bones' processing
     // the author of the terrific idea for kinect-joints to mecanim-bones mapping

@@ -7,36 +7,27 @@ using UnityEngine.UI;
 
 public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureListenerInterface
 {
-	private bool leftHandUp;
+    #region Variables
+    private bool leftHandUp;
 	private bool rightHandUp;
 	private bool bothHandsUp;
 
 	[System.NonSerialized] public bool trackOnlySpecificUser = false;
 	[System.NonSerialized] public int allowedUserIndex = 0;
 
-	[SerializeField] private AvatarController avatar0;
-	[SerializeField] private AvatarController avatar1;
-	[SerializeField] private AvatarController avatar2;
-	[SerializeField] private AvatarController avatar3;
-	[SerializeField] private AvatarController avatar4;
-	[SerializeField] private AvatarController avatar5;
-	private List<AvatarController> avatarList; 
+	[SerializeField] private List<Player> playerList; 
 
 	// singleton instance of the class
 	private static LoupGarouGestureListener instance = null;
+    #endregion
 
-	void Awake() { instance = this; }
+    void Awake() { instance = this; }
 
     private void Start()
     {
-		avatarList = new List<AvatarController>();
-		avatarList.Add(avatar0); avatarList.Add(avatar1); avatarList.Add(avatar2); avatarList.Add(avatar3); avatarList.Add(avatar4); avatarList.Add(avatar5);
+
 	}
 
-    /// <summary>
-    /// Gets the singleton CubeGestureListener instance.
-    /// </summary>
-    /// <value>The CubeGestureListener instance.</value>
     public static LoupGarouGestureListener Instance { get { return instance; } }
 
 	public void UserDetected(long userId, int userIndex)
@@ -71,17 +62,17 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 		if (gesture == KinectGestures.Gestures.RaiseLeftHand)
 		{
 			leftHandUp = true;
-			avatarList[manager.GetUserIndexById(userId)].IsLeftHandUp = leftHandUp;
+			playerList[manager.GetUserIndexById(userId)].IsLeftHandUp = leftHandUp;
 		}
 		if (gesture == KinectGestures.Gestures.RaiseRightHand)
 		{
 			rightHandUp = true;
-			avatarList[manager.GetUserIndexById(userId)].IsRightHandUp = rightHandUp;
+			playerList[manager.GetUserIndexById(userId)].IsRightHandUp = rightHandUp;
 		}
 		if (gesture == KinectGestures.Gestures.Psi)
 		{
 			bothHandsUp = true;
-			avatarList[manager.GetUserIndexById(userId)].AreBothHandsUp = bothHandsUp;
+			playerList[manager.GetUserIndexById(userId)].IsPlayerReady = true;
 		}
 
         return true;

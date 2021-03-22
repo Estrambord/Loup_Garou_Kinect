@@ -4,20 +4,29 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public List<AudioClip> nameList = new List<AudioClip>(); //Joueur, Le village, La voyante, Les Loups Garou, Le Chasseur, La sorcière, Un simple villageois
+    [SerializeField]
+    private List<AudioClip> nameList = new List<AudioClip>(); //Joueur, Le village, La voyante, Les Loups Garou, Le Chasseur, La sorcière, Un simple villageois
+    [SerializeField]
+    private List<AudioClip> actionList = new List<AudioClip>(); //se réveille, se réveillent, se rendort, se rendorment, s'endort
+    [SerializeField]
+    private List<AudioClip> conjonctionList = new List<AudioClip>(); //qui était, Et
+    [SerializeField]
+    private List<AudioClip> instructionList = new List<AudioClip>(); //Instruction 1....10
+    [SerializeField]
+    private List<AudioClip> narrationList = new List<AudioClip>(); //Narration 1....10
+    [SerializeField]
+    private List<AudioClip> sfxList = new List<AudioClip>(); //GameBegin, Jour se leve, Nuit tombe, Vote Begin, Vote End, Voyante reveal, LG mange, Witch popo, Chasseur tire, Village win, LG win
 
-    public List<AudioClip> actionList = new List<AudioClip>(); //se réveille, se réveillent, se rendort, se rendorment, s'endort
+    [SerializeField]
+    private AudioClip ambientDay, ambientNight, trackLGWin, trackVillageWon;
+    [SerializeField]
+    private AudioSource audioSource, ambientSource;
 
-    public List<AudioClip> conjonctionList = new List<AudioClip>(); //qui était, Et
-
-    public List<AudioClip> instructionList = new List<AudioClip>(); //Instruction 1....10
-    
-    public List<AudioClip> narrationList = new List<AudioClip>(); //Narration 1....10
-
-    public AudioSource audioSource;
+    private bool villageAwake = true;
 
     private void Start()
     {
+        ambientSource.loop = true;
         /***Exemple***/
 
         //PlayNarration(0); //Intro
@@ -81,6 +90,44 @@ public class SoundManager : MonoBehaviour
         return result;
     }
 
+    public void SwitchAmbientTime()
+    {
+        ambientSource.Stop();
+        if (villageAwake)
+        {
+            PlaySFX(1);
+            ambientSource.clip = ambientDay;
+            villageAwake = false;
+        }
+        else
+        {
+            PlaySFX(2);
+            ambientSource.clip = ambientNight;
+            villageAwake = true;
+        }
+        ambientSource.Play();
+    }
+
+    public void PlayGameOver(bool villageWon)
+    {
+        ambientSource.loop = false;
+        ambientSource.Stop();
+        if (villageWon)
+        {
+            ambientSource.clip = trackVillageWon;
+        }
+        else
+        {
+            ambientSource.clip = trackLGWin;
+        }
+        ambientSource.Play();
+    }
+
+    public void PlaySFX(int id)
+    {
+        StartCoroutine(PlayClipASAP(Combine(sfxList[id])));
+    }
+
     public void PlayInstruction(int id)
     {
         StartCoroutine(PlayClipASAP(Combine(instructionList[id])));
@@ -126,4 +173,22 @@ public class SoundManager : MonoBehaviour
         //audioSource.clip = nextClip;
         audioSource.PlayOneShot(nextClip);
     }
+
+    /*Continuous*/
+    //Son d'ambiance Jour / Nuit V
+    //Musique Jour / Nuit (OPTIONEL)
+
+    /*One Shot*/
+    //Son tombé de la nuit, son levé du jour V
+
+    //Son loup-garou mange V
+    //Son chasseur tire V
+    //Son voyante reveal V
+    //Son sorcière use potion 
+    //Son début du vote V
+    //Son fin de vote V
+
+    //Musique Village Win V
+    //Musique LG Win V
+
 }
