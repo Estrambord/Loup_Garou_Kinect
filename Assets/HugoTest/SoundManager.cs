@@ -18,7 +18,7 @@ public class SoundManager : MonoBehaviour
     private List<AudioClip> sfxList = new List<AudioClip>(); //GameBegin, Jour se leve, Nuit tombe, Vote Begin, Vote End, Voyante reveal, LG mange, Witch popo, Chasseur tire, Village win, LG win
 
     [SerializeField]
-    private AudioClip ambientDay, ambientNight;
+    private AudioClip ambientDay, ambientNight, trackLGWin, trackVillageWon;
     [SerializeField]
     private AudioSource audioSource, ambientSource;
 
@@ -104,6 +104,21 @@ public class SoundManager : MonoBehaviour
             PlaySFX(2);
             ambientSource.clip = ambientNight;
             villageAwake = true;
+        }
+        ambientSource.Play();
+    }
+
+    public void PlayGameOver(bool villageWon)
+    {
+        ambientSource.loop = false;
+        ambientSource.Stop();
+        if (villageWon)
+        {
+            ambientSource.clip = trackVillageWon;
+        }
+        else
+        {
+            ambientSource.clip = trackLGWin;
         }
         ambientSource.Play();
     }
