@@ -361,6 +361,7 @@ public class GameManager : MonoBehaviour
         //Vérifie le nombre de votes déjà réalisés
         if(nbVotes < nbVoters)
         {
+            //Debug.Log()
             for (int i = 0; i < Players.Count; i++)
             {
                 //Vérifie si un joueur vient de voter et désactive le vote pour ce joueur le cas échéant
@@ -430,7 +431,7 @@ public class GameManager : MonoBehaviour
                 votingTimer = true;
                 voteOngoing = true;
                 timerText.gameObject.SetActive(true);
-                StartCoroutine("VotingTimer", 10f);
+                StartCoroutine("VotingTimer", 20f);
                 Debug.Log("Voting Timer started");
             }
 
@@ -454,7 +455,6 @@ public class GameManager : MonoBehaviour
             //Continue vote
             else if (!everybodyVoted)
             {
-                //Debug.Log("Voting time");
                 eliminatedPlayer = GetVoteResult();
             }
         }
