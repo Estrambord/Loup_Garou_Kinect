@@ -90,11 +90,17 @@ public class Player : MonoBehaviour
 
     public void StandardVote(Player player)
     {
-        voice = player;
-        player.nbVote ++ ;
-        handClick.enabled = false;
-        Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
-        Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
+		if (player.isAlive)
+		{
+            voice = player;
+            player.nbVote++;
+            Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
+            Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
+        }
+		else
+		{
+            Debug.Log("Le joueur " + player + " est mort, vous ne pouvez pas voter contre lui.");
+        }
     }
     
 

@@ -359,11 +359,11 @@ public class GameManager : MonoBehaviour
         int maxVotes = 0;
         nbVoters = 0;
 
+        //Compte le nombre de participants au vote et active le vote pour chacun d'eux
         for (int i = 0; i < Players.Count; i++)
         {
             if (Players[i].isAlive)
             {
-                //Players[i].handClick.enabled = true;
                 nbVoters++;
 				if (!Players[i].hasVoted)
 				{
@@ -371,12 +371,12 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        //Debug.Log("Number of voters : " + nbVoters);
-
+        //Vérifie le nombre de votes déjà réalisés
         if(nbVotes < nbVoters)
         {
             for (int i = 0; i < Players.Count; i++)
             {
+                //Vérifie si un joueur vient de voter et désactive le vote pour ce joueur le cas échéant
                 if (Players[i].isAlive && !Players[i].hasVoted)
                 {
                     if (Players[i].voice != null)
@@ -385,13 +385,11 @@ public class GameManager : MonoBehaviour
                         Players[i].hasVoted = true;
                         Players[i].DeactivateVote();
                         Debug.Log("Number of votes : " + nbVotes);
-
-                        //kinectManagers[i].GetComponent<HandClickScript>.enabled = false;
                     }
                 }
             }
         }
-        
+        //Vérifie si tout le monde a voté
         everybodyVoted = true;
         foreach (Player player in Players)
         {
@@ -400,6 +398,7 @@ public class GameManager : MonoBehaviour
                 everybodyVoted = false;
             }
         }
+        //Trouve le joueur ayant le plus de voix contre lui
         if (everybodyVoted)
         {
             foreach (Player player in Players)
@@ -412,7 +411,6 @@ public class GameManager : MonoBehaviour
                 else if (player.nbVote == maxVotes)
                 {
                     chosenPlayer = null;
-                    //Debug.Log("Deux joueurs ont le même nombre de voix");
                 }
             }
         }
