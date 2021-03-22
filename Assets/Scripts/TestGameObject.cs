@@ -28,12 +28,8 @@ public class TestGameObject : MonoBehaviour
         if (Input.GetKeyDown("f"))
         {
             timer = true;
-            StartCoroutine("Timer",10f); 
-        }
-        if (!timer)
-        {
-            Debug.Log("guigui la salope");
-
+            StartCoroutine("Timer",10f);
+            Debug.Log("Timer on");
         }
     }
 

@@ -574,20 +574,37 @@ public class AvatarController : MonoBehaviour
 	//	}
 	#endregion
 
-	#region Methods I added to the source AvatarController in order to check for gestures
+	#region Methods and Variables added to the source AvatarController
 	public bool IsLeftHandUp { get; set; } = false;
 
 	public bool IsRightHandUp { get; set; } = false;
 
 	public bool AreBothHandsUp { get; set; } = false;
-	#endregion
 
-	#region Dictionaries
-	// dictionaries to speed up bones' processing
-	// the author of the terrific idea for kinect-joints to mecanim-bones mapping
-	// along with its initial implementation, including following dictionary is
-	// Mikhail Korchun (korchoon@gmail.com). Big thanks to this guy!
-	private readonly Dictionary<int, HumanBodyBones> boneIndex2MecanimMap = new Dictionary<int, HumanBodyBones>
+	public bool IsAvatarReady { get; set; } = false;
+
+	public string Role { get; set; } = "villageois";
+
+	public bool IsCapitaine { get; set; } = false;
+
+    public bool IsDead { get; set; }
+
+    /// <summary>
+    /// Tue le joueur, modifie son apparence et l'empêche d'interagir avec le jeu
+    /// </summary>
+    public void Die()
+    {
+		IsDead = true;
+
+    }
+    #endregion
+
+    #region Dictionaries
+    // dictionaries to speed up bones' processing
+    // the author of the terrific idea for kinect-joints to mecanim-bones mapping
+    // along with its initial implementation, including following dictionary is
+    // Mikhail Korchun (korchoon@gmail.com). Big thanks to this guy!
+    private readonly Dictionary<int, HumanBodyBones> boneIndex2MecanimMap = new Dictionary<int, HumanBodyBones>
 	{
 		{0, HumanBodyBones.Hips},
 		{1, HumanBodyBones.Spine},
