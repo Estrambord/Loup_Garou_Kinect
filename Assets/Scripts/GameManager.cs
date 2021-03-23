@@ -93,6 +93,10 @@ public class GameManager : MonoBehaviour
             eliminatedPlayer = null;
             Debug.Log("It's Voting Time !");
         }
+		if (Input.GetKeyDown(KeyCode.K))
+        {
+            Players[0].mesh.GetComponent<Renderer>().material = Players[0].deathMaterial;
+		}
 		if (votingTime)
 		{
             VoteVillage();
@@ -476,7 +480,7 @@ public class GameManager : MonoBehaviour
             if (eliminatedPlayer != null)
             {
                 Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
-                eliminatedPlayer.enabled = false;
+                eliminatedPlayer.Die();
             }
             else
             {

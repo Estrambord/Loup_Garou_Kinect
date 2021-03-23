@@ -55,6 +55,8 @@ public class Player : MonoBehaviour
     public GameObject mesh;
 
     private Renderer r;
+
+    public Material deathMaterial;
     #endregion
 
     #endregion
@@ -100,8 +102,9 @@ public class Player : MonoBehaviour
     {
         //tue possiblement un joueur sous réserve d'intervention de la sorcière
         isAlive = false;
-        canDie = true;
-        enabled = false;
+        //canDie = true;
+        //enabled = false;
+        mesh.GetComponent<Renderer>().material = deathMaterial;
     }
 
     public void Revive()
