@@ -312,7 +312,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
-  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+  m_dead: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1627115586}
   lifePotionButton: {fileID: 1920714651}
   deathPotionButton: {fileID: 755044064}
@@ -1881,6 +1881,7 @@ MonoBehaviour:
   hunter: 1
   remainingPotions: []
   timerText: {fileID: 0}
+  turnText: {fileID: 1812230698}
 --- !u!1 &287986701
 GameObject:
   m_ObjectHideFlags: 0
@@ -2633,7 +2634,7 @@ MonoBehaviour:
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
-  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+  m_dead: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1895728162}
   lifePotionButton: {fileID: 66598679}
   deathPotionButton: {fileID: 287986701}
@@ -2820,7 +2821,7 @@ MonoBehaviour:
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
-  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+  m_dead: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1814283080}
   lifePotionButton: {fileID: 1915240662}
   deathPotionButton: {fileID: 1395703724}
@@ -3190,7 +3191,7 @@ MonoBehaviour:
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
-  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+  m_dead: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1655284271}
   lifePotionButton: {fileID: 713176290}
   deathPotionButton: {fileID: 1652234284}
@@ -3557,7 +3558,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -4432,10 +4433,110 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
+--- !u!1 &986918154
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 986918158}
+  - component: {fileID: 986918157}
+  - component: {fileID: 986918156}
+  - component: {fileID: 986918155}
+  m_Layer: 0
+  m_Name: Turn Canvas
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &986918155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986918154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &986918156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986918154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UiScaleMode: 1
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &986918157
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986918154}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 0
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
+--- !u!224 &986918158
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986918154}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_Children:
+  - {fileID: 1812230697}
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1001 &996832438
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4708,7 +4809,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -5271,7 +5372,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -5473,7 +5574,7 @@ MonoBehaviour:
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
-  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+  m_dead: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 583659418}
   lifePotionButton: {fileID: 1837595758}
   deathPotionButton: {fileID: 1377167702}
@@ -7447,7 +7548,7 @@ MonoBehaviour:
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
   m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
   m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
-  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
+  m_dead: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1860578269}
   lifePotionButton: {fileID: 172979857}
   deathPotionButton: {fileID: 125467218}
@@ -7546,6 +7647,85 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+--- !u!1 &1812230696
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1812230697}
+  - component: {fileID: 1812230699}
+  - component: {fileID: 1812230698}
+  m_Layer: 0
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1812230697
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812230696}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 986918158}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -62.85193}
+  m_SizeDelta: {x: 1555, y: 125}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1812230698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812230696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 60
+    m_Alignment: 4
+    m_AlignByGeometry: 1
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: 'Tour actif :'
+--- !u!222 &1812230699
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812230696}
+  m_CullTransparentMesh: 1
 --- !u!1 &1814283080 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5643403815756686879, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
@@ -7957,7 +8137,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
