@@ -643,7 +643,7 @@ public class GameManager : MonoBehaviour
     }
 
 	#endregion
-
+    
 	
 
 	#region Methodes specifiques a un joueur
