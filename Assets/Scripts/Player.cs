@@ -14,11 +14,11 @@ public class Player : MonoBehaviour
     public bool IsRightHandUp { get; set; } = false;
 
     public bool IsPlayerReady { get; set; } = false;
-	#endregion
+    #endregion
 
 
-	#region Player variables
-	[System.NonSerialized] public bool isAlive = true;
+    #region Player variables
+    public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
@@ -40,21 +40,33 @@ public class Player : MonoBehaviour
     public HandClickScript handClick;
     public InteractionManager interactionManager;
     public Marmite marmite;
-	#endregion
+    #endregion
 
 
-	#region Prototype Variables
-	public GameObject voteUI;
+    #region Prototype Variables
+    public GameObject voteUI;
     public TMPro.TMP_Text roleText;
     public TMPro.TMP_Text player;
 
     public bool RoleDiscovered { get; set; } = false;
 
     public Material m_yellow;
+    public Material m_red;
+    public Material m_flesh;
+    public Material m_blue;
 
     public GameObject mesh;
 
     private Renderer r;
+
+    public GameObject lifePotionButton;
+    public GameObject deathPotionButton;
+
+    public bool LifePotionUsed { get; set; } = false;
+    public bool lifePotionUsedThisTurn { get; set; } = false;
+    public bool DeathPotionUsed { get; set; } = false;
+    public bool deathPotionUsedThisTurn { get; set; } = false;
+
     #endregion
 
     #endregion
@@ -73,10 +85,10 @@ public class Player : MonoBehaviour
         remainingPotionsString.Add("dead");
         r = mesh.GetComponent<Renderer>();
     }
-
+    
     void Update()
     {
-       
+
     }
     #endregion
 
@@ -98,10 +110,8 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        //tue possiblement un joueur sous réserve d'intervention de la sorcière
+        r.material = m_blue;
         isAlive = false;
-        canDie = true;
-        enabled = false;
     }
 
     public void Revive()
@@ -113,20 +123,20 @@ public class Player : MonoBehaviour
 
     public void StandardVote(Player player)
     {
-		if (player.isAlive)
-		{
+        if (player.isAlive)
+        {
             voice = player;
             Debug.Log(voice);
             player.nbVote++;
             Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
             Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
         }
-		else
-		{
+        else
+        {
             Debug.Log("Le joueur " + player + " est mort, vous ne pouvez pas voter contre lui.");
         }
     }
-    
+
 
 
 
@@ -137,7 +147,8 @@ public class Player : MonoBehaviour
         switch (this.Role)
         {
             case ("witch"):
-                if (remainingPotionsString.Contains("life")){
+                if (remainingPotionsString.Contains("life"))
+                {
                     //Activer les potions grabbable
                     remainingPotions[0].SetActive(true);
                 }
@@ -150,7 +161,7 @@ public class Player : MonoBehaviour
                 //Au trigger de la marmite faire
                 if (marmite.isChosen)
                 {
-                    if(marmite.chosen == "life")
+                    if (marmite.chosen == "life")
                     {
                         //foreach(Player player in Players){
                         //  if player.canDie == true{
@@ -209,6 +220,36 @@ public class Player : MonoBehaviour
         r.material = m_yellow;
     }
 
-    #endregion
+    public void MakeRed()
+    {
+        r.material = m_red;
+    }
 
+    public void MakeFlesh()
+    {
+        r.material = m_flesh;
+    }
+
+    public void ToggleWitchUI(bool b, bool isAPlayerDead)
+    {
+        if (b)
+        {
+            SetRoleUI();
+            if (!LifePotionUsed && isAPlayerDead)
+            {
+                lifePotionButton.SetActive(b);
+            }
+            if (!DeathPotionUsed)
+            {
+                deathPotionButton.SetActive(b);
+            }
+        }
+        else
+        {
+            SetUI("citizen :)");
+            lifePotionButton.SetActive(b);
+            deathPotionButton.SetActive(b);
+        }
+    }
+    #endregion
 }
