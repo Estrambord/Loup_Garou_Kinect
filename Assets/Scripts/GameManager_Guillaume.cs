@@ -427,6 +427,81 @@ public class GameManager_Guillaume : MonoBehaviour
         return chosenPlayer;
     }
 
+    public Player GetIndividualVote(Player player)
+	{
+        Player chosenPlayer = null;
+        if(!player.hasVoted)
+		{
+            player.ActivateVote();
+        }
+		if (! player.hasVoted && player.voice != null)
+		{
+            chosenPlayer = player.voice;
+            player.hasVoted = true;
+		}
+        if (player.isAlive && !player.hasVoted)
+        {
+            if (player.voice != null)
+            {
+                player.hasVoted = true;
+                player.DeactivateVote();
+                chosenPlayer = player.voice;
+            }
+        }
+        return chosenPlayer;
+	}
+
+    public Player GetWolvesVote()
+	{
+        Player chosenPlayer = null;
+        List<Player> wolves = new List<Player>();
+        bool samePlayer = false;
+        foreach (Player player in Players)
+		{
+            if(player.isAlive && player.Role == "wolf")
+			{
+                wolves.Add(player);
+			}
+		}
+        //Si un seul loup, choix individuel
+        if(wolves.Count == 1)
+		{
+            chosenPlayer = GetIndividualVote(wolves[0]);
+		}
+        //Si deux loups le joueur choisi est validé seulement si les 2 ont voté pour le meme joueur sinon le vote est réactivé
+        else if(wolves.Count == 2)
+		{
+            if(wolves[0].hasVoted && wolves[1].hasVoted)
+			{
+                if(wolves[0].voice == wolves[1].voice)
+				{
+                    samePlayer = true;
+                    chosenPlayer = wolves[0].voice;
+                }
+				else
+				{
+                    ResetVotes();
+				}
+			}
+            foreach(Player wolf in wolves)
+			{
+                if(!wolf.hasVoted)
+				{
+                    wolf.ActivateVote();
+                }
+                else if (wolf.hasVoted)
+				{
+                    wolf.DeactivateVote();
+                }
+            }
+		}
+		else
+		{
+            Debug.Log("Bad number of wolves");
+		}
+        return chosenPlayer;
+	}
+
     public void VoteVillage()
 	{
         for (int i = 2; i < Players.Count; i++)

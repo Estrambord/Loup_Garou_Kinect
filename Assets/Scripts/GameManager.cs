@@ -22,7 +22,6 @@ public class GameManager : MonoBehaviour
     public bool teller = true;
     public bool witch = true;
     public bool hunter = true;
-    public List<string> remainingPotions;
 
     //PRIVATE
     private int nbPlayersAlive;
@@ -31,6 +30,9 @@ public class GameManager : MonoBehaviour
 
     #region UI
     public Text timerText;
+    public Text NotReadyText;
+    public Marmite chaudron;
+    public List<GameObject> potions;
 	#endregion
 
 
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
     private bool everybodyVoted = false;
     private bool votingTime = false;
     private bool votingTimer = false;
+    private Player electedPlayer;
     private Player eliminatedPlayer;
     #endregion
 
@@ -76,7 +79,6 @@ public class GameManager : MonoBehaviour
         playersKilledThisTurn = new List<Player>();
         rolesDiscovered = new List<bool>() { false, false, false, false, false, false };
         rolesDisplayed = new List<bool>() { false, false, false, false, false, false };
-        remainingPotions = new List<string> { "life", "dead" };
     }
 
 
@@ -84,6 +86,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 		#region Vote du village
+        
         for (int i = 3; i < Players.Count; i++)
         {
             Players[i].Die();
@@ -91,57 +94,19 @@ public class GameManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             votingTime = true;
-            eliminatedPlayer = null;
-            Debug.Log("It's Voting Time !");
+            electedPlayer = null;
+            Debug.Log("It's Time to elect a new Mayor !");
         }
-		if (Input.GetKeyDown(KeyCode.K))
-        {
-            Players[0].mesh.GetComponent<Renderer>().material = Players[0].deathMaterial;
-		}
 		if (votingTime)
 		{
-            VoteVillage();
-		}
-        
-
-        /*if (votingTime)
-        {
-            if (!voteOngoing)
-            {
-                votingTimer = true;
-                voteOngoing = true;
-                timerText.gameObject.SetActive(true);
-                StartCoroutine("VotingTimer", 20f);
-                Debug.Log("Voting Timer started");
-            }
-
-            //Get result of the vote
-            if (!votingTimer || everybodyVoted)
-            {
-                if (eliminatedPlayer != null)
-                {
-                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
-                    eliminatedPlayer.enabled = false;
-                }
-                else
-                {
-                    Debug.Log("Everybody voted : Nobody was eliminated");
-                }
-                votingTime = false;
-                Debug.Log("Vote ended");
-                voteOngoing = false;
-                timerText.gameObject.SetActive(false);
-            }
-            //Continue vote
-            else if (!everybodyVoted)
-            {
-                eliminatedPlayer = GetVoteResult();
-            }
-        }*/
+            VoteVillage("elimination");
+            //VoteVillage("election");
+        }
+       
 		#endregion
 
         
-		/*if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
+		if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
@@ -192,7 +157,7 @@ public class GameManager : MonoBehaviour
                 //Son qui dit que tout le monde peut relever son masque
             }
 
-            if (rolesDiscovered[rolesDiscovered.Count - 1] && !mayorElected && !voteOngoing)
+            if (rolesDiscovered[rolesDiscovered.Count - 1] && !mayorElected && voteOngoing)
             {
 
                 Debug.Log("election du maire");
@@ -206,7 +171,7 @@ public class GameManager : MonoBehaviour
 
                 Debug.Log("Game launched");
             }
-        }
+        }/*
         else if (!jour) //nuit
         {
             playersKilledThisTurn.Clear();
@@ -390,6 +355,9 @@ public class GameManager : MonoBehaviour
         player.Die();
         nbPlayersAlive--;
     }
+    #endregion
+
+    #region Voting Methods
 
     public Player GetVoteResult()
     {
@@ -440,8 +408,8 @@ public class GameManager : MonoBehaviour
                 everybodyVoted = false;
             }
         }
-        //Trouve le joueur ayant le plus de voix contre lui
-        if (everybodyVoted)
+        //Trouve le joueur ayant le plus de voix contre lui si tout le monde a voté ou si le temps est écoulé
+        if (everybodyVoted || !votingTimer)
         {
             foreach (Player player in Players)
             {
@@ -463,11 +431,12 @@ public class GameManager : MonoBehaviour
         return chosenPlayer;
     }
 
-    public void VoteVillage()
+    public void VoteVillage(string voteType) // "elimination" / "election"
 	{
-        
+        eliminatedPlayer = null;
         if (!voteOngoing)
         {
+            ResetVotes();
             votingTimer = true;
             voteOngoing = true;
             timerText.gameObject.SetActive(true);
@@ -478,26 +447,189 @@ public class GameManager : MonoBehaviour
         //Get result of the vote
         if (!votingTimer || everybodyVoted)
         {
+            eliminatedPlayer = GetVoteResult();
+            Debug.Log(eliminatedPlayer);
             if (eliminatedPlayer != null)
             {
-                Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
-                eliminatedPlayer.Die();
+                if(voteType == "elimination")
+				{
+                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was elected as Mayor");
+                    eliminatedPlayer.Die();
+                }
+                else if (voteType == "election")
+				{
+                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was elected as Mayor");
+                    eliminatedPlayer.IsMayor = true;
+
+                }
             }
             else
             {
-                Debug.Log("Everybody voted : Nobody was eliminated");
+                foreach (Player player in Players)
+                {
+					if (player.isAlive)
+					{
+						if (player.IsMayor && player.hasVoted)
+						{
+                            eliminatedPlayer = player.voice;
+
+                            Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated thanks to the Mayor's decision");
+                            if (voteType == "elimination")
+                            {
+
+                                KillPlayer(eliminatedPlayer);
+                            }
+                            else if (voteType == "election")
+                            {
+                                Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was elected as Mayor thanks to the Mayor's decision");
+                                eliminatedPlayer.IsMayor = true;
+                            }
+                        }
+					}
+				}
             }
             votingTime = false;
             voteOngoing = false;
             Debug.Log("Vote ended");
             timerText.gameObject.SetActive(false);
+            StopCoroutine("VotingTimer");
         }
         //Continue vote
         else if (!everybodyVoted)
         {
             eliminatedPlayer = GetVoteResult();
         }
-        
+    }
+
+
+    public Player GetIndividualVoteResult(Player player)
+    {
+        Player chosenPlayer = null;
+        if (!player.hasVoted)
+        {
+            player.ActivateVote();
+        }
+        if (!player.hasVoted && player.voice != null)
+        {
+            chosenPlayer = player.voice;
+            player.hasVoted = true;
+        }
+        if (player.isAlive && !player.hasVoted)
+        {
+            if (player.voice != null)
+            {
+                player.hasVoted = true;
+                player.DeactivateVote();
+                chosenPlayer = player.voice;
+            }
+        }
+        return chosenPlayer;
+    }
+
+    public void InvividualVote(Player player)
+	{
+        eliminatedPlayer = null;
+        if (!voteOngoing)
+        {
+            ResetVotes();
+            votingTimer = true;
+            voteOngoing = true;
+            timerText.gameObject.SetActive(true);
+            StartCoroutine("VotingTimer", 30f);
+            Debug.Log("Voting Timer started");
+        }
+        if(!votingTimer || player.hasVoted)
+		{
+            eliminatedPlayer = GetIndividualVoteResult(player);
+            if(player.Role == "teller")
+			{
+                eliminatedPlayer.roleText.enabled = true;
+			}
+			else
+			{
+                KillPlayer(eliminatedPlayer);
+            }
+            witchTurnOngoing = false;
+            tellerTurnOngoing = false;
+            hunterTurnOngoing = false;
+            voteOngoing = false;
+            Debug.Log("Vote ended");
+            timerText.gameObject.SetActive(false);
+            StopCoroutine("VotingTimer");
+        }
+    }
+
+    public Player GetWolvesVoteResult()
+    {
+        Player chosenPlayer = null;
+        List<Player> wolves = new List<Player>();
+        foreach (Player player in Players)
+        {
+            if (player.isAlive && player.Role == "wolf")
+            {
+                wolves.Add(player);
+            }
+        }
+        //Si un seul loup, choix individuel
+        if (wolves.Count == 1)
+        {
+            chosenPlayer = GetIndividualVoteResult(wolves[0]);
+        }
+        //Si deux loups le joueur choisi est validé seulement si les 2 ont voté pour le meme joueur sinon le vote est réactivé
+        else if (wolves.Count == 2)
+        {
+            if (wolves[0].hasVoted && wolves[1].hasVoted)
+            {
+                if (wolves[0].voice == wolves[1].voice)
+                {
+                    chosenPlayer = wolves[0].voice;
+                }
+                else
+                {
+                    ResetVotes();
+                }
+            }
+            foreach (Player wolf in wolves)
+            {
+                if (!wolf.hasVoted)
+                {
+                    wolf.ActivateVote();
+                }
+                else if (wolf.hasVoted)
+                {
+                    wolf.DeactivateVote();
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("Bad number of wolves");
+        }
+        return chosenPlayer;
+    }
+
+    public void WolvesVote()
+	{
+        eliminatedPlayer = null;
+        if (!voteOngoing)
+        {
+            ResetVotes();
+            votingTimer = true;
+            voteOngoing = true;
+            timerText.gameObject.SetActive(true);
+            StartCoroutine("VotingTimer", 30f);
+            Debug.Log("Voting Timer started");
+        }
+        eliminatedPlayer = GetWolvesVoteResult();
+        if (!votingTimer || eliminatedPlayer != null)
+        {
+            KillPlayer(eliminatedPlayer);
+            wolvesTurnOngoing = false;
+            voteOngoing = false;
+            Debug.Log("Vote ended");
+            timerText.gameObject.SetActive(false);
+            StopCoroutine("VotingTimer");
+        }
     }
 
     public void ResetVotes()
@@ -510,14 +642,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    #endregion
+	#endregion
 
-    #region Methodes specifiques a un joueur
+	
 
-    /// <summary>
-    /// Lance le tour des Loups Garous
-    /// </summary>
-    public void WolvesTurn()
+	#region Methodes specifiques a un joueur
+
+	/// <summary>
+	/// Lance le tour des Loups Garous
+	/// </summary>
+	public void WolvesTurn()
     {
         wolvesTurnOngoing = true;
 
