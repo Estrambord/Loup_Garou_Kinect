@@ -19,10 +19,12 @@ public class EnvironementControl : MonoBehaviour
     private void Update()
     {
         //SwitchTime = true to launch sun sequence
+        if (Input.GetKeyDown(KeyCode.Z)) SwitchTime = true;
+
         if (switchTime && isDay)
         {
             time += sunSpeed;
-            if(time > 19.1)
+            if (time > 18.5)
             {
                 switchTime = false;
                 isDay = false;
