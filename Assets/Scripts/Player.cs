@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
 
 
     #region Player variables
-    [System.NonSerialized] public bool isAlive = true;
+    public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
@@ -53,6 +53,7 @@ public class Player : MonoBehaviour
     public Material m_yellow;
     public Material m_red;
     public Material m_flesh;
+    public Material m_blue;
 
     public GameObject mesh;
 
@@ -62,9 +63,9 @@ public class Player : MonoBehaviour
     public GameObject deathPotionButton;
 
     public bool LifePotionUsed { get; set; } = false;
-    public bool lifePotionUsedThisTurn = false;
+    public bool lifePotionUsedThisTurn { get; set; } = false;
     public bool DeathPotionUsed { get; set; } = false;
-    public bool deathPotionUsedThisTurn = false;
+    public bool deathPotionUsedThisTurn { get; set; } = false;
 
     #endregion
 
@@ -84,7 +85,7 @@ public class Player : MonoBehaviour
         remainingPotionsString.Add("dead");
         r = mesh.GetComponent<Renderer>();
     }
-
+    
     void Update()
     {
 
@@ -109,10 +110,8 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        //tue possiblement un joueur sous réserve d'intervention de la sorcière
+        r.material = m_blue;
         isAlive = false;
-        canDie = true;
-        enabled = false;
     }
 
     public void Revive()
@@ -231,11 +230,12 @@ public class Player : MonoBehaviour
         r.material = m_flesh;
     }
 
-    public void ToggleWitchUI(bool b)
+    public void ToggleWitchUI(bool b, bool isAPlayerDead)
     {
-        if (Role == "witch")
+        if (b)
         {
-            if (!LifePotionUsed)
+            SetRoleUI();
+            if (!LifePotionUsed && isAPlayerDead)
             {
                 lifePotionButton.SetActive(b);
             }
@@ -243,6 +243,12 @@ public class Player : MonoBehaviour
             {
                 deathPotionButton.SetActive(b);
             }
+        }
+        else
+        {
+            SetUI("citizen :)");
+            lifePotionButton.SetActive(b);
+            deathPotionButton.SetActive(b);
         }
     }
     #endregion

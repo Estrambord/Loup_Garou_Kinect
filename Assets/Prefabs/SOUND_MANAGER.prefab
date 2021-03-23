@@ -41,10 +41,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 46415a03ab4040643a34bccfd3d694e2, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d407832a93d1d2344a9624a5ced32dd2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 0.51
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -308,28 +308,28 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 8dc792f019c8c12468e042ef0cedb673, type: 3}
   - {fileID: 8300000, guid: 740482d1e6f56074ba8768ac312d3f5e, type: 3}
   narrationList:
-  - {fileID: 8300000, guid: bb4d92fb2833031419a7d0f3fe14a40e, type: 3}
-  - {fileID: 8300000, guid: 2479749eb16ccd44398e5b253ebc3645, type: 3}
-  - {fileID: 8300000, guid: 270f0fca82bca6b449ad89e6cccd4deb, type: 3}
-  - {fileID: 8300000, guid: 90794e11a5b06524eb04bb96f0298de4, type: 3}
-  - {fileID: 8300000, guid: 654a743b2ec3f8f479e711d8138ec836, type: 3}
-  - {fileID: 8300000, guid: 898bb7b51f02d7647b4b43f1e9ba8108, type: 3}
-  - {fileID: 8300000, guid: a30e9764d5e5c0146be56c94fa0e78ef, type: 3}
+  - {fileID: 8300000, guid: 2e1589699699b4b4591fb8c64ed98e9d, type: 3}
+  - {fileID: 8300000, guid: 5909734057764af4a9f486b441a5158d, type: 3}
+  - {fileID: 8300000, guid: dc8690013367226478143c0c86d9be20, type: 3}
+  - {fileID: 8300000, guid: c990068326b7ad04386ac0d6f480ed8a, type: 3}
+  - {fileID: 8300000, guid: 836222224c50a724fbe0d922d1b4b660, type: 3}
+  - {fileID: 8300000, guid: e9085f9ed6ee9434eb5bdb50ce3635de, type: 3}
+  - {fileID: 8300000, guid: b485152257e6d9b449fe9ac845956dd3, type: 3}
   sfxList:
-  - {fileID: 8300000, guid: 842e7055d750ca74c9fecae7c105587c, type: 3}
-  - {fileID: 8300000, guid: 2eef1ee2a3872af46bf70700a0df5e23, type: 3}
-  - {fileID: 8300000, guid: aa44507af8cf1d145bb1d5de2209f679, type: 3}
-  - {fileID: 8300000, guid: a31fcb225f4208e488d3b8cc02bc5e16, type: 3}
-  - {fileID: 8300000, guid: 6dd1c6c07f4be4b44b7b121e02be4f9c, type: 3}
-  - {fileID: 8300000, guid: 6ccbbca3767a86c4aa26dc8be409b8a7, type: 3}
-  - {fileID: 8300000, guid: c8e2cee9bc9605844a9b99843d085916, type: 3}
-  - {fileID: 8300000, guid: f841fce2e8083a44ba64c8aa290ca733, type: 3}
-  - {fileID: 8300000, guid: cdb6309973e19c147a8abab61bec657b, type: 3}
-  - {fileID: 8300000, guid: e9470792c509e824d9f837f696f26d8d, type: 3}
-  - {fileID: 8300000, guid: 1dbb85dfd61dc544fb9c5b7eb034ab65, type: 3}
-  ambientDay: {fileID: 8300000, guid: 46415a03ab4040643a34bccfd3d694e2, type: 3}
-  ambientNight: {fileID: 8300000, guid: 81e4d81b5dae0134b852efc96ea50025, type: 3}
-  trackLGWin: {fileID: 8300000, guid: 2624f28124260f64cbb67393ceac7ac1, type: 3}
-  trackVillageWon: {fileID: 8300000, guid: 43d5db0ccacdf984a96d158415e428e3, type: 3}
+  - {fileID: 8300000, guid: c8dc578a54fc008419da280fefce7bd9, type: 3}
+  - {fileID: 8300000, guid: 6256a56628d37804caca27eae298f149, type: 3}
+  - {fileID: 8300000, guid: 4d2ffab48d545f84795ad8d0c6b5bbdd, type: 3}
+  - {fileID: 8300000, guid: 7bb1bc78535ac8e4fbb22b26d2255ee9, type: 3}
+  - {fileID: 8300000, guid: 2b5e8ad6e533fb34e901d9d5af0b07fd, type: 3}
+  - {fileID: 8300000, guid: 890c071cafdd725468564b73ad7caa08, type: 3}
+  - {fileID: 8300000, guid: 1d15d9e9273f2ba47a81ccf5b3696628, type: 3}
+  - {fileID: 8300000, guid: 418924fd376228d4bb65be44f2046b06, type: 3}
+  - {fileID: 8300000, guid: 7ca8c99112c46a84dab95aa123db0737, type: 3}
+  - {fileID: 8300000, guid: 189bf6dc89f330b4ca134fe7faaeeec9, type: 3}
+  - {fileID: 8300000, guid: e699f010645a7d741b431efd042ac016, type: 3}
+  ambientDay: {fileID: 8300000, guid: d407832a93d1d2344a9624a5ced32dd2, type: 3}
+  ambientNight: {fileID: 8300000, guid: e88cea277c7b9504ba815d3e32f7caac, type: 3}
+  trackLGWin: {fileID: 8300000, guid: deecc5f8e5b64ee47906eb61a76d74dd, type: 3}
+  trackVillageWon: {fileID: 8300000, guid: bb951b700ae2da54c939188f2169fab7, type: 3}
   audioSource: {fileID: 4160246199383020310}
   ambientSource: {fileID: 4567947385014446868}
