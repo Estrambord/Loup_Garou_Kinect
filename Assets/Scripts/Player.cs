@@ -66,6 +66,7 @@ public class Player : MonoBehaviour
     public bool lifePotionUsedThisTurn { get; set; } = false;
     public bool DeathPotionUsed { get; set; } = false;
     public bool deathPotionUsedThisTurn { get; set; } = false;
+    public Material deathMaterial;
 
     #endregion
 
@@ -102,7 +103,7 @@ public class Player : MonoBehaviour
 
     public void WakeUp()
     {
-        //rÈveille un player
+        //r√©veille un player
         roleText.enabled = true;
         player.enabled = false;
         isAwake = true;
@@ -112,11 +113,15 @@ public class Player : MonoBehaviour
     {
         r.material = m_dead;
         isAlive = false;
+
+        //canDie = true;
+        //enabled = false;
+        mesh.GetComponent<Renderer>().material = deathMaterial;
     }
 
     public void Revive()
     {
-        //rÈssuscite un joueur gr‚ce ‡ la sorciËre
+        //r√©ssuscite un joueur gr√¢ce √† la sorci√®re
         canDie = false;
         isAlive = true;
     }
@@ -128,7 +133,7 @@ public class Player : MonoBehaviour
             voice = player;
             Debug.Log(voice);
             player.nbVote++;
-            Debug.Log("Le joueur " + this + " a votÈ contre le joueur " + player);
+            Debug.Log("Le joueur " + this + " a vot√© contre le joueur " + player);
             Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
         }
         else
@@ -140,7 +145,7 @@ public class Player : MonoBehaviour
 
 
 
-    //MÈthode‡ dÈplacer dans le GameManager pour avoir accËs ‡ tous les joueurs
+    //M√©thode√† d√©placer dans le GameManager pour avoir acc√®s √† tous les joueurs
     public virtual void SpecialVote(Player player)
     {
 
@@ -177,7 +182,7 @@ public class Player : MonoBehaviour
                     }
                 }
 
-                //Si la potion est l‚chÈe, rÈinitialiser la position (GrabScript)
+                //Si la potion est l√¢ch√©e, r√©initialiser la position (GrabScript)
 
                 break;
             case ("hunter"):
@@ -187,13 +192,13 @@ public class Player : MonoBehaviour
             case ("wolf"):
                 break;
         }
-        //le script de vote des personnages ‡ rÙles spÈciaux
+        //le script de vote des personnages √† r√¥les sp√©ciaux
 
     }
 
     public void ActivateVote()
     {
-        //Activer le vote ‡ la main
+        //Activer le vote √† la main
         handClick.enabled = true;
         interactionManager.enabled = true;
     }

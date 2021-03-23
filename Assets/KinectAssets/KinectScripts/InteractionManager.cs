@@ -39,6 +39,9 @@ public class InteractionManager : MonoBehaviour
 	public List<Texture> listHandCursor = new List<Texture>();
 	public int playerId = 0;
 
+	public List<Texture> listGripHandCursor = new List<Texture>();
+	public List<Texture> listReleaseHandCursor = new List<Texture>();
+
 	[Tooltip("Smooth factor for cursor movement.")]
 	public float smoothFactor = 3f;
 	
