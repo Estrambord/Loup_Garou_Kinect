@@ -830,6 +830,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -1570,6 +1571,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -1623,12 +1625,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Players:
-  - {fileID: 919132149377506363}
-  - {fileID: 1947544767}
-  - {fileID: 2069605441}
-  - {fileID: 1983424441}
-  - {fileID: 854488050}
-  - {fileID: 288237349}
+  - {fileID: 1159779632}
+  - {fileID: 1300949711}
+  - {fileID: 1878115201}
+  - {fileID: 1923940558}
+  - {fileID: 2021713198}
+  - {fileID: 1738487655}
   playersList: []
   randomizeNbWolves: 0
   nbWolves: 2
@@ -2229,6 +2231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -2554,6 +2557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -3370,7 +3374,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3435,6 +3439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -3690,6 +3695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -3802,7 +3808,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3867,6 +3873,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -4078,6 +4085,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -4199,6 +4207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -4226,7 +4235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -4291,6 +4300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -4952,6 +4962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}
@@ -5089,6 +5100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   remainingPotions: []
   remainingPotionsString: []
   voteUI: {fileID: 0}

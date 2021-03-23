@@ -85,12 +85,62 @@ public class GameManager : MonoBehaviour
     {
 
         #region Vote du village
-        VoteVillage();
-		
+        
+        for (int i = 2; i < Players.Count; i++)
+        {
+            Players[i].Die();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            votingTime = true;
+            eliminatedPlayer = null;
+            Debug.Log("It's Voting Time !");
+        }
+		if (votingTime)
+		{
+            VoteVillage();
+		}
+        /*
+
+        if (votingTime)
+        {
+            if (!voteOngoing)
+            {
+                votingTimer = true;
+                voteOngoing = true;
+                timerText.gameObject.SetActive(true);
+                StartCoroutine("VotingTimer", 20f);
+                Debug.Log("Voting Timer started");
+            }
+
+            //Get result of the vote
+            if (!votingTimer || everybodyVoted)
+            {
+                if (eliminatedPlayer != null)
+                {
+                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
+                    eliminatedPlayer.enabled = false;
+                }
+                else
+                {
+                    Debug.Log("Everybody voted : Nobody was eliminated");
+                }
+                votingTime = false;
+                Debug.Log("Vote ended");
+                voteOngoing = false;
+                timerText.gameObject.SetActive(false);
+            }
+            //Continue vote
+            else if (!everybodyVoted)
+            {
+                eliminatedPlayer = GetVoteResult();
+            }
+        }*/
+
         #endregion
 
 
-        
+
 
         /*
         if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
@@ -364,11 +414,13 @@ public class GameManager : MonoBehaviour
             //Debug.Log()
             for (int i = 0; i < Players.Count; i++)
             {
+                //Debug.Log("Checking player's vote");
                 //Vérifie si un joueur vient de voter et désactive le vote pour ce joueur le cas échéant
                 if (Players[i].isAlive && !Players[i].hasVoted)
                 {
                     if (Players[i].voice != null)
                     {
+                        Debug.Log(Players[i] + "voted against : " + Players[i].voice);
                         nbVotes++;
                         Players[i].hasVoted = true;
                         Players[i].DeactivateVote();
@@ -411,53 +463,39 @@ public class GameManager : MonoBehaviour
 
     public void VoteVillage()
 	{
-        for (int i = 2; i < Players.Count; i++)
-        {
-            Players[i].Die();
-        }
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            votingTime = true;
-            Debug.Log("It's Voting Time !");
-            eliminatedPlayer = null;
-        }
-
         
-        if (votingTime)
+        if (!voteOngoing)
         {
-            if (!voteOngoing)
-            {
-                votingTimer = true;
-                voteOngoing = true;
-                timerText.gameObject.SetActive(true);
-                StartCoroutine("VotingTimer", 20f);
-                Debug.Log("Voting Timer started");
-            }
-
-            //Get result of the vote
-            if (!votingTimer || everybodyVoted)
-            {
-                if (eliminatedPlayer != null)
-                {
-                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
-                    eliminatedPlayer.enabled = false;
-                }
-                else
-                {
-                    Debug.Log("Everybody voted : Nobody was eliminated");
-                }
-                votingTime = false;
-                Debug.Log("Vote ended");
-                voteOngoing = false;
-                timerText.gameObject.SetActive(false);
-            }
-            //Continue vote
-            else if (!everybodyVoted)
-            {
-                eliminatedPlayer = GetVoteResult();
-            }
+            votingTimer = true;
+            voteOngoing = true;
+            timerText.gameObject.SetActive(true);
+            StartCoroutine("VotingTimer", 20f);
+            Debug.Log("Voting Timer started");
         }
+
+        //Get result of the vote
+        if (!votingTimer || everybodyVoted)
+        {
+            if (eliminatedPlayer != null)
+            {
+                Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
+                eliminatedPlayer.enabled = false;
+            }
+            else
+            {
+                Debug.Log("Everybody voted : Nobody was eliminated");
+            }
+            votingTime = false;
+            voteOngoing = false;
+            Debug.Log("Vote ended");
+            timerText.gameObject.SetActive(false);
+        }
+        //Continue vote
+        else if (!everybodyVoted)
+        {
+            eliminatedPlayer = GetVoteResult();
+        }
+        
     }
 
     public void ResetVotes()
@@ -577,7 +615,9 @@ public class GameManager : MonoBehaviour
 		}
         
         votingTimer = false;
+        votingTime = false;
         Debug.Log("Voting Timer OFF");
+        timerText.enabled = false;
     }
 
 

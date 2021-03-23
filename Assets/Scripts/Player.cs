@@ -15,10 +15,11 @@ public class Player : MonoBehaviour
     public bool IsPlayerReady { get; set; } = false;
     #endregion
 
-    [System.NonSerialized] public bool isAlive = true;
+    //[System.NonSerialized] 
+    public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
-    [System.NonSerialized] public bool hasVoted = false;
+    [System.NonSerialized] public bool hasVoted;
 
     protected bool isAwake = true;
 
@@ -52,6 +53,7 @@ public class Player : MonoBehaviour
         isAwake = false;
         roleVisible = false;
         canDie = false;
+        isAlive = true;
         remainingPotionsString.Add("life");
         remainingPotionsString.Add("dead");
     }
@@ -98,6 +100,7 @@ public class Player : MonoBehaviour
 		if (player.isAlive)
 		{
             voice = player;
+            Debug.Log(voice);
             player.nbVote++;
             Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
             Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
