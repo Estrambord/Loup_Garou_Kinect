@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
     #region Variables
 
     #region Gesture Variables
@@ -13,34 +14,48 @@ public class Player : MonoBehaviour
     public bool IsRightHandUp { get; set; } = false;
 
     public bool IsPlayerReady { get; set; } = false;
-    #endregion
+	#endregion
 
-    //[System.NonSerialized] 
-    public bool isAlive = true;
+
+	#region Player variables
+	[System.NonSerialized] public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
-    [System.NonSerialized] public bool hasVoted;
-
+    [System.NonSerialized] public bool hasVoted = false;
     protected bool isAwake = true;
-
-
-
-
-    public string Role { get; set; } = "citizen";
-
+    [SerializeField] private string role = "citizen";
+    public string Role
+    {
+        get { return role; }
+        set { role = value; }
+    }
     public bool IsMayor { get; set; } = false;
     protected bool canDie;
     protected bool roleVisible;
     protected float votingCountdown;
     public List<GameObject> remainingPotions;
     public List<string> remainingPotionsString;
-    public GameObject voteUI;
-    public TMPro.TMP_Text roleText;
-    public TMPro.TMP_Text player;
+
     public Player voice = null;
     public HandClickScript handClick;
     public InteractionManager interactionManager;
     public Marmite marmite;
+	#endregion
+
+
+	#region Prototype Variables
+	public GameObject voteUI;
+    public TMPro.TMP_Text roleText;
+    public TMPro.TMP_Text player;
+
+    public bool RoleDiscovered { get; set; } = false;
+
+    public Material m_yellow;
+
+    public GameObject mesh;
+
+    private Renderer r;
+    #endregion
 
     #endregion
 
@@ -56,6 +71,7 @@ public class Player : MonoBehaviour
         isAlive = true;
         remainingPotionsString.Add("life");
         remainingPotionsString.Add("dead");
+        r = mesh.GetComponent<Renderer>();
     }
 
     void Update()
@@ -176,5 +192,23 @@ public class Player : MonoBehaviour
         handClick.enabled = false;
         interactionManager.enabled = false;
     }
+
+    #region Prototype methods
+    public void SetRoleUI()
+    {
+        roleText.text = Role;
+    }
+
+    public void SetUI(string s)
+    {
+        roleText.text = s;
+    }
+
+    public void MayorYellow()
+    {
+        r.material = m_yellow;
+    }
+
+    #endregion
 
 }

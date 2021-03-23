@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     //[SerializeField] private List<KinectManager> kinectManagers;
     [System.NonSerialized] public List<Player> playersKilledThisTurn;
     public List<Player> Players;
-    [SerializeField] private List<Player> playersList;
     private float timer;
     private Canvas timer_UI;
 
@@ -83,9 +82,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-        #region Vote du village
-        
+		#region Vote du village
         for (int i = 2; i < Players.Count; i++)
         {
             Players[i].Die();
@@ -100,9 +97,9 @@ public class GameManager : MonoBehaviour
 		{
             VoteVillage();
 		}
-        /*
+        
 
-        if (votingTime)
+        /*if (votingTime)
         {
             if (!voteOngoing)
             {
@@ -136,14 +133,10 @@ public class GameManager : MonoBehaviour
                 eliminatedPlayer = GetVoteResult();
             }
         }*/
+		#endregion
 
-        #endregion
-
-
-
-
-        /*
-        if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
+        
+		/*if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
@@ -151,37 +144,62 @@ public class GameManager : MonoBehaviour
             {
                 //Afficher à l'écran que les joueurs ne sont pas prêts
             }
+
+            //if (rolesSet == false && ArePlayersReady())
             if (rolesSet == false)
             {
                 SetPlayersRoles();
+
+                Debug.Log("Roles are set up");
+                //Son qui lance la nuit pour les joueurs
             }
-            //Son qui lance la nuit pour les joueurs
-            if (rolesDiscovered[-1] == false)
+
+            if (rolesDiscovered[rolesDiscovered.Count - 1] == false && rolesSet)
             {
-                for (int i = 0; i < playersList.Count; i++)
+                for (int i = 0; i < Players.Count; i++)
                 {
                     if (i == 0 && !rolesDisplayed[i])
                     {
                         rolesDisplayed[i] = true;
-                        DiscoverOwnRole(playersList[i], i);
+                        if (Input.GetKeyDown(KeyCode.A))
+                        {
+                            rolesDiscovered[i] = true;
+                            Debug.Log("Role decouvert");
+                        }
+                        
+                        //rolesDisplayed[i] = true;
+                        //DiscoverOwnRole(Players[i], i);
                     }
                     else if (!rolesDisplayed[i] && rolesDiscovered[i - 1])
                     {
                         rolesDisplayed[i] = true;
-                        DiscoverOwnRole(playersList[i], i);
+                        if (Input.GetKeyDown(KeyCode.A))
+                        {
+                            rolesDiscovered[i] = true;
+
+                            Debug.Log("Role decouvert");
+                        }
+                        //rolesDisplayed[i] = true;
+                        //DiscoverOwnRole(Players[i], i);
                     }
                 }
+                //Son qui explique le but du jeu
+                //Son qui dit que tout le monde peut relever son masque
             }
-            //Son qui explique le but du jeu
-            //Son qui dit que tout le monde peut relever son masque
-            if (!mayorElected && !voteOngoing)
+
+            if (rolesDiscovered[rolesDiscovered.Count - 1] && !mayorElected && !voteOngoing)
             {
+
+                Debug.Log("election du maire");
                 //Son election du maire
                 ElectMayor();
             }
-            else if (!voteOngoing)
+            
+            if (!mayorElected && !voteOngoing)
             {
                 beforeGameStart = false;
+
+                Debug.Log("Game launched");
             }
         }
         else if (!jour) //nuit
@@ -277,9 +295,9 @@ public class GameManager : MonoBehaviour
 
     public bool ArePlayersReady()
     {
-        for (int i = 0; i < playersList.Count; i++)
+        for (int i = 0; i < Players.Count; i++)
         {
-            if (!playersList[i].IsPlayerReady)
+            if (!Players[i].IsPlayerReady)
             {
                 return false;
             }
@@ -287,12 +305,8 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    /// <summary>
-    /// Attribue un role a chaque joueur aleatoirement
-    /// </summary>
     public void SetPlayersRoles()
     {
-        rolesSet = true;
         nbPlayersAlive = 6;
 
         if (randomizeNbWolves)
@@ -324,15 +338,14 @@ public class GameManager : MonoBehaviour
         rolesList.Shuffle();
 
         //Affecter les roles aux joueurs
-        for (int i = 0; i < playersList.Count; i++)
+        for (int i = 0; i < Players.Count; i++)
         {
-            playersList[i].Role = rolesList[i];
+            Players[i].Role = rolesList[i];
         }
+
+        rolesSet = true;
     }
 
-    /// <summary>
-    /// Permet à un joueur donne de decouvrir son role
-    /// </summary>
     public void DiscoverOwnRole(Player player, int i)
     {
         //Son qui demande à un joueur specifique d'enlever son masque
@@ -354,9 +367,6 @@ public class GameManager : MonoBehaviour
         rolesDiscovered[i] = true;
     }
 
-    /// <summary>
-    /// Lance l'election du maire
-    /// </summary>
     public void ElectMayor()
     {
         voteOngoing = true;
@@ -370,25 +380,12 @@ public class GameManager : MonoBehaviour
         voteOngoing = false;
     }
 
-    /// <summary>
-    /// Déclenche un vote d'elimination
-    /// </summary>
-
-
-    /// <summary>
-    /// Tue le joueur et change son apparence en jeu
-    /// </summary>
     public void KillPlayer(Player player)
     {
         player.Die();
         nbPlayersAlive--;
     }
 
-
-    /// <summary>
-    /// Permet le vote des joueurs vivants
-    /// </summary>
-    /// <returns></returns>
     public Player GetVoteResult()
     {
         Player chosenPlayer = null;
