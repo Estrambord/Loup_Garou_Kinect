@@ -29,6 +29,8 @@ public class GameManager_Guillaume : MonoBehaviour
     private int nbWolvesAlive;
     private bool skip;
 
+    
+
     #region UI
     public Text timerText;
 	#endregion
@@ -57,10 +59,17 @@ public class GameManager_Guillaume : MonoBehaviour
     private bool tellerTurnOngoing = true;
     private bool tellerTimer = false;
     private Player playerTellerClicked = null;
+
     private bool wolvesTurnOngoing;
     private bool wolvesTimer = true;
     private Player playerWolvesChose = null;
+
     private bool witchTurnOngoing = false;
+    private bool witchUItoggled = false;
+    private bool witchUsed1Potion = false;
+    private bool witchTimer = true;
+    private int witchPlayerIndex;
+
     private bool hunterTurnOngoing = false;
     private bool killTurn = false;
 
@@ -301,6 +310,10 @@ public class GameManager_Guillaume : MonoBehaviour
         for (int i = 0; i < Players.Count; i++)
         {
             Players[i].Role = rolesList[i];
+            if (rolesList[i] == "witch")
+            {
+                witchPlayerIndex = i;
+            }
         }
 
         rolesSet = true;
@@ -570,13 +583,48 @@ public class GameManager_Guillaume : MonoBehaviour
 
     public void WitchTurn()
     {
-        witchTurnOngoing = true;
-
-        //DO something
-
         Debug.Log("tour de la Sorciere");
 
-        witchTurnOngoing = false;
+        if (!witchUItoggled)
+        {
+            Players[witchPlayerIndex].ToggleWitchUI(true);
+            witchUItoggled = true;
+            witchUsed1Potion = false;
+        }
+
+        if (playersKilledThisTurn.Count == 1)
+        {
+            playersKilledThisTurn[0].MakeRed();
+        }
+
+        if (Players[witchPlayerIndex].deathPotionUsedThisTurn)
+        {
+
+            Players[witchPlayerIndex].deathPotionUsedThisTurn = false;
+            Players[witchPlayerIndex].DeathPotionUsed = true;
+
+
+        }
+        else if (Players[witchPlayerIndex].lifePotionUsedThisTurn)
+        {
+            playersKilledThisTurn[0].MakeFlesh();
+            playersKilledThisTurn.RemoveAt(0);
+
+            Players[witchPlayerIndex].lifePotionUsedThisTurn = false;
+            Players[witchPlayerIndex].LifePotionUsed = true;
+
+        }
+
+        if (witchUsed1Potion)
+        {
+            witchTurnOngoing = false;
+        }
+        else if (!witchTimer)
+        {
+
+        }
+
+        
     }
 
     public void HunterTurn()
