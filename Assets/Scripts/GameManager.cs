@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public bool teller = true;
     public bool witch = true;
     public bool hunter = true;
-    public List<GameObject> remainingPotions;
+    public List<string> remainingPotions;
 
     //PRIVATE
     private int nbPlayersAlive;
@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
         playersKilledThisTurn = new List<Player>();
         rolesDiscovered = new List<bool>() { false, false, false, false, false, false };
         rolesDisplayed = new List<bool>() { false, false, false, false, false, false };
+        remainingPotions = new List<string> { "life", "dead" };
     }
 
 

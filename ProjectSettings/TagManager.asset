@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Button
   - Hand
+  - PotionDead
+  - PotionLife
   layers:
   - Default
   - TransparentFX
