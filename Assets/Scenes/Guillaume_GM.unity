@@ -298,6 +298,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -309,6 +310,9 @@ MonoBehaviour:
   roleText: {fileID: 0}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
+  m_red: {fileID: 0}
+  m_flesh: {fileID: 0}
+  m_blue: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -400,6 +404,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -411,9 +416,12 @@ MonoBehaviour:
   roleText: {fileID: 1141459018}
   player: {fileID: 0}
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+  m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1627115586}
-  lifePotionButton: {fileID: 0}
-  deathPotionButton: {fileID: 0}
+  lifePotionButton: {fileID: 1920714651}
+  deathPotionButton: {fileID: 755044064}
 --- !u!136 &46584530
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -808,7 +816,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 434063949}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_LifePotionUsed
+        m_MethodName: set_lifePotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1178,7 +1186,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1746141969}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_DeathPotionUsed
+        m_MethodName: set_deathPotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1575,9 +1583,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1746141969}
+      - m_Target: {fileID: 1746141967}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_LifePotionUsed
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1958,7 +1966,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 434063949}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_DeathPotionUsed
+        m_MethodName: set_deathPotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2611,6 +2619,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -2622,9 +2631,12 @@ MonoBehaviour:
   roleText: {fileID: 1815769941}
   player: {fileID: 0}
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+  m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1895728162}
-  lifePotionButton: {fileID: 0}
-  deathPotionButton: {fileID: 0}
+  lifePotionButton: {fileID: 66598679}
+  deathPotionButton: {fileID: 287986701}
 --- !u!136 &434063950
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2794,6 +2806,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -2805,9 +2818,12 @@ MonoBehaviour:
   roleText: {fileID: 1613040619}
   player: {fileID: 0}
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+  m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1814283080}
-  lifePotionButton: {fileID: 0}
-  deathPotionButton: {fileID: 0}
+  lifePotionButton: {fileID: 1915240662}
+  deathPotionButton: {fileID: 1395703724}
 --- !u!136 &443050599
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3160,6 +3176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -3171,9 +3188,12 @@ MonoBehaviour:
   roleText: {fileID: 1580736455}
   player: {fileID: 0}
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+  m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1655284271}
-  lifePotionButton: {fileID: 0}
-  deathPotionButton: {fileID: 0}
+  lifePotionButton: {fileID: 713176290}
+  deathPotionButton: {fileID: 1652234284}
 --- !u!136 &517007026
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3523,6 +3543,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -3534,6 +3555,9 @@ MonoBehaviour:
   roleText: {fileID: 0}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
+  m_red: {fileID: 0}
+  m_flesh: {fileID: 0}
+  m_blue: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -3622,7 +3646,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 517007025}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_LifePotionUsed
+        m_MethodName: set_lifePotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3755,7 +3779,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 46584529}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_DeathPotionUsed
+        m_MethodName: set_deathPotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4394,6 +4418,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -4405,6 +4430,9 @@ MonoBehaviour:
   roleText: {fileID: 0}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
+  m_red: {fileID: 0}
+  m_flesh: {fileID: 0}
+  m_blue: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -4666,6 +4694,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -4677,6 +4706,9 @@ MonoBehaviour:
   roleText: {fileID: 0}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
+  m_red: {fileID: 0}
+  m_flesh: {fileID: 0}
+  m_blue: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -5225,6 +5257,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -5236,6 +5269,9 @@ MonoBehaviour:
   roleText: {fileID: 0}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
+  m_red: {fileID: 0}
+  m_flesh: {fileID: 0}
+  m_blue: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -5423,6 +5459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -5434,9 +5471,12 @@ MonoBehaviour:
   roleText: {fileID: 13114319}
   player: {fileID: 0}
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+  m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 583659418}
-  lifePotionButton: {fileID: 0}
-  deathPotionButton: {fileID: 0}
+  lifePotionButton: {fileID: 1837595758}
+  deathPotionButton: {fileID: 1377167702}
 --- !u!136 &1318911332
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -5536,7 +5576,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1318911331}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_DeathPotionUsed
+        m_MethodName: set_deathPotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5748,7 +5788,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 443050598}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_DeathPotionUsed
+        m_MethodName: set_deathPotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5946,6 +5986,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441853532668538935, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -6023,6 +6067,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441853532668538935, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -6992,7 +7040,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 517007025}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_DeathPotionUsed
+        m_MethodName: set_deathPotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7195,6 +7243,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441853532668538935, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -7349,6 +7401,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441853532668538935, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -7377,6 +7433,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -7388,9 +7445,12 @@ MonoBehaviour:
   roleText: {fileID: 382943479}
   player: {fileID: 0}
   m_yellow: {fileID: 2100000, guid: 4bb0fe7e304f1254faf039175f947c34, type: 2}
+  m_red: {fileID: 2100000, guid: 2f658cd8a42089a4994a465a390cf801, type: 2}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
+  m_blue: {fileID: 2100000, guid: 004f0da553f3a8a4cb62361a207e113a, type: 2}
   mesh: {fileID: 1860578269}
-  lifePotionButton: {fileID: 0}
-  deathPotionButton: {fileID: 0}
+  lifePotionButton: {fileID: 172979857}
+  deathPotionButton: {fileID: 125467218}
 --- !u!136 &1746141970
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7476,6 +7536,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441853532668538935, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -7785,7 +7849,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1318911331}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_LifePotionUsed
+        m_MethodName: set_lifePotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7879,6 +7943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35d4fe23955e7584aa66b15b56b3957e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAlive: 1
   role: citizen
   remainingPotions: []
   remainingPotionsString: []
@@ -7890,6 +7955,9 @@ MonoBehaviour:
   roleText: {fileID: 0}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
+  m_red: {fileID: 0}
+  m_flesh: {fileID: 0}
+  m_blue: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
@@ -7969,6 +8037,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2441853532668538935, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
     - target: {fileID: 5866666021909216657, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -8193,7 +8265,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 443050598}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_LifePotionUsed
+        m_MethodName: set_lifePotionUsedThisTurn
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8324,9 +8396,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 46584529}
+      - m_Target: {fileID: 46584527}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: set_LifePotionUsed
+        m_MethodName: 
         m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
