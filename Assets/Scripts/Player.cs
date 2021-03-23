@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
     #region Variables
 
     #region Gesture Variables
@@ -15,35 +16,32 @@ public class Player : MonoBehaviour
     public bool IsPlayerReady { get; set; } = false;
     #endregion
 
+
+    #region Player variables
     [System.NonSerialized] public bool isAlive = true;
     [System.NonSerialized] public int nbVote = 0;
     protected bool isMayor = false;
     [System.NonSerialized] public bool hasVoted = false;
-
     protected bool isAwake = true;
-
-
-
-    [SerializeField] private string role = "citizen" ;
+    [SerializeField] private string role = "citizen";
     public string Role
     {
         get { return role; }
         set { role = value; }
     }
-
     public bool IsMayor { get; set; } = false;
     protected bool canDie;
     protected bool roleVisible;
     protected float votingCountdown;
     public List<GameObject> remainingPotions;
     public List<string> remainingPotionsString;
-    
+
     public Player voice = null;
     public HandClickScript handClick;
     public InteractionManager interactionManager;
     public Marmite marmite;
-
     #endregion
+
 
     #region Prototype Variables
     public GameObject voteUI;
@@ -53,10 +51,23 @@ public class Player : MonoBehaviour
     public bool RoleDiscovered { get; set; } = false;
 
     public Material m_yellow;
+    public Material m_red;
+    public Material m_flesh;
 
     public GameObject mesh;
 
     private Renderer r;
+
+    public GameObject lifePotionButton;
+    public GameObject deathPotionButton;
+
+    public bool LifePotionUsed { get; set; } = false;
+    public bool lifePotionUsedThisTurn = false;
+    public bool DeathPotionUsed { get; set; } = false;
+    public bool deathPotionUsedThisTurn = false;
+
+    #endregion
+
     #endregion
 
     #region Unity Base Methods
@@ -68,20 +79,18 @@ public class Player : MonoBehaviour
         isAwake = false;
         roleVisible = false;
         canDie = false;
+        isAlive = true;
         remainingPotionsString.Add("life");
         remainingPotionsString.Add("dead");
-
-
         r = mesh.GetComponent<Renderer>();
     }
 
     void Update()
     {
-       
+
     }
     #endregion
 
-    #region Additional Methods
     public void Sleep()
     {
         //endort un player
@@ -115,19 +124,20 @@ public class Player : MonoBehaviour
 
     public void StandardVote(Player player)
     {
-		if (player.isAlive)
-		{
+        if (player.isAlive)
+        {
             voice = player;
+            Debug.Log(voice);
             player.nbVote++;
             Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
             Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
         }
-		else
-		{
+        else
+        {
             Debug.Log("Le joueur " + player + " est mort, vous ne pouvez pas voter contre lui.");
         }
     }
-    
+
 
 
 
@@ -138,7 +148,8 @@ public class Player : MonoBehaviour
         switch (this.Role)
         {
             case ("witch"):
-                if (remainingPotionsString.Contains("life")){
+                if (remainingPotionsString.Contains("life"))
+                {
                     //Activer les potions grabbable
                     remainingPotions[0].SetActive(true);
                 }
@@ -151,7 +162,7 @@ public class Player : MonoBehaviour
                 //Au trigger de la marmite faire
                 if (marmite.isChosen)
                 {
-                    if(marmite.chosen == "life")
+                    if (marmite.chosen == "life")
                     {
                         //foreach(Player player in Players){
                         //  if player.canDie == true{
@@ -193,7 +204,6 @@ public class Player : MonoBehaviour
         handClick.enabled = false;
         interactionManager.enabled = false;
     }
-    #endregion
 
     #region Prototype methods
     public void SetRoleUI()
@@ -211,6 +221,29 @@ public class Player : MonoBehaviour
         r.material = m_yellow;
     }
 
-    #endregion
+    public void MakeRed()
+    {
+        r.material = m_red;
+    }
 
+    public void MakeFlesh()
+    {
+        r.material = m_flesh;
+    }
+
+    public void ToggleWitchUI(bool b)
+    {
+        if (Role == "witch")
+        {
+            if (!LifePotionUsed)
+            {
+                lifePotionButton.SetActive(b);
+            }
+            if (!DeathPotionUsed)
+            {
+                deathPotionButton.SetActive(b);
+            }
+        }
+    }
+    #endregion
 }
