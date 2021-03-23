@@ -14912,7 +14912,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_blue: {fileID: 0}
+  m_dead: {fileID: 0}
   mesh: {fileID: 0}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
