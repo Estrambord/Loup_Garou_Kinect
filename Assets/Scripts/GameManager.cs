@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviour
     private bool jour = false;
 
     private bool rolesSet = false;
+    private bool roleTimer = false;
 
     private bool mayorElected = false;
 
@@ -89,7 +90,6 @@ public class GameManager : MonoBehaviour
     private bool endPlaying = false;
     #endregion
 
-    #endregion
 
 
     #region Unity Base Methods
@@ -133,13 +133,13 @@ public class GameManager : MonoBehaviour
         
 		if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
-            dayText.text = "Initialisation";
+            //dayText.text = "Initialisation";
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
             if (ArePlayersReady() == false)
             {
                 //Afficher à l'écran que les joueurs ne sont pas prêts
-                turnText.text = "Players are not ready";
+                //turnText.text = "Players are not ready";
                 Debug.Log("Players not ready");
             }
 
@@ -248,7 +248,7 @@ public class GameManager : MonoBehaviour
                 if (newMayorOngoing)
                 {
                     Debug.Log("Electing NewMayor");
-                    //NewMayor();
+                    VoteVillage("election");
                     newMayorOngoing = false;
                 }
                 if (!hunterTurnOngoing && !newMayorOngoing) votingTime = true;
@@ -257,7 +257,7 @@ public class GameManager : MonoBehaviour
                 {
                     Debug.Log("It's VOTING TIME");
                     //Son debut du vote
-                    //VoteVillage();
+                    VoteVillage("elimination");
                     //Son fin du vote et elimination d'un joueur
                     afterVote = true;
                 }
@@ -277,9 +277,17 @@ public class GameManager : MonoBehaviour
 
                 if (newMayorOngoing)
                 {
+                    Player newMayor = null;
                     Debug.Log("Electing NewMayor");
-                    //NewMayor();
-                    newMayorOngoing = false;
+                    foreach(Player player in Players)
+					{
+                        if(!player.isAlive && player.IsMayor)
+						{
+                            newMayor = IndividualVote(player);
+                            newMayorOngoing = false;
+                            player.IsMayor = false;
+                        }
+					}
                 }
                 if (killTurn)
                 {
@@ -379,15 +387,23 @@ public class GameManager : MonoBehaviour
 
     public void DiscoverOwnRole(Player player, int i)
     {
-        //Son qui demande à un joueur specifique d'enlever son masque
+		//Son qui demande à un joueur specifique d'enlever son masque
 
-        //Afficher le rôle du joueur
-        //Son qui lui demande d'interagir avec son role pour passer à la suite
-
-        player.SetRoleUI();
-        if (player.RoleDiscovered)
+		//Afficher le rôle du joueur
+		//Son qui lui demande d'interagir avec son role pour passer à la suite
+		if (!roleTimer)
+		{
+            roleTimer = true;
+            //Demander de regarder l'écran au player
+            StartCoroutine("RoleDiscovery", 10f);
+            player.SetRoleUI();
+        }
+        if (player.RoleDiscovered || !roleTimer)
         {
             player.SetUI("citizen :)");
+            //Demander de remettre le masque
+            roleTimer = true;
+            StartCoroutine("RoleDiscovery", 5f);
         }
 
         /*
@@ -617,7 +633,7 @@ public class GameManager : MonoBehaviour
         return chosenPlayer;
     }
 
-    public void InvividualVote(Player player)
+    public Player IndividualVote(Player player)
 	{
         eliminatedPlayer = null;
         if (!voteOngoing)
@@ -632,22 +648,16 @@ public class GameManager : MonoBehaviour
         if(!votingTimer || player.hasVoted)
 		{
             eliminatedPlayer = GetIndividualVoteResult(player);
-            if(player.Role == "teller")
-			{
-                eliminatedPlayer.roleText.enabled = true;
-			}
-			else
-			{
-                KillPlayer(eliminatedPlayer);
-            }
+            
             witchTurnOngoing = false;
             tellerTurnOngoing = false;
             hunterTurnOngoing = false;
             voteOngoing = false;
             Debug.Log("Vote ended");
             timerText.gameObject.SetActive(false);
-            StopCoroutine("VotingTimer");
+            StopCoroutine("VotingTimer"); 
         }
+        return eliminatedPlayer;
     }
 
     public Player GetWolvesVoteResult()
@@ -989,6 +999,15 @@ public class GameManager : MonoBehaviour
         if (witchTurnOngoing) Debug.Log("Witch Timer finished");
 
     }
+
+    IEnumerator RoleDiscovery(float time)
+    {
+        Debug.Log("Discovering roles");
+        yield return new WaitForSeconds(time);
+        roleTimer = false;
+
+    }
     #endregion;
 }
 
+#endregion
