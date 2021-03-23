@@ -17,10 +17,10 @@ MonoBehaviour:
   categories: []
   uiBounds:
     serializedVersion: 2
-    x: 941
-    y: -190
-    width: 426
-    height: 1411
+    x: 836
+    y: -239
+    width: 531
+    height: 1460
 --- !u!114 &114350483966674976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,7 +93,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots: []
   m_Label: Spawn system
-  m_Data: {fileID: 8926484042661614595}
+  m_Data: {fileID: 8926484042661614598}
   m_InputFlowSlot:
   - link: []
   - link: []
@@ -524,7 +524,7 @@ MonoBehaviour:
   - {fileID: 8926484042661614583}
   - {fileID: 8926484042661614585}
   dataType: 0
-  capacity: 5
+  capacity: 3
   stripCapacity: 16
   particlePerStripCount: 16
   m_Space: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.30000001192092898,"y":0.20000000298023225,"z":0.30000001192092898}}'
+      m_SerializableObject: '{"vector":{"x":0.30000001192092898,"y":0.800000011920929,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: A
@@ -752,7 +752,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.Vector, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"vector":{"x":0.4000000059604645,"y":0.4000000059604645,"z":0.4000000059604645}}'
+      m_SerializableObject: '{"vector":{"x":0.4000000059604645,"y":0.8999999761581421,"z":0.0}}'
     m_Space: 0
   m_Property:
     name: B
@@ -1212,7 +1212,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEngine.AnimationCurve, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"frames":[{"time":0.0041656494140625,"value":0.5047187805175781,"inTangent":-0.002371174981817603,"outTangent":-0.002371174981817603,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.0,"value":0.5023574829101563,"inTangent":-0.002371174981817603,"outTangent":-0.002371174981817603,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
+      m_SerializableObject: '{"frames":[{"time":0.01000213623046875,"value":1.4926605224609376,"inTangent":-0.9853135347366333,"outTangent":-0.9853135347366333,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false},{"time":1.010009765625,"value":0.5073394775390625,"inTangent":-0.9853135347366333,"outTangent":-0.9853135347366333,"tangentMode":0,"leftTangentMode":1,"rightTangentMode":1,"broken":false}],"preWrapMode":8,"postWrapMode":8,"version":1}'
     m_Space: 2147483647
   m_Property:
     name: Size
@@ -1284,7 +1284,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   m_Direction: 0
   m_LinkedSlots: []
---- !u!114 &8926484042661614595
+--- !u!114 &8926484042661614598
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
