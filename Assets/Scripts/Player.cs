@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
     public Material m_yellow;
     public Material m_red;
     public Material m_flesh;
-    public Material m_blue;
+    public Material m_dead;
 
     public GameObject mesh;
 
@@ -110,7 +110,7 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        r.material = m_blue;
+        r.material = m_dead;
         isAlive = false;
     }
 
