@@ -25,8 +25,8 @@ public class GameManager_Guillaume : MonoBehaviour
     public List<GameObject> remainingPotions;
 
     //PRIVATE
-    private int nbPlayersAlive;
-    private int nbWolvesAlive;
+    public int nbPlayersAlive;
+    public int nbWolvesAlive;
     private bool skip;
 
 
@@ -124,6 +124,7 @@ public class GameManager_Guillaume : MonoBehaviour
 
         if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
+            dayText.text = "Initialisation";
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
             if (ArePlayersReady() == false)
@@ -280,11 +281,9 @@ public class GameManager_Guillaume : MonoBehaviour
                     {
                         if (playersKilledThisTurn[i].Role == "hunter") hunterTurnOngoing = true;
                         else if (!hunterTurnOngoing && playersKilledThisTurn[i].IsMayor) newMayorOngoing = true;
-
-                        KillPlayer(playersKilledThisTurn[i]);
                     }
 
-                    playersKilledThisTurn.Clear();
+                    killTurn = true;
                 }
 
                 if (hunterTurnOngoing) HunterTurn();
@@ -294,6 +293,15 @@ public class GameManager_Guillaume : MonoBehaviour
                     Debug.Log("Electing NewMayor");
                     //NewMayor();
                     newMayorOngoing = false;
+                }
+
+                if (killTurn)
+                {
+                    for (int i = 0; i < playersKilledThisTurn.Count; i++)
+                    {
+                        KillPlayer(playersKilledThisTurn[i]);
+                    }
+                    playersKilledThisTurn.Clear();
                 }
 
                 if (nbPlayersAlive <= 2 * nbWolvesAlive || nbWolvesAlive == 0) gameOver = true;
@@ -310,18 +318,19 @@ public class GameManager_Guillaume : MonoBehaviour
 
         if (gameOver && !endPlaying)
         {
-            turnText.text = "GAME OVER";
+            
             Debug.Log("GAME OVER");
 
             endPlaying = true;
 
             if (nbWolvesAlive == 0)
             {
-
+                turnText.text = "GAME OVER VILLAGEOIS WIN";
                 //Son Bonne fin
             }
             else
             {
+                turnText.text = "GAME OVER LOUPS GAROUS WIN";
                 //Son mauvaise fin
             }
         }
@@ -351,6 +360,8 @@ public class GameManager_Guillaume : MonoBehaviour
         {
             nbWolves = Random.Range(1, 3);
         }
+
+        nbWolvesAlive = nbWolves;
 
         if (randomizeOtherRoles)
         {
@@ -788,7 +799,7 @@ public class GameManager_Guillaume : MonoBehaviour
                 {
                     if (playerHunterChose == Players[i])
                     {
-                        playersKilledThisTurn.Add(Players[i]);
+                        //playersKilledThisTurn.Add(Players[i]);
                         KillPlayer(playerHunterChose);
                     }
                 }
