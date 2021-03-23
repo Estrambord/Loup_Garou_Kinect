@@ -28,10 +28,13 @@ public class SoundManager : MonoBehaviour
     {
         ambientSource.loop = true;
         /***Exemple***/
-
-        //PlayNarration(0); //Intro
+        PlayNarration(0); //Intro
+        PlaySFX(0);
+        PlaySFX(1);
         PlayInstruction(0); //Levez un bras au-dessus de votre tête pour indiquer que vous êtes prêts
+        PlaySFX(2);
         PlayNarration(1); //C’est la nuit, tout le village s’endort
+       
         PlayInstruction(1); //Placez votre masque sur vos yeux
         PlayInstruction(2); //Vous allez à présent découvrir tout à tour vos rôles
 
@@ -40,10 +43,11 @@ public class SoundManager : MonoBehaviour
         PlayerAndAction(1, 1); //Joueur 1 - se rendors
 
         PlayNarration(3); //Règle du jeu
+        PlaySFX(1);
         PlayNarration(2); //C’est le matin, tout le village se réveille
         PlayInstruction(4); //Vous pouvez relever vos masques
         PlayNarration(4); //A présent vous devez voter et élire votre capitaine.
-        PlayInstruction(6); //Le capitaine tranchera en cas d’égalité lors d’un vote. Choisissez-le bien ! Utilisez le système de vote pour élire votre capitaine.
+        PlayInstruction(5); //Le capitaine tranchera en cas d’égalité lors d’un vote. Choisissez-le bien ! Utilisez le système de vote pour élire votre capitaine.
         PlayNarration(1); //C’est la nuit, tout le village s’endort
         PlayInstruction(1); //Placez votre masque sur vos yeux
 
@@ -170,7 +174,6 @@ public class SoundManager : MonoBehaviour
     IEnumerator PlayClipASAP(AudioClip nextClip)
     {
         yield return new WaitWhile(() => audioSource.isPlaying);
-        //audioSource.clip = nextClip;
         audioSource.PlayOneShot(nextClip);
     }
 
