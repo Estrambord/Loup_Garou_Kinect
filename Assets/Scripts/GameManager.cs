@@ -83,7 +83,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
 		#region Vote du village
-        for (int i = 2; i < Players.Count; i++)
+        for (int i = 3; i < Players.Count; i++)
         {
             Players[i].Die();
         }

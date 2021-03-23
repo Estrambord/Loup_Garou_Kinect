@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System;
 using System.IO;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 /// <summary>
 /// Interaction manager is the component that deals with hand interactions.
@@ -34,6 +35,9 @@ public class InteractionManager : MonoBehaviour
 	public Texture releaseHandTexture;
 	[Tooltip("Hand-cursor texture for the non-tracked state.")]
 	public Texture normalHandTexture;
+
+	public List<Texture> listGripHandCursor = new List<Texture>();
+	public List<Texture> listReleaseHandCursor = new List<Texture>();
 
 	[Tooltip("Smooth factor for cursor movement.")]
 	public float smoothFactor = 3f;
@@ -299,6 +303,9 @@ public class InteractionManager : MonoBehaviour
 	{
 		instance = this;
 		interactionInited = true;
+
+		gripHandTexture = listGripHandCursor[playerIndex];
+		releaseHandTexture = listReleaseHandCursor[playerIndex];
 	}
 	
 	void OnDestroy()
