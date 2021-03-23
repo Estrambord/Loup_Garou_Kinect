@@ -174,21 +174,18 @@ public class SoundManager : MonoBehaviour
         audioSource.PlayOneShot(nextClip);
     }
 
-    /*Continuous*/
-    //Son d'ambiance Jour / Nuit V
-    //Musique Jour / Nuit (OPTIONEL)
+    /*
+    //Insert in Player Script
+    //Crée un matériaux et l'assigner à "deathMaterial" sur le Player (son mesh n'a qu'un matériaux de base)
 
-    /*One Shot*/
-    //Son tombé de la nuit, son levé du jour V
+    [SerializeField]
+    private Renderer playerRenderer;
+    private Material deathMaterial;
 
-    //Son loup-garou mange V
-    //Son chasseur tire V
-    //Son voyante reveal V
-    //Son sorcière use potion 
-    //Son début du vote V
-    //Son fin de vote V
-
-    //Musique Village Win V
-    //Musique LG Win V
-
+    public void PlayerDied()
+    {
+        playerRenderer = gameObject.GetComponent<Renderer>();
+        playerRenderer.material = deathMaterial;
+    }
+    */
 }
