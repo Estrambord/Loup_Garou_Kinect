@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,6 +10,7 @@ public class GameManager : MonoBehaviour
     //PUBLIC
     //[SerializeField] private List<KinectManager> kinectManagers;
     [System.NonSerialized] public List<Player> playersKilledThisTurn;
+    [System.NonSerialized] public List<Player> playersKilledLastTurn;
     public List<Player> Players;
     private float timer;
     private Canvas timer_UI;
@@ -24,8 +24,8 @@ public class GameManager : MonoBehaviour
     public bool hunter = true;
 
     //PRIVATE
-    private int nbPlayersAlive;
-    private int nbWolvesAlive;
+    public int nbPlayersAlive;
+    public int nbWolvesAlive;
     private bool skip;
 
     #region UI
@@ -33,11 +33,15 @@ public class GameManager : MonoBehaviour
     public Text NotReadyText;
     public Marmite chaudron;
     public List<GameObject> potions;
-	#endregion
+
+    public Text turnText;
+    public Text dayText;
+    #endregion
 
 
-	#region Voting Variables
-	private int nbVoters = 0;
+    #region Voting Variables
+    private bool afterVote = false;
+    private int nbVoters = 0;
     private int nbVotes = 0;
     private bool everybodyVoted = false;
     private bool votingTime = false;
@@ -49,22 +53,37 @@ public class GameManager : MonoBehaviour
     #region GamePlay bools
 
     private bool beforeGameStart = true;
-    private bool jour = true;
+    private bool jour = false;
 
     private bool rolesSet = false;
 
-    private List<bool> rolesDiscovered;
-    private List<bool> rolesDisplayed;
-
     private bool mayorElected = false;
 
-    private bool tellerTurnOngoing = false;
-    private bool wolvesTurnOngoing = false;
+    private bool tellerTurnOngoing = true;
+    private bool tellerTimer = false;
+    private Player playerTellerClicked = null;
+
+    private bool wolvesTurnOngoing;
+    private bool wolvesTimer = true;
+    private Player playerWolvesChose = null;
+
     private bool witchTurnOngoing = false;
+    private bool witchUItoggled = false;
+    private bool witchUsed1Potion = false;
+    private bool witchTimer = true;
+    private int witchPlayerIndex;
+    private Player playerWitchChose = null;
+
     private bool hunterTurnOngoing = false;
+    private Player playerHunterChose = null;
+    private bool checkedHunterDead = false;
+
+    private bool killTurn = false;
 
     private bool voteOngoing = false;
+
     private bool newMayorOngoing = false;
+    private bool checkedMayorDead = false;
 
     private bool gameOver = false;
     private bool endPlaying = false;
@@ -77,14 +96,19 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         playersKilledThisTurn = new List<Player>();
-        rolesDiscovered = new List<bool>() { false, false, false, false, false, false };
-        rolesDisplayed = new List<bool>() { false, false, false, false, false, false };
+        playersKilledLastTurn = new List<Player>();
+        if (!teller)
+        {
+            tellerTurnOngoing = false;
+            wolvesTurnOngoing = true;
+        }
     }
 
 
 
     void Update()
     {
+        /*
 		#region Vote du village
         
         for (int i = 3; i < Players.Count; i++)
@@ -104,19 +128,22 @@ public class GameManager : MonoBehaviour
         }
        
 		#endregion
+        */
 
         
 		if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
+            dayText.text = "Initialisation";
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
             if (ArePlayersReady() == false)
             {
                 //Afficher à l'écran que les joueurs ne sont pas prêts
+                turnText.text = "Players are not ready";
+                Debug.Log("Players not ready");
             }
 
-            //if (rolesSet == false && ArePlayersReady())
-            if (rolesSet == false)
+            if (Players[Players.Count - 1].RoleDiscovered == false && rolesSet)
             {
                 SetPlayersRoles();
 
@@ -124,139 +151,169 @@ public class GameManager : MonoBehaviour
                 //Son qui lance la nuit pour les joueurs
             }
 
-            if (rolesDiscovered[rolesDiscovered.Count - 1] == false && rolesSet)
+            if (Players[Players.Count - 1].RoleDiscovered == false && rolesSet)
             {
+                turnText.text = "Discovering roles one by one";
+                Debug.Log("Discovering roles one by one");
                 for (int i = 0; i < Players.Count; i++)
                 {
-                    if (i == 0 && !rolesDisplayed[i])
+                    if (i == 0)
                     {
-                        rolesDisplayed[i] = true;
-                        if (Input.GetKeyDown(KeyCode.A))
-                        {
-                            rolesDiscovered[i] = true;
-                            Debug.Log("Role decouvert");
-                        }
-                        
-                        //rolesDisplayed[i] = true;
-                        //DiscoverOwnRole(Players[i], i);
+                        DiscoverOwnRole(Players[i], i);
                     }
-                    else if (!rolesDisplayed[i] && rolesDiscovered[i - 1])
+                    else if (Players[i - 1].RoleDiscovered)
                     {
-                        rolesDisplayed[i] = true;
-                        if (Input.GetKeyDown(KeyCode.A))
-                        {
-                            rolesDiscovered[i] = true;
-
-                            Debug.Log("Role decouvert");
-                        }
-                        //rolesDisplayed[i] = true;
-                        //DiscoverOwnRole(Players[i], i);
+                        DiscoverOwnRole(Players[i], i);
                     }
                 }
                 //Son qui explique le but du jeu
                 //Son qui dit que tout le monde peut relever son masque
             }
 
-            if (rolesDiscovered[rolesDiscovered.Count - 1] && !mayorElected && voteOngoing)
+            if (Players[Players.Count - 1].RoleDiscovered && !mayorElected)
             {
 
-                Debug.Log("election du maire");
-                //Son election du maire
-                ElectMayor();
+                //Debug.Log("Election du maire");
+                ////Son election du maire
+                //ElectMayor();
             }
             
-            if (!mayorElected && !voteOngoing)
+            if (mayorElected)
             {
                 beforeGameStart = false;
 
                 Debug.Log("Game launched");
             }
-        }/*
-        else if (!jour) //nuit
+        }
+        else if (!beforeGameStart && !jour) //nuit
         {
-            playersKilledThisTurn.Clear();
+            dayText.text = "Nuit";
+            Debug.Log("Nuit");
 
             //Son pour que tout le monde mette son masque sur ses yeux
 
-            if (teller && !tellerTurnOngoing) TellerTurn();
+            if (teller && tellerTurnOngoing && IsTellerAlive()) TellerTurn();
 
-            if (!tellerTurnOngoing && !wolvesTurnOngoing) WolvesTurn();
+            else if (wolvesTurnOngoing) WolvesTurn();
 
-            if (witch && !wolvesTurnOngoing && !witchTurnOngoing) WitchTurn();
+            else if (witch && witchTurnOngoing && IsWitchAlive()) WitchTurn();
 
-            if (!witchTurnOngoing)
+            else if (!wolvesTurnOngoing && killTurn)
             {
                 for (int i = 0; i < playersKilledThisTurn.Count; i++)
                 {
                     KillPlayer(playersKilledThisTurn[i]);
                 }
+
+                Debug.Log("All players killed");
+
+                playersKilledLastTurn.Clear();
+                playersKilledLastTurn.AddRange(playersKilledThisTurn);
+
+                playersKilledThisTurn.Clear();
+                killTurn = false;
+                jour = true;
+                Debug.Log("It's DAYTIME !");
             }
-
-
-            jour = true;
         }
-        else if (jour) //jour
+        else if (!beforeGameStart && jour) //jour
         {
-            playersKilledThisTurn.Clear();
+            dayText.text = "Jour";
+            Debug.Log("Jour");
 
             //Son pour que tout le monde enleve son masque des yeux
 
             //Annonce des morts
 
-            if (nbPlayersAlive <= 2 * nbWolvesAlive - 1)
+            if (!afterVote && !gameOver)
             {
-                gameOver = true;
-            }
-
-            if (!gameOver && !voteOngoing)
-            {
-                //Son debut du vote
-                VoteVillage();
-                //Son fin du vote et elimination d'un joueur
-            }
-
-            if (!voteOngoing)
-            {
-                for (int i = 0; i < playersKilledThisTurn.Count; i++)
+                if (!checkedHunterDead)
                 {
-                    if (!hunterTurnOngoing && playersKilledThisTurn[i].Role == "hunter")
+                    for (int i = 0; i < playersKilledLastTurn.Count; i++)
                     {
-                        HunterTurn();
+                        if (playersKilledLastTurn[i].Role == "hunter") hunterTurnOngoing = true;
                     }
-                    else if (!hunterTurnOngoing && !newMayorOngoing && playersKilledThisTurn[i].IsMayor)
+                    checkedHunterDead = true;
+                }
+                if (hunterTurnOngoing) HunterTurn();
+                if (!checkedMayorDead && !hunterTurnOngoing)
+                {
+                    Debug.Log("Checking if Mayor is Alive and well");
+                    for (int i = 0; i < Players.Count; i++)
                     {
-                        NewMayor();
+                        if (Players[i].IsMayor && !Players[i].isAlive) newMayorOngoing = true;
                     }
+                    checkedMayorDead = true;
+                }
+                if (newMayorOngoing)
+                {
+                    Debug.Log("Electing NewMayor");
+                    //NewMayor();
+                    newMayorOngoing = false;
+                }
+                if (!hunterTurnOngoing && !newMayorOngoing) votingTime = true;
+                if (nbPlayersAlive <= 2 * nbWolvesAlive - 1 || nbWolvesAlive == 0) gameOver = true;
+                if (!gameOver && votingTime)
+                {
+                    Debug.Log("It's VOTING TIME");
+                    //Son debut du vote
+                    //VoteVillage();
+                    //Son fin du vote et elimination d'un joueur
+                    afterVote = true;
+                }
+            }
+            else if (afterVote)
+            {
+                if (!hunterTurnOngoing && !newMayorOngoing)
+                {
+                    for (int i = 0; i < playersKilledThisTurn.Count; i++)
+                    {
+                        if (playersKilledThisTurn[i].Role == "hunter") hunterTurnOngoing = true;
+                        else if (!hunterTurnOngoing && playersKilledThisTurn[i].IsMayor) newMayorOngoing = true;
+                    }
+                    killTurn = true;
+                }
+                if (hunterTurnOngoing) HunterTurn();
 
-                    if (!hunterTurnOngoing && !newMayorOngoing)
+                if (newMayorOngoing)
+                {
+                    Debug.Log("Electing NewMayor");
+                    //NewMayor();
+                    newMayorOngoing = false;
+                }
+                if (killTurn)
+                {
+                    for (int i = 0; i < playersKilledThisTurn.Count; i++)
                     {
                         KillPlayer(playersKilledThisTurn[i]);
                     }
+                    playersKilledThisTurn.Clear();
+                }
+                if (nbPlayersAlive <= 2 * nbWolvesAlive || nbWolvesAlive == 0) gameOver = true;
+                if (!gameOver && !hunterTurnOngoing && !newMayorOngoing)
+                {
+                    Debug.Log("It's NIGHTTIME !");
+                    jour = false;
+                    RestartVariablesNight();
                 }
             }
-
-
-            if (nbPlayersAlive <= 2 * nbWolvesAlive)
-            {
-                gameOver = true;
-            }
-
-            jour = false;
         }
 
         if (gameOver && !endPlaying)
         {
+            Debug.Log("GAME OVER");
             endPlaying = true;
-
             if (nbWolvesAlive == 0)
             {
+                turnText.text = "GAME OVER VILLAGEOIS WIN";
                 //Son Bonne fin
             }
             else
             {
+                turnText.text = "GAME OVER LOUPS GAROUS WIN";
                 //Son mauvaise fin
             }
-        }*/
+        }
     }
     #endregion
 
@@ -283,7 +340,7 @@ public class GameManager : MonoBehaviour
         {
             nbWolves = Random.Range(1, 3);
         }
-
+        nbWolvesAlive = nbWolves;
         if (randomizeOtherRoles)
         {
             teller = Random.value >= 0.5f;
@@ -311,6 +368,10 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < Players.Count; i++)
         {
             Players[i].Role = rolesList[i];
+            if (rolesList[i] == "witch")
+            {
+                witchPlayerIndex = i;
+            }
         }
 
         rolesSet = true;
@@ -322,6 +383,14 @@ public class GameManager : MonoBehaviour
 
         //Afficher le rôle du joueur
         //Son qui lui demande d'interagir avec son role pour passer à la suite
+
+        player.SetRoleUI();
+        if (player.RoleDiscovered)
+        {
+            player.SetUI("citizen :)");
+        }
+
+        /*
         if (!skip) //Mouvement de la main pour skip ?
         {
             player.roleText.enabled = true;
@@ -332,11 +401,31 @@ public class GameManager : MonoBehaviour
             player.roleText.enabled = false;
         }
         skip = false;
-        //Son qui lui demande de remettre son masque
+        */
 
-        rolesDiscovered[i] = true;
+        //Son qui lui demande de remettre son masque
     }
 
+    public void KillPlayer(Player player)
+    {
+        player.Die();
+        nbPlayersAlive--;
+        if (player.Role == "wolf")
+        {
+            nbWolvesAlive--;
+        }
+    }
+
+    public void RestartVariablesNight()
+    {
+        tellerTurnOngoing = true;
+        playerTellerClicked = null;
+        wolvesTimer = true;
+        witchTimer = true;
+    }
+    #endregion
+
+    #region Voting Methods
     public void ElectMayor()
     {
         voteOngoing = true;
@@ -350,14 +439,16 @@ public class GameManager : MonoBehaviour
         voteOngoing = false;
     }
 
-    public void KillPlayer(Player player)
+    public void NewMayor()
     {
-        player.Die();
-        nbPlayersAlive--;
-    }
-    #endregion
+        newMayorOngoing = true;
 
-    #region Voting Methods
+        //DO something
+
+        Debug.Log("Choix d'un nouveau maire");
+
+        newMayorOngoing = false;
+    }
 
     public Player GetVoteResult()
     {
@@ -642,82 +733,202 @@ public class GameManager : MonoBehaviour
         }
     }
 
-	#endregion
+    #endregion
+
+
+
+    #region Methodes specifiques a un joueur
     
-	
-
-	#region Methodes specifiques a un joueur
-
-	/// <summary>
-	/// Lance le tour des Loups Garous
-	/// </summary>
-	public void WolvesTurn()
+    public bool IsTellerAlive()
     {
-        wolvesTurnOngoing = true;
-
-        //DO something
-
-        Debug.Log("tour des Loups Garous");
-
-        wolvesTurnOngoing = false;
-
+        foreach (Player player in Players)
+        {
+            if (player.Role == "teller" && player.isAlive)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    public bool IsWitchAlive()
+    {
+        foreach (Player player in Players)
+        {
+            if (player.Role == "witch" && player.isAlive)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
-    /// <summary>
-    /// Lance le tour de la Sorciere
-    /// </summary>
-    public void WitchTurn()
-    {
-        witchTurnOngoing = true;
-
-        //DO something
-
-        Debug.Log("tour de la Socriere");
-
-        witchTurnOngoing = false;
-    }
-
-    /// <summary>
-    /// Lance le tour du hunter
-    /// </summary>
-    public void HunterTurn()
-    {
-        hunterTurnOngoing = true;
-
-        //DO something
-
-        Debug.Log("tour du hunter");
-
-        hunterTurnOngoing = false;
-    }
-
-    /// <summary>
-    /// Le Maire choisit son successeur à sa mort
-    /// </summary>
-    public void NewMayor()
-    {
-        newMayorOngoing = true;
-
-        //DO something
-
-        Debug.Log("Choix d'un nouveau maire");
-
-        newMayorOngoing = false;
-    }
-
-    /// <summary>
-    /// Lance les actions de la Voyante
-    /// </summary>
     public void TellerTurn()
     {
-        tellerTurnOngoing = true;
-
-        //DO something
-
+        turnText.text = "Tour de la Voyante";
         Debug.Log("tour de la Voyante");
-
-        tellerTurnOngoing = false;
+        if (Input.GetMouseButtonDown(0) && !tellerTimer)
+        {
+            RaycastHit hit;
+            //Debug.Log("Raycast !");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                playerTellerClicked = hit.transform.GetComponent<Player>();
+                //Debug.Log("You selected the " + hit.transform.name + ", his role is " + playerTellerClicked.Role);
+                playerTellerClicked.SetRoleUI();
+                tellerTimer = true;
+                StartCoroutine("TellerTimer", 5f);
+            }
+        }
+        if (!tellerTimer && playerTellerClicked != null)
+        {
+            //Debug.Log("Fin tour de la Voyante");
+            playerTellerClicked.SetUI("citizen :)");
+            tellerTurnOngoing = false;
+            wolvesTurnOngoing = true;
+        }
     }
+    public void WolvesTurn()
+    {
+        turnText.text = "Tour des Loups Garous";
+        Debug.Log("tour des Loups Garous");
+        StartCoroutine("WolvesTimer", 10f);
+        if (Input.GetMouseButtonDown(0) && playersKilledThisTurn.Count == 0)
+        {
+            RaycastHit hit;
+            Debug.Log("Raycast !");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                playerWolvesChose = hit.transform.GetComponent<Player>();
+                if (playerWolvesChose.Role != "wolf")
+                {
+                    Debug.Log("You selected the " + hit.transform.name + ", he will be eaten by the werewolves tonight");
+                    for (int i = 0; i < Players.Count; i++)
+                    {
+                        if (playerWolvesChose == Players[i])
+                        {
+                            playersKilledThisTurn.Add(Players[i]);
+                        }
+                    }
+                }
+                else
+                {
+                    Debug.Log("You can't eat another wolf !");
+                }
+            }
+        }
+        if (!wolvesTimer || playersKilledThisTurn.Count == 1)
+        {
+            if (playersKilledThisTurn.Count == 0)
+            {
+                Debug.Log("Nobody was eaten tonight");
+            }
+            Debug.Log("Fin tour des Loups Garous");
+            wolvesTurnOngoing = false;
+            if (witch) witchTurnOngoing = true;
+            else killTurn = true;
+            wolvesTimer = true;
+        }
+    }
+    public void WitchTurn()
+    {
+        turnText.text = "Tour de la Sorciere";
+        Debug.Log("tour de la Sorciere");
+        if (!witchUItoggled)
+        {
+            Players[witchPlayerIndex].ToggleWitchUI(true, playersKilledThisTurn.Count == 1);
+            witchUItoggled = true;
+            witchUsed1Potion = false;
+        }
+        StartCoroutine("WitchTimer", 10f);
+        if (playersKilledThisTurn.Count == 1)
+        {
+            playersKilledThisTurn[0].MakeRed();
+        }
+        if (Players[witchPlayerIndex].deathPotionUsedThisTurn)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                RaycastHit hit;
+                Debug.Log("Raycast !");
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    playerWitchChose = hit.transform.GetComponent<Player>();
+                    Debug.Log("You chose to poison the " + hit.transform.name + ", he will die in his sleep tonight");
+                    for (int i = 0; i < Players.Count; i++)
+                    {
+                        if (playerWitchChose == Players[i])
+                        {
+                            playersKilledThisTurn.Add(Players[i]);
+                            Players[witchPlayerIndex].deathPotionUsedThisTurn = false;
+                            Players[witchPlayerIndex].DeathPotionUsed = true;
+                            witchUsed1Potion = true;
+                        }
+                    }
+
+                }
+            }
+        }
+        else if (Players[witchPlayerIndex].lifePotionUsedThisTurn)
+        {
+            playersKilledThisTurn[0].MakeFlesh();
+            playersKilledThisTurn.RemoveAt(0);
+            Debug.Log("You healed the dead guy !");
+            Players[witchPlayerIndex].lifePotionUsedThisTurn = false;
+            Players[witchPlayerIndex].LifePotionUsed = true;
+            witchUsed1Potion = true;
+        }
+        if (witchUsed1Potion || !witchTimer)
+        {
+            if (witchUsed1Potion)
+            {
+                Debug.Log("Fin tour de la Sorciere, 1 potion utilisée");
+            }
+            else if (!witchTimer)
+            {
+                Debug.Log("Fin tour de la Sorciere, plus de temps");
+            }
+            for (int i = 0; i < playersKilledThisTurn.Count; i++)
+            {
+                playersKilledThisTurn[i].MakeFlesh();
+            }
+            Players[witchPlayerIndex].ToggleWitchUI(false, true);
+            witchUItoggled = false;
+            witchTurnOngoing = false;
+            killTurn = true;
+        }
+    }
+    public void HunterTurn()
+    {
+        turnText.text = "Tour du Chasseur";
+        Debug.Log("tour du Chasseur");
+        if (Input.GetMouseButtonDown(0) && playerHunterChose == null)
+        {
+            RaycastHit hit;
+            Debug.Log("Raycast !");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out hit))
+            {
+                playerHunterChose = hit.transform.GetComponent<Player>();
+                Debug.Log("You chose to kill " + hit.transform.name + " right before dying. BANG !");
+                for (int i = 0; i < Players.Count; i++)
+                {
+                    if (playerHunterChose == Players[i])
+                    {
+                        //playersKilledThisTurn.Add(Players[i]);
+                        KillPlayer(playerHunterChose);
+                    }
+                }
+                hunterTurnOngoing = false;
+            }
+        }
+
+
+    }
+
+   
     #endregion
 
     #region Methodes que je sais pas si elles seront utiles ou pas
@@ -756,7 +967,28 @@ public class GameManager : MonoBehaviour
         timerText.enabled = false;
     }
 
+    IEnumerator TellerTimer(float time)
+    {
+        //Debug.Log("TellerTimer started");
+        yield return new WaitForSeconds(time);
+        tellerTimer = false;
+        //Debug.Log("TellerTimer finished");
+    }
+    IEnumerator WolvesTimer(float time)
+    {
+        Debug.Log("Wolves Timer started");
+        yield return new WaitForSeconds(time);
+        wolvesTimer = false;
+        if (wolvesTurnOngoing) Debug.Log("Wolves Timer finished");
+    }
+    IEnumerator WitchTimer(float time)
+    {
+        Debug.Log("Witch Timer started");
+        yield return new WaitForSeconds(time);
+        witchTimer = false;
+        if (witchTurnOngoing) Debug.Log("Witch Timer finished");
 
+    }
     #endregion;
 }
 
