@@ -636,7 +636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!135 &78644469
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -723,7 +723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78644468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.236, y: 0.29, z: -7.04}
+  m_LocalPosition: {x: -3.52, y: 1.77, z: -7.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1159,7 +1159,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 201278589}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
   m_Name: 
@@ -1570,7 +1570,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 253668069}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
   m_Name: 
@@ -1973,6 +1973,7 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 1109011837}
   interactionManager: {fileID: 1109011834}
+  grabDrop: {fileID: 0}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 0}
@@ -3460,6 +3461,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0.14999998}
   m_SizeDelta: {x: 1.5, y: 0.29999995}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &622526097 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -5643403815756686879, guid: 48a421924db601e479cf6524c1c169b7, type: 3}
+  m_PrefabInstance: {fileID: 1300949709}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &638736867
 GameObject:
   m_ObjectHideFlags: 0
@@ -4977,6 +4983,7 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 201278593}
   interactionManager: {fileID: 201278590}
+  grabDrop: {fileID: 0}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 0}
@@ -5814,8 +5821,6 @@ MonoBehaviour:
   randomizeNbWolves: 0
   nbWolves: 2
   randomizeOtherRoles: 0
-  witch: 1
-  hunter: 1
   nbPlayersAlive: 0
   nbWolvesAlive: 0
   timerText: {fileID: 227465430}
@@ -6257,7 +6262,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1109011833}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
   m_Name: 
@@ -6779,13 +6784,14 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 2032786466}
   interactionManager: {fileID: 2032786464}
+  grabDrop: {fileID: 2032786463}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 75092309}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
-  m_flesh: {fileID: 0}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
   m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1876020919}
@@ -7684,16 +7690,17 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 253668073}
   interactionManager: {fileID: 253668070}
+  grabDrop: {fileID: 253668071}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 1723234536}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
-  m_flesh: {fileID: 0}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
   m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
-  mesh: {fileID: 1876020919}
+  mesh: {fileID: 622526097}
   lifePotionButton: {fileID: 0}
   deathPotionButton: {fileID: 0}
   deathMaterial: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
@@ -8200,7 +8207,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1387604470}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
   m_Name: 
@@ -8791,7 +8798,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &1529861888
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8865,7 +8872,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529861887}
   m_LocalRotation: {x: -0, y: -0, z: 0.003951788, w: 0.99999225}
-  m_LocalPosition: {x: 1.17, y: 0.31, z: -7.04}
+  m_LocalPosition: {x: 3.5, y: 1.69, z: -7.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -9105,7 +9112,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656374798}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
   m_Name: 
@@ -9569,13 +9576,14 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 1109011837}
   interactionManager: {fileID: 1109011834}
+  grabDrop: {fileID: 1109011835}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 1500358925}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
-  m_flesh: {fileID: 0}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
   m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1352940078}
@@ -10344,13 +10352,14 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 1387604474}
   interactionManager: {fileID: 1387604471}
+  grabDrop: {fileID: 1387604472}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 614298509}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
-  m_flesh: {fileID: 0}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
   m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1444854783}
@@ -10752,13 +10761,14 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 1656374802}
   interactionManager: {fileID: 1656374799}
+  grabDrop: {fileID: 1656374800}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 1421191399}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
-  m_flesh: {fileID: 0}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
   m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 767644379}
@@ -10979,6 +10989,7 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 253668073}
   interactionManager: {fileID: 253668070}
+  grabDrop: {fileID: 0}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 0}
@@ -11359,6 +11370,7 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 1656374802}
   interactionManager: {fileID: 1656374799}
+  grabDrop: {fileID: 0}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 0}
@@ -11557,13 +11569,14 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 201278593}
   interactionManager: {fileID: 201278590}
+  grabDrop: {fileID: 201278591}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 1894984527}
   player: {fileID: 0}
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
-  m_flesh: {fileID: 0}
+  m_flesh: {fileID: 2100000, guid: c23d28b42118c59438444a069f2a8537, type: 2}
   m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1344545324}
@@ -11903,7 +11916,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2032786462}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
   m_Name: 
@@ -12590,6 +12603,7 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 1387604474}
   interactionManager: {fileID: 1387604471}
+  grabDrop: {fileID: 0}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 0}
@@ -13212,6 +13226,7 @@ MonoBehaviour:
   voice: {fileID: 0}
   handClick: {fileID: 2032786466}
   interactionManager: {fileID: 2032786464}
+  grabDrop: {fileID: 0}
   marmite: {fileID: 0}
   voteUI: {fileID: 0}
   roleText: {fileID: 0}
