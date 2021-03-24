@@ -1683,12 +1683,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerList:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1071386922}
+  - {fileID: 1034036137}
+  - {fileID: 150024418}
+  - {fileID: 1807775253}
+  - {fileID: 1563421384}
+  - {fileID: 526409202}
 --- !u!1 &1931406137 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -5643403815756686879, guid: 48a421924db601e479cf6524c1c169b7, type: 3}

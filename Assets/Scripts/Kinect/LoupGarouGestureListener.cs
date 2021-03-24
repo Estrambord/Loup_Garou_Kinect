@@ -71,7 +71,7 @@ public class LoupGarouGestureListener : MonoBehaviour, KinectGestures.GestureLis
 		}
 		if (gesture == KinectGestures.Gestures.Psi)
 		{
-			bothHandsUp = true;
+            bothHandsUp = true;
 			playerList[manager.GetUserIndexById(userId)].IsPlayerReady = true;
 		}
 
