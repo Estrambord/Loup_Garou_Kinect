@@ -2233,7 +2233,7 @@ GameObject:
   - component: {fileID: 394152164}
   - component: {fileID: 394152165}
   m_Layer: 0
-  m_Name: w
+  m_Name: light probe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9862,7 +9862,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 136630151182664743, guid: 8920341c44de9904698a0399f381b44d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.5020566
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 136630151182664743, guid: 8920341c44de9904698a0399f381b44d, type: 3}
       propertyPath: m_LocalPosition.z
