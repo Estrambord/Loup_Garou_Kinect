@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
     public Material m_red;
     public Material m_flesh;
     public Material m_dead;
+    public Material m_green;
 
     public GameObject mesh;
 
@@ -82,14 +83,17 @@ public class Player : MonoBehaviour
         roleVisible = false;
         canDie = false;
         isAlive = true;
-        remainingPotionsString.Add("life");
-        remainingPotionsString.Add("dead");
+        //remainingPotionsString.Add("life");
+        //remainingPotionsString.Add("dead");
         r = mesh.GetComponent<Renderer>();
     }
     
     void Update()
     {
-
+        //if (IsPlayerReady)
+        //{
+        //    r.material = m_green;
+        //}
     }
     #endregion
 

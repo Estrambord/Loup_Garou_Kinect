@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
 
     #region Variables
+    
     //PUBLIC
     //[SerializeField] private List<KinectManager> kinectManagers;
     [System.NonSerialized] public List<Player> playersKilledThisTurn;
@@ -89,8 +90,7 @@ public class GameManager : MonoBehaviour
     private bool gameOver = false;
     private bool endPlaying = false;
     #endregion
-
-
+    #endregion
 
     #region Unity Base Methods
     void Start()
@@ -133,18 +133,19 @@ public class GameManager : MonoBehaviour
         
 		if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
-            //dayText.text = "Initialisation";
+            dayText.text = "Initialisation";
             //Son d'introduction
             //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
             if (ArePlayersReady() == false)
             {
                 //Afficher à l'écran que les joueurs ne sont pas prêts
-                //turnText.text = "Players are not ready";
+                NotReadyText.enabled = true;
                 Debug.Log("Players not ready");
             }
 
-            if (Players[Players.Count - 1].RoleDiscovered == false && rolesSet)
+            if (rolesSet == false && ArePlayersReady())
             {
+                NotReadyText.enabled = false;
                 SetPlayersRoles();
 
                 Debug.Log("Roles are set up");
@@ -153,6 +154,7 @@ public class GameManager : MonoBehaviour
 
             if (Players[Players.Count - 1].RoleDiscovered == false && rolesSet)
             {
+                turnText.enabled = true;
                 turnText.text = "Discovering roles one by one";
                 Debug.Log("Discovering roles one by one");
                 for (int i = 0; i < Players.Count; i++)
@@ -175,7 +177,7 @@ public class GameManager : MonoBehaviour
 
                 //Debug.Log("Election du maire");
                 ////Son election du maire
-                //ElectMayor();
+                ElectMayor();
             }
             
             if (mayorElected)
@@ -235,7 +237,9 @@ public class GameManager : MonoBehaviour
                     }
                     checkedHunterDead = true;
                 }
+
                 if (hunterTurnOngoing) HunterTurn();
+
                 if (!checkedMayorDead && !hunterTurnOngoing)
                 {
                     Debug.Log("Checking if Mayor is Alive and well");
@@ -245,14 +249,17 @@ public class GameManager : MonoBehaviour
                     }
                     checkedMayorDead = true;
                 }
+
                 if (newMayorOngoing)
                 {
-                    Debug.Log("Electing NewMayor");
-                    VoteVillage("election");
-                    newMayorOngoing = false;
+                    //Son ancien Maire doit en choisir un nouveau
+                    NewMayor();
                 }
+
                 if (!hunterTurnOngoing && !newMayorOngoing) votingTime = true;
+
                 if (nbPlayersAlive <= 2 * nbWolvesAlive - 1 || nbWolvesAlive == 0) gameOver = true;
+
                 if (!gameOver && votingTime)
                 {
                     Debug.Log("It's VOTING TIME");
@@ -273,22 +280,14 @@ public class GameManager : MonoBehaviour
                     }
                     killTurn = true;
                 }
+
                 if (hunterTurnOngoing) HunterTurn();
 
                 if (newMayorOngoing)
                 {
-                    Player newMayor = null;
-                    Debug.Log("Electing NewMayor");
-                    foreach(Player player in Players)
-					{
-                        if(!player.isAlive && player.IsMayor)
-						{
-                            newMayor = IndividualVote(player);
-                            newMayorOngoing = false;
-                            player.IsMayor = false;
-                        }
-					}
+                    NewMayor();
                 }
+
                 if (killTurn)
                 {
                     for (int i = 0; i < playersKilledThisTurn.Count; i++)
@@ -297,6 +296,7 @@ public class GameManager : MonoBehaviour
                     }
                     playersKilledThisTurn.Clear();
                 }
+
                 if (nbPlayersAlive <= 2 * nbWolvesAlive || nbWolvesAlive == 0) gameOver = true;
                 if (!gameOver && !hunterTurnOngoing && !newMayorOngoing)
                 {
@@ -324,7 +324,6 @@ public class GameManager : MonoBehaviour
         }
     }
     #endregion
-
 
     #region Methodes generales
 
@@ -444,26 +443,56 @@ public class GameManager : MonoBehaviour
     #region Voting Methods
     public void ElectMayor()
     {
-        voteOngoing = true;
+        Debug.Log("Election du Maire");
 
-        if (!mayorElected)
+        VoteVillage("election");
+
+        //Changer l'aspect esthétique du Maire ?
+
+        mayorElected = true;
+
+        /*
+        Player Mayor = null;
+        Mayor = GetVoteResult();
+
+        if (Mayor != null)
         {
-            Player newMayor = GetVoteResult();
+            for (int i = 0; i < Players.Count; i++)
+            {
+                Players[i].IsMayor = false;
+                if (Players[i] == Mayor) Players[i].IsMayor = true;
+            }
+
+            //Changer l'aspect esthétique du Maire ?
+
             mayorElected = true;
         }
-
-        voteOngoing = false;
+        */
     }
 
     public void NewMayor()
     {
-        newMayorOngoing = true;
+        Debug.Log("Choix d'un nouveau Maire");
 
-        //DO something
+        Player newMayor = null;
 
-        Debug.Log("Choix d'un nouveau maire");
+        foreach (Player player in Players)
+        {
+            if (!player.isAlive && player.IsMayor)
+            {
+                newMayor = IndividualVote(player);
+                player.IsMayor = false;
+            }
+        }
 
-        newMayorOngoing = false;
+        if (newMayor != null)
+        {
+            newMayor.IsMayor = true;
+
+            //Changer aspect esthétique nouveau maire ?
+
+            newMayorOngoing = false;
+        }
     }
 
     public Player GetVoteResult()
@@ -745,8 +774,6 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
-
-
     #region Methodes specifiques a un joueur
     
     public bool IsTellerAlive()
@@ -1009,5 +1036,3 @@ public class GameManager : MonoBehaviour
     }
     #endregion;
 }
-
-#endregion
