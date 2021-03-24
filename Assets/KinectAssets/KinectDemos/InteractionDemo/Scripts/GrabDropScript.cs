@@ -115,8 +115,8 @@ public class GrabDropScript : MonoBehaviour
 								draggedObjectOffset = hit.point - draggedObject.transform.position;
 								
 								// set selection material
-								draggedObjectMaterial = draggedObject.GetComponent<Renderer>().material;
-								draggedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
+								//draggedObjectMaterial = draggedObject.GetComponent<Renderer>().material;
+								//draggedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
 
 								// stop using gravity while dragging object
 								draggedObject.GetComponent<Rigidbody>().useGravity = false;

@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     #region UI
     public Text timerText;
     public Text NotReadyText;
-    public Marmite chaudron;
     public List<GameObject> potions;
 
     public Text turnText;
@@ -77,6 +76,9 @@ public class GameManager : MonoBehaviour
     private bool witchUsed1Potion = false;
     private bool witchTimer = true;
     private int witchPlayerIndex;
+    private bool potionsItemShown = false;
+    private bool witchTimerActivated = false;
+    public Marmite marmite;
     private Player playerWitchChose = null;
 
     private bool hunterTurnOngoing = false;
@@ -221,6 +223,8 @@ public class GameManager : MonoBehaviour
                 for (int i = 0; i < playersKilledThisTurn.Count; i++)
                 {
                     KillPlayer(playersKilledThisTurn[i]);
+                    Debug.Log("Joueur " + playersKilledThisTurn[i] + " est mort; indice " + i);
+
                 }
 
                 Debug.Log("All players killed");
@@ -387,7 +391,7 @@ public class GameManager : MonoBehaviour
         else rolesList.Add("citizen");
 
         rolesList.Shuffle();
-        rolesList = new List<string> { "wolf", "wolf", "citizen", "citizen", "citizen", "citizen" };
+        rolesList = new List<string> { "witch", "wolf", "citizen", "citizen", "citizen", "citizen" };
         //Affecter les roles aux joueurs
         for (int i = 0; i < Players.Count; i++)
         {
@@ -865,37 +869,6 @@ public class GameManager : MonoBehaviour
         turnText.text = "Tour des Loups Garous";
         Debug.Log("tour des Loups Garous");
 
-        //StartCoroutine("WolvesTimer", 10f);
-         /*
-        if (Input.GetMouseButtonDown(0) && playersKilledThisTurn.Count == 0)
-        {
-            RaycastHit hit;
-            Debug.Log("Raycast !");
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out hit))
-            {
-                playerWolvesChose = hit.transform.GetComponent<Player>();
-                if (playerWolvesChose.Role != "wolf")
-                {
-                    Debug.Log("You selected the " + hit.transform.name + ", he will be eaten by the werewolves tonight");
-                    for (int i = 0; i < Players.Count; i++)
-                    {
-                        if (playerWolvesChose == Players[i])
-                        {
-                            playersKilledThisTurn.Add(Players[i]);
-                        }
-                    }
-                }
-                else
-                {
-                    Debug.Log("You can't eat another wolf !");
-                    ResetVotes();
-
-                }
-            }
-        }
-         */
-
         if (playerWolvesChose == null)
 		{
             playerWolvesChose = WolvesVote();
@@ -913,27 +886,104 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (playersKilledThisTurn.Count == 1)  //!wolvesTimer
+        if (playersKilledThisTurn.Count == 1)
         {
-            //if (playersKilledThisTurn.Count == 0)
-            //{
-            //    Debug.Log("Nobody was eaten tonight");
-            //}
-
             Debug.Log("Fin tour des Loups Garous");
             wolvesTurnOngoing = false;
 
-            //wolvesTimer = true;
-            //StopCoroutine("WolvesTimer");
-
-            if (witch) witchTurnOngoing = true;
+            if (witch && IsWitchAlive()) witchTurnOngoing = true;
             else killTurn = true;
 		}
     }
     public void WitchTurn()
     {
+        string potionChosen = "";
+		if (!potionsItemShown)
+		{
+            marmite.gameObject.SetActive(true);
+            foreach (GameObject potion in potions)
+			{
+                if(potion.tag == "PotionLife" && marmite.remainingPotions.Contains("life"))
+				{
+                    //potion.SetActive(true);
+                }
+                
+                else if(potion.tag == "PotionDead" && marmite.remainingPotions.Contains("dead"))
+				{
+                    //potion.SetActive(true);
+                }
+			}
+            potionsItemShown = true;
+		}
         turnText.text = "Tour de la Sorciere";
         Debug.Log("tour de la Sorciere");
+
+        if (witchTimer && !witchTimerActivated)
+        {
+            StartCoroutine("WitchTimer", 60f);
+            Players[witchPlayerIndex].ActivateGrabDrop(); ;
+        }
+        if (marmite.isChosen)
+		{
+            StopCoroutine("WitchTimer");
+            Players[witchPlayerIndex].DeactivateGrabDrop();
+            potionChosen = marmite.chosen;
+			switch (potionChosen)
+			{
+                case "life":
+                    //playersKilledThisTurn[0].Remettrematerial()
+                    playersKilledThisTurn[0].MakeFlesh();
+                    playersKilledThisTurn.Clear();
+                    Debug.Log("The witch revived a dead guy");
+                    Debug.Log("Il y a " + playersKilledThisTurn.Count + " qui sont morts cette nuit...");
+                    witchTurnOngoing = false;
+                    killTurn = true;
+                    foreach (GameObject potion in potions)
+                    {
+                        potion.SetActive(false);
+                    }
+                    marmite.gameObject.SetActive(false);
+                    potionsItemShown = false;
+                    break;
+                case "dead":
+                    turnText.text = "Witch, choose a player to kill";
+                    if (playerWitchChose == null)
+                    {
+                        playerWitchChose = IndividualVote(Players[witchPlayerIndex]);
+                    }
+                    if (playerWitchChose != null)
+                    {
+                        playersKilledThisTurn.Add(playerWitchChose);
+                        Debug.Log("Witch, you chose to kill " + playerWitchChose);
+                        //playerWitchChose.MakeDead();
+                        witchTurnOngoing = false;
+                        killTurn = true;
+                        foreach (GameObject potion in potions)
+                        {
+                            potion.SetActive(false);
+                        }
+                        marmite.gameObject.SetActive(false);
+                        potionsItemShown = false;
+                    }
+                    break;
+                 default:
+                    break;
+			}
+		}
+        else if (! marmite.isChosen && !witchTimer)
+		{
+            Debug.Log("Aucune potion n'a été utilisée");
+            witchTurnOngoing = false;
+            killTurn = true;
+            foreach (GameObject potion in potions)
+            {
+                potion.SetActive(false);
+            }
+            marmite.gameObject.SetActive(false);
+            potionsItemShown = false;
+        }
+
+        /*
         if (!witchUItoggled)
         {
             Players[witchPlayerIndex].ToggleWitchUI(true, playersKilledThisTurn.Count == 1);
@@ -998,7 +1048,7 @@ public class GameManager : MonoBehaviour
             witchTurnOngoing = false;
             killTurn = true;
             StopCoroutine("WitchTurn");
-        }
+        }*/
     }
     public void HunterTurn()
     {
@@ -1082,11 +1132,17 @@ public class GameManager : MonoBehaviour
     }
     IEnumerator WitchTimer(float time)
     {
+        timerText.enabled = true;
+        witchTimerActivated = true;
         Debug.Log("Witch Timer started");
-        yield return new WaitForSeconds(time);
+        for (int i = (int)time; i >= 0; i--)
+        {
+            yield return new WaitForSeconds(1);
+            timerText.text = i.ToString();
+            Debug.Log("time remaining" + i);
+        }
+        Debug.Log("Witch timer finished");
         witchTimer = false;
-        if (witchTurnOngoing) Debug.Log("Witch Timer finished");
-
     }
 
     IEnumerator RoleDiscovery(float time)
@@ -1097,6 +1153,7 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(1);
             timerText.text = i.ToString();
+            Debug.Log("time remaining" + i);
         }
         timerText.enabled = false;
         roleTimer = false;

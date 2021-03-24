@@ -408,6 +408,81 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f262128ccc1ecc94587e3a2b3a981e4c, type: 3}
+--- !u!1001 &42910045
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5869454806289397159, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: remainingPotions.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869454806289397159, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: remainingPotions.Array.data[0]
+      value: life
+      objectReference: {fileID: 0}
+    - target: {fileID: 5869454806289397159, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: remainingPotions.Array.data[1]
+      value: dead
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6268667019704128073, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752329456785524979, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_Name
+      value: Chaudron
+      objectReference: {fileID: 0}
+    - target: {fileID: 6752329456785524979, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5869454806289397158, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+    - {fileID: 5869454806289397157, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
 --- !u!1 &75092308
 GameObject:
   m_ObjectHideFlags: 0
@@ -561,7 +636,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!135 &78644469
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -648,7 +723,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 78644468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.236, y: 0.29, z: -4.22}
+  m_LocalPosition: {x: -1.236, y: 0.29, z: -7.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -733,6 +808,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 106806672}
   m_CullTransparentMesh: 1
+--- !u!114 &113088256 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5869454806289397159, guid: 73f899436591e5345ab45286cf481d2e, type: 3}
+  m_PrefabInstance: {fileID: 42910045}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da9d7134e71a254fbea96f79061341c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &126412793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1014,6 +1100,7 @@ GameObject:
   - component: {fileID: 201278592}
   - component: {fileID: 201278590}
   - component: {fileID: 201278593}
+  - component: {fileID: 201278591}
   m_Layer: 0
   m_Name: InteractionManager (4)
   m_TagString: Untagged
@@ -1065,6 +1152,26 @@ MonoBehaviour:
   controlMouseCursor: 0
   controlMouseDrag: 0
   debugText: {fileID: 0}
+--- !u!114 &201278591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 201278589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableObjects:
+  - {fileID: 1529861887}
+  - {fileID: 78644468}
+  selectedObjectMaterial: {fileID: 0}
+  dragSpeed: 3
+  useGravity: 0
+  resetObjects: 0
+  infoGuiText: {fileID: 0}
 --- !u!4 &201278592
 Transform:
   m_ObjectHideFlags: 0
@@ -1343,7 +1450,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: cela
 --- !u!222 &227465431
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1404,6 +1511,7 @@ GameObject:
   - component: {fileID: 253668072}
   - component: {fileID: 253668070}
   - component: {fileID: 253668073}
+  - component: {fileID: 253668071}
   m_Layer: 0
   m_Name: InteractionManager (1)
   m_TagString: Untagged
@@ -1455,6 +1563,26 @@ MonoBehaviour:
   controlMouseCursor: 0
   controlMouseDrag: 0
   debugText: {fileID: 0}
+--- !u!114 &253668071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 253668069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableObjects:
+  - {fileID: 1529861887}
+  - {fileID: 78644468}
+  selectedObjectMaterial: {fileID: 0}
+  dragSpeed: 3
+  useGravity: 0
+  resetObjects: 0
+  infoGuiText: {fileID: 0}
 --- !u!4 &253668072
 Transform:
   m_ObjectHideFlags: 0
@@ -5686,17 +5814,18 @@ MonoBehaviour:
   randomizeNbWolves: 0
   nbWolves: 2
   randomizeOtherRoles: 0
-  teller: 1
   witch: 1
   hunter: 1
   nbPlayersAlive: 0
   nbWolvesAlive: 0
   timerText: {fileID: 227465430}
   NotReadyText: {fileID: 1874416398}
-  chaudron: {fileID: 0}
-  potions: []
+  potions:
+  - {fileID: 78644468}
+  - {fileID: 1529861887}
   turnText: {fileID: 758497038}
   dayText: {fileID: 600221270}
+  marmite: {fileID: 113088256}
 --- !u!1 &1029216310
 GameObject:
   m_ObjectHideFlags: 0
@@ -6069,6 +6198,7 @@ GameObject:
   - component: {fileID: 1109011836}
   - component: {fileID: 1109011834}
   - component: {fileID: 1109011837}
+  - component: {fileID: 1109011835}
   m_Layer: 0
   m_Name: InteractionManager (5)
   m_TagString: Untagged
@@ -6120,6 +6250,26 @@ MonoBehaviour:
   controlMouseCursor: 0
   controlMouseDrag: 0
   debugText: {fileID: 0}
+--- !u!114 &1109011835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1109011833}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableObjects:
+  - {fileID: 1529861887}
+  - {fileID: 78644468}
+  selectedObjectMaterial: {fileID: 0}
+  dragSpeed: 3
+  useGravity: 0
+  resetObjects: 0
+  infoGuiText: {fileID: 0}
 --- !u!4 &1109011836
 Transform:
   m_ObjectHideFlags: 0
@@ -6636,7 +6786,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_dead: {fileID: 0}
+  m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1876020919}
   lifePotionButton: {fileID: 0}
@@ -7137,36 +7287,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5896463089159051011, guid: f262128ccc1ecc94587e3a2b3a981e4c, type: 3}
   m_PrefabInstance: {fileID: 1516067527}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1214438138
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1214438139}
-  m_Layer: 0
-  m_Name: Chaudron (Missing Prefab)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1214438139
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1214438138}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1227826283
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7571,7 +7691,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_dead: {fileID: 0}
+  m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1876020919}
   lifePotionButton: {fileID: 0}
@@ -8021,6 +8141,7 @@ GameObject:
   - component: {fileID: 1387604473}
   - component: {fileID: 1387604471}
   - component: {fileID: 1387604474}
+  - component: {fileID: 1387604472}
   m_Layer: 0
   m_Name: InteractionManager (2)
   m_TagString: Untagged
@@ -8072,6 +8193,26 @@ MonoBehaviour:
   controlMouseCursor: 0
   controlMouseDrag: 0
   debugText: {fileID: 0}
+--- !u!114 &1387604472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1387604470}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableObjects:
+  - {fileID: 1529861887}
+  - {fileID: 78644468}
+  selectedObjectMaterial: {fileID: 0}
+  dragSpeed: 3
+  useGravity: 0
+  resetObjects: 0
+  infoGuiText: {fileID: 0}
 --- !u!4 &1387604473
 Transform:
   m_ObjectHideFlags: 0
@@ -8650,7 +8791,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!54 &1529861888
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8724,7 +8865,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529861887}
   m_LocalRotation: {x: -0, y: -0, z: 0.003951788, w: 0.99999225}
-  m_LocalPosition: {x: 1.17, y: 0.31, z: -4.22}
+  m_LocalPosition: {x: 1.17, y: 0.31, z: -7.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -8905,6 +9046,7 @@ GameObject:
   - component: {fileID: 1656374801}
   - component: {fileID: 1656374799}
   - component: {fileID: 1656374802}
+  - component: {fileID: 1656374800}
   m_Layer: 0
   m_Name: InteractionManager (3)
   m_TagString: Untagged
@@ -8956,6 +9098,26 @@ MonoBehaviour:
   controlMouseCursor: 0
   controlMouseDrag: 0
   debugText: {fileID: 0}
+--- !u!114 &1656374800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656374798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29735fcf935e5f94a9473917f381f6b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  draggableObjects:
+  - {fileID: 1529861887}
+  - {fileID: 78644468}
+  selectedObjectMaterial: {fileID: 0}
+  dragSpeed: 3
+  useGravity: 0
+  resetObjects: 0
+  infoGuiText: {fileID: 0}
 --- !u!4 &1656374801
 Transform:
   m_ObjectHideFlags: 0
@@ -9414,7 +9576,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_dead: {fileID: 0}
+  m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1352940078}
   lifePotionButton: {fileID: 0}
@@ -10189,7 +10351,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_dead: {fileID: 0}
+  m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1444854783}
   lifePotionButton: {fileID: 0}
@@ -10597,7 +10759,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_dead: {fileID: 0}
+  m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 767644379}
   lifePotionButton: {fileID: 0}
@@ -11402,7 +11564,7 @@ MonoBehaviour:
   m_yellow: {fileID: 0}
   m_red: {fileID: 0}
   m_flesh: {fileID: 0}
-  m_dead: {fileID: 0}
+  m_dead: {fileID: 2100000, guid: 2dbf8bc86337f0241844251234bdfa73, type: 2}
   m_green: {fileID: 0}
   mesh: {fileID: 1344545324}
   lifePotionButton: {fileID: 0}

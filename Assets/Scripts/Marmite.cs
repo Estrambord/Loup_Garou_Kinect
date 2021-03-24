@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Marmite : MonoBehaviour
 {
-    [System.NonSerialized] public bool isChosen = false;
-    [System.NonSerialized] public string chosen;
+    //[System.NonSerialized] 
+    //[System.NonSerialized] 
+    public bool isChosen = false;
+    public string chosen;
     [SerializeField] private GameManager gameManager;
 
     public List<string> remainingPotions;
@@ -14,7 +16,7 @@ public class Marmite : MonoBehaviour
 
     void Start()
     {
-        remainingPotions = new List<string> { "life", "dead" };
+        //remainingPotions = new List<string> { "life", "dead" };
     }
 
     private void OnCollisionEnter(Collision col)

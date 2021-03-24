@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
     public Player voice = null;
     public HandClickScript handClick;
     public InteractionManager interactionManager;
+    public GrabDropScript grabDrop;
     public Marmite marmite;
     #endregion
 
@@ -212,6 +213,18 @@ public class Player : MonoBehaviour
     {
         handClick.enabled = false;
         interactionManager.enabled = false;
+    }
+
+    public void ActivateGrabDrop()
+    {
+        interactionManager.enabled = true;
+        grabDrop.enabled = true;
+    }
+
+    public void DeactivateGrabDrop()
+    {
+        //interactionManager.enabled = false;
+        grabDrop.enabled = false;
     }
 
     #region Prototype methods
