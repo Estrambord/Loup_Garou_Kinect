@@ -308,7 +308,7 @@ public class InteractionManager : MonoBehaviour
 		if (playerId < 6)
 		{
 			gripHandTexture = listGripHandCursor[playerId];
-			//normalHandTexture = listHandCursor[playerId];
+			releaseHandTexture = listHandCursor[playerId];
         }
 		else Debug.LogWarning("PlayerId not set or wrong !");
 	}

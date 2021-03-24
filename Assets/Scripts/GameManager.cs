@@ -108,14 +108,15 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        /*
+        
 		#region Vote du village
         
-        for (int i = 3; i < Players.Count; i++)
+        /*for (int i = 3; i < Players.Count; i++)
         {
             Players[i].Die();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
+        }*/
+        
+        /*if (Input.GetKeyDown(KeyCode.F))
         {
             votingTime = true;
             electedPlayer = null;
@@ -125,10 +126,10 @@ public class GameManager : MonoBehaviour
 		{
             VoteVillage("elimination");
             //VoteVillage("election");
-        }
+        }*/
        
 		#endregion
-        */
+        
 
         
 		if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
@@ -152,29 +153,32 @@ public class GameManager : MonoBehaviour
                 //Son qui lance la nuit pour les joueurs
             }
 
-            if (Players[Players.Count - 1].RoleDiscovered == false && rolesSet)
+            //if (Players[Players.Count - 1].RoleDiscovered == false && rolesSet)
+            if (Players[1].RoleDiscovered == false && rolesSet)
             {
                 turnText.enabled = true;
                 turnText.text = "Discovering roles one by one";
                 Debug.Log("Discovering roles one by one");
-                for (int i = 0; i < Players.Count; i++)
+                //for (int i = 0; i < Players.Count; i++)
+                for (int i = 0; i < 2; i++)
                 {
-                    if (i == 0)
+                    if (i == 0 && !Players[i].RoleDiscovered)
                     {
                         DiscoverOwnRole(Players[i], i);
                     }
-                    else if (Players[i - 1].RoleDiscovered)
+                    else if ( i != 0 &&  Players[i - 1].RoleDiscovered && !Players[i].RoleDiscovered)
                     {
                         DiscoverOwnRole(Players[i], i);
                     }
                 }
                 //Son qui explique le but du jeu
                 //Son qui dit que tout le monde peut relever son masque
+                votingTime = true;
             }
 
-            if (Players[Players.Count - 1].RoleDiscovered && !mayorElected)
+            //if (Players[Players.Count - 1].RoleDiscovered && !mayorElected)// Le dernier player ? pq ?
+            if (Players[1].RoleDiscovered && !mayorElected)
             {
-
                 //Debug.Log("Election du maire");
                 ////Son election du maire
                 ElectMayor();
@@ -187,10 +191,10 @@ public class GameManager : MonoBehaviour
                 Debug.Log("Game launched");
             }
         }
-        else if (!beforeGameStart && !jour) //nuit
+        /*else if (!beforeGameStart && !jour) //nuit
         {
             dayText.text = "Nuit";
-            Debug.Log("Nuit");
+            //Debug.Log("Nuit");
 
             //Son pour que tout le monde mette son masque sur ses yeux
 
@@ -321,7 +325,7 @@ public class GameManager : MonoBehaviour
                 turnText.text = "GAME OVER LOUPS GAROUS WIN";
                 //Son mauvaise fin
             }
-        }
+        }*/
     }
     #endregion
 
@@ -329,7 +333,8 @@ public class GameManager : MonoBehaviour
 
     public bool ArePlayersReady()
     {
-        for (int i = 0; i < Players.Count; i++)
+        //for (int i = 0; i < Players.Count; i++)
+        for (int i = 0; i < 2; i++)
         {
             if (!Players[i].IsPlayerReady)
             {
@@ -386,20 +391,26 @@ public class GameManager : MonoBehaviour
 
     public void DiscoverOwnRole(Player player, int i)
     {
+        Debug.Log(i.ToString());
 		//Son qui demande à un joueur specifique d'enlever son masque
 
 		//Afficher le rôle du joueur
 		//Son qui lui demande d'interagir avec son role pour passer à la suite
-		if (!roleTimer)
+		if (!roleTimer && player.RoleDisplayed == false)
 		{
             roleTimer = true;
             //Demander de regarder l'écran au player
             StartCoroutine("RoleDiscovery", 10f);
             player.SetRoleUI();
+            player.RoleDisplayed = true;
         }
-        if (player.RoleDiscovered || !roleTimer)
+        else if (player.RoleDisplayed && !roleTimer) //player.RoleDiscovered || 
         {
-            player.SetUI("citizen :)");
+            Debug.Log("Hé ho je désactive l'UI");
+            //player.RoleDiscovered = true;
+            player.roleText.enabled = false;
+            player.RoleDiscovered = true;
+            //player.SetUI("citizen :)");
             //Demander de remettre le masque
             roleTimer = true;
             StartCoroutine("RoleDiscovery", 5f);
@@ -444,12 +455,14 @@ public class GameManager : MonoBehaviour
     public void ElectMayor()
     {
         Debug.Log("Election du Maire");
-
         VoteVillage("election");
 
         //Changer l'aspect esthétique du Maire ?
-
-        mayorElected = true;
+        if(votingTime == false)
+		{
+            mayorElected = true;
+        }
+        
 
         /*
         Player Mayor = null;
@@ -576,7 +589,7 @@ public class GameManager : MonoBehaviour
             votingTimer = true;
             voteOngoing = true;
             timerText.gameObject.SetActive(true);
-            StartCoroutine("VotingTimer", 20f);
+            StartCoroutine("VotingTimer", 40f);
             Debug.Log("Voting Timer started");
         }
 
@@ -596,7 +609,8 @@ public class GameManager : MonoBehaviour
 				{
                     Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was elected as Mayor");
                     eliminatedPlayer.IsMayor = true;
-
+                    string nomSphere = "Sphere (" + eliminatedPlayer.gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
+                    eliminatedPlayer.transform.Find(nomSphere).gameObject.SetActive(true);
                 }
             }
             else
@@ -617,6 +631,7 @@ public class GameManager : MonoBehaviour
                             }
                             else if (voteType == "election")
                             {
+                                //Pas censé arriver
                                 Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was elected as Mayor thanks to the Mayor's decision");
                                 eliminatedPlayer.IsMayor = true;
                             }
@@ -1029,8 +1044,14 @@ public class GameManager : MonoBehaviour
 
     IEnumerator RoleDiscovery(float time)
     {
-        Debug.Log("Discovering roles");
-        yield return new WaitForSeconds(time);
+        timerText.enabled = true;
+        Debug.Log("Discovering roles");        
+        for (int i = (int)time; i >= 0; i--)
+        {
+            yield return new WaitForSeconds(1);
+            timerText.text = i.ToString();
+        }
+        timerText.enabled = false;
         roleTimer = false;
 
     }

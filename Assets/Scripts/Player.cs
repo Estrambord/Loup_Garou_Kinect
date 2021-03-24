@@ -49,8 +49,9 @@ public class Player : MonoBehaviour
     public TMPro.TMP_Text player;
 
     public bool RoleDiscovered { get; set; } = false;
+    public bool RoleDisplayed { get; set; } = false;
 
-    public Material m_yellow;
+	public Material m_yellow;
     public Material m_red;
     public Material m_flesh;
     public Material m_dead;
@@ -216,6 +217,10 @@ public class Player : MonoBehaviour
     #region Prototype methods
     public void SetRoleUI()
     {
+        Debug.Log("Setting role UI");
+        roleText.enabled = true;
+        string nomSphere = "Sphere (" + gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
+        transform.Find(nomSphere).gameObject.SetActive(true);
         roleText.text = Role;
     }
 
