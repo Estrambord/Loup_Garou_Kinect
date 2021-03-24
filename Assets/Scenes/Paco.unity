@@ -1343,7 +1343,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 10
+  m_Text: 
 --- !u!222 &227465431
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3813,7 +3813,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &758497036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11916,7 +11916,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2037330160}
   m_LocalRotation: {x: 0.055779427, y: -0, z: -0, w: 0.9984432}
-  m_LocalPosition: {x: 0, y: 2.57, z: -9.77}
+  m_LocalPosition: {x: 0, y: 1.7, z: -11.87}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2050225437}

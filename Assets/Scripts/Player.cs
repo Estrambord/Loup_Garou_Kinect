@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     public GameObject mesh;
 
-    private Renderer r;
+    private Renderer r { get; set; }
 
     public GameObject lifePotionButton;
     public GameObject deathPotionButton;
@@ -219,9 +219,10 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Setting role UI");
         roleText.enabled = true;
+        roleText.text = Role;
+        //AFFICHER UI SELON LE PERSONNAGE
         string nomSphere = "Sphere (" + gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
         transform.Find(nomSphere).gameObject.SetActive(true);
-        roleText.text = Role;
     }
 
     public void SetUI(string s)
@@ -243,6 +244,11 @@ public class Player : MonoBehaviour
     {
         r.material = m_flesh;
     }
+
+    public void MakeDead()
+	{
+        r.material = m_dead;
+	}
 
     public void ToggleWitchUI(bool b, bool isAPlayerDead)
     {
