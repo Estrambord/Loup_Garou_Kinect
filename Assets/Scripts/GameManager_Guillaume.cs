@@ -126,10 +126,10 @@ public class GameManager_Guillaume : MonoBehaviour
         {
             dayText.text = "Initialisation";
             //Son d'introduction
-            //Son qui dit aux joueurs de se mettre à leur place et de lever les bras pour Ready
+            //Son qui dit aux joueurs de se mettre Ã  leur place et de lever les bras pour Ready
             if (ArePlayersReady() == false)
             {
-                //Afficher à l'écran que les joueurs ne sont pas prêts
+                //Afficher Ã  l'Ã©cran que les joueurs ne sont pas prÃªts
                 turnText.text = "Players are not ready";
                 Debug.Log("Players not ready");
             }
@@ -401,10 +401,10 @@ public class GameManager_Guillaume : MonoBehaviour
 
     public void DiscoverOwnRole(Player player, int i)
     {
-        //Son qui demande à un joueur specifique d'enlever son masque
+        //Son qui demande Ã  un joueur specifique d'enlever son masque
 
-        //Afficher le rôle du joueur
-        //Son qui lui demande d'interagir avec son role pour passer à la suite
+        //Afficher le rÃ´le du joueur
+        //Son qui lui demande d'interagir avec son role pour passer Ã  la suite
 
         //rolesDisplayed[i] = true;
 
@@ -473,13 +473,13 @@ public class GameManager_Guillaume : MonoBehaviour
                 }
             }
         }
-        //Vérifie le nombre de votes déjà réalisés
+        //VÃ©rifie le nombre de votes dÃ©jÃ  rÃ©alisÃ©s
         if (nbVotes < nbVoters)
         {
             //Debug.Log()
             for (int i = 0; i < Players.Count; i++)
             {
-                //Vérifie si un joueur vient de voter et désactive le vote pour ce joueur le cas échéant
+                //VÃ©rifie si un joueur vient de voter et dÃ©sactive le vote pour ce joueur le cas Ã©chÃ©ant
                 if (Players[i].isAlive && !Players[i].hasVoted)
                 {
                     if (Players[i].voice != null)
@@ -492,7 +492,7 @@ public class GameManager_Guillaume : MonoBehaviour
                 }
             }
         }
-        //Vérifie si tout le monde a voté
+        //VÃ©rifie si tout le monde a votÃ©
         everybodyVoted = true;
         foreach (Player player in Players)
         {
@@ -761,7 +761,7 @@ public class GameManager_Guillaume : MonoBehaviour
         {
             if (witchUsed1Potion)
             {
-                Debug.Log("Fin tour de la Sorciere, 1 potion utilisée");
+                Debug.Log("Fin tour de la Sorciere, 1 potion utilisÃ©e");
             }
             else if (!witchTimer)
             {
@@ -826,7 +826,7 @@ public class GameManager_Guillaume : MonoBehaviour
     /*
     public Player Get_Vote_Result(int Nb_Vote)
     {
-        //script qui gère le résultat du vote quotidien
+        //script qui gÃ¨re le rÃ©sultat du vote quotidien
     }
     */
 
@@ -836,7 +836,7 @@ public class GameManager_Guillaume : MonoBehaviour
     }
     public void Reload_Players()
     {
-        // script qui reload la partie si il y a un problème de tracking
+        // script qui reload la partie si il y a un problÃ¨me de tracking
     }
 
     #endregion

@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     [System.NonSerialized] public bool hasVoted = false;
     protected bool isAwake = true;
     [SerializeField] private string role = "citizen";
+    public bool voteActivated = false;
     public string Role
     {
         get { return role; }
@@ -39,6 +40,7 @@ public class Player : MonoBehaviour
     public Player voice = null;
     public HandClickScript handClick;
     public InteractionManager interactionManager;
+    public GrabDropScript grabDrop;
     public Marmite marmite;
     #endregion
 
@@ -49,15 +51,17 @@ public class Player : MonoBehaviour
     public TMPro.TMP_Text player;
 
     public bool RoleDiscovered { get; set; } = false;
+    public bool RoleDisplayed { get; set; } = false;
 
-    public Material m_yellow;
+	public Material m_yellow;
     public Material m_red;
     public Material m_flesh;
     public Material m_dead;
+    public Material m_green;
 
     public GameObject mesh;
 
-    private Renderer r;
+    private Renderer r { get; set; }
 
     public GameObject lifePotionButton;
     public GameObject deathPotionButton;
@@ -66,6 +70,7 @@ public class Player : MonoBehaviour
     public bool lifePotionUsedThisTurn { get; set; } = false;
     public bool DeathPotionUsed { get; set; } = false;
     public bool deathPotionUsedThisTurn { get; set; } = false;
+    public Material deathMaterial;
 
     #endregion
 
@@ -81,15 +86,11 @@ public class Player : MonoBehaviour
         roleVisible = false;
         canDie = false;
         isAlive = true;
-        remainingPotionsString.Add("life");
-        remainingPotionsString.Add("dead");
+        //remainingPotionsString.Add("life");
+        //remainingPotionsString.Add("dead");
         r = mesh.GetComponent<Renderer>();
     }
     
-    void Update()
-    {
-
-    }
     #endregion
 
     public void Sleep()
@@ -102,7 +103,7 @@ public class Player : MonoBehaviour
 
     public void WakeUp()
     {
-        //réveille un player
+        //rÃ©veille un player
         roleText.enabled = true;
         player.enabled = false;
         isAwake = true;
@@ -112,11 +113,15 @@ public class Player : MonoBehaviour
     {
         r.material = m_dead;
         isAlive = false;
+
+        //canDie = true;
+        //enabled = false;
+        mesh.GetComponent<Renderer>().material = deathMaterial;
     }
 
     public void Revive()
     {
-        //réssuscite un joueur grâce à la sorcière
+        //rÃ©ssuscite un joueur grÃ¢ce Ã  la sorciÃ¨re
         canDie = false;
         isAlive = true;
     }
@@ -128,7 +133,7 @@ public class Player : MonoBehaviour
             voice = player;
             Debug.Log(voice);
             player.nbVote++;
-            Debug.Log("Le joueur " + this + " a voté contre le joueur " + player);
+            Debug.Log("Le joueur " + this + " a votÃ© contre le joueur " + player);
             Debug.Log("le " + player + " a " + player.nbVote + " votes contre lui");
         }
         else
@@ -138,76 +143,42 @@ public class Player : MonoBehaviour
     }
 
 
-
-
-    //Méthodeà déplacer dans le GameManager pour avoir accès à tous les joueurs
-    public virtual void SpecialVote(Player player)
-    {
-
-        switch (this.Role)
-        {
-            case ("witch"):
-                if (remainingPotionsString.Contains("life"))
-                {
-                    //Activer les potions grabbable
-                    remainingPotions[0].SetActive(true);
-                }
-                if (remainingPotionsString.Contains("dead"))
-                {
-                    //Activer les potions grabbable
-                    remainingPotions[1].SetActive(true);
-                }
-                //Demander de choisir une potion (son)
-                //Au trigger de la marmite faire
-                if (marmite.isChosen)
-                {
-                    if (marmite.chosen == "life")
-                    {
-                        //foreach(Player player in Players){
-                        //  if player.canDie == true{
-                        //      player.canDie = false;
-                        //  }
-                        //}
-                    }
-                    else
-                    {
-                        ActivateVote();
-                        //Tuer player sur qui est la voix
-                        DeactivateVote();
-                    }
-                }
-
-                //Si la potion est lâchée, réinitialiser la position (GrabScript)
-
-                break;
-            case ("hunter"):
-                break;
-            case ("teller"):
-                break;
-            case ("wolf"):
-                break;
-        }
-        //le script de vote des personnages à rôles spéciaux
-
-    }
-
     public void ActivateVote()
     {
-        //Activer le vote à la main
+        //Activer le vote Ã  la main
         handClick.enabled = true;
         interactionManager.enabled = true;
+        voteActivated = true;
     }
 
     public void DeactivateVote()
     {
         handClick.enabled = false;
         interactionManager.enabled = false;
+        voteActivated = false;
+    }
+
+    public void ActivateGrabDrop()
+    {
+        interactionManager.enabled = true;
+        grabDrop.enabled = true;
+    }
+
+    public void DeactivateGrabDrop()
+    {
+        //interactionManager.enabled = false;
+        grabDrop.enabled = false;
     }
 
     #region Prototype methods
     public void SetRoleUI()
     {
+        Debug.Log("Setting role UI");
+        roleText.gameObject.SetActive(true);
         roleText.text = Role;
+        //AFFICHER UI SELON LE PERSONNAGE
+        /*string nomSphere = "Sphere (" + gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
+        transform.Find(nomSphere).gameObject.SetActive(true);*/
     }
 
     public void SetUI(string s)
@@ -229,6 +200,11 @@ public class Player : MonoBehaviour
     {
         r.material = m_flesh;
     }
+
+    public void MakeDead()
+	{
+        r.material = m_dead;
+	}
 
     public void ToggleWitchUI(bool b, bool isAPlayerDead)
     {
