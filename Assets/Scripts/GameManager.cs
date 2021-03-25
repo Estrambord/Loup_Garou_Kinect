@@ -17,9 +17,9 @@ public class GameManager : MonoBehaviour
     public bool randomizeNbWolves = false;
     public int nbWolves = 2;
     public bool randomizeOtherRoles = false;
-    private bool teller = true;
-    private bool witch = false;
-    private bool hunter = true;
+    public bool teller = true;
+    public bool witch = false;
+    public bool hunter = true;
     private int wait = 0;
 
     //PRIVATE
@@ -452,6 +452,7 @@ public class GameManager : MonoBehaviour
             teller = Random.value >= 0.5f;
             witch = Random.value >= 0.5f;
             hunter = Random.value >= 0.5f;
+            witch = false;
         }
 
         List<string> rolesList = new List<string>() { "citizen", "wolf" };
@@ -1120,27 +1121,6 @@ public class GameManager : MonoBehaviour
 
    
     #endregion
-
-    #region Methodes que je sais pas si elles seront utiles ou pas
-    public void DisplayUI() { }
-
-    /*
-    public Player Get_Vote_Result(int Nb_Vote)
-    {
-        //script qui gère le résultat du vote quotidien
-    }
-    */
-
-    public void Victory() 
-    {
-        // script qui donne le vainqueur de la partie
-    }
-    public void Reload_Players()
-    {
-        // script qui reload la partie si il y a un problème de tracking
-    }
-
-	#endregion
 
 	#region Coroutines
     IEnumerator VotingTimer(float time)

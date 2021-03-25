@@ -91,13 +91,6 @@ public class Player : MonoBehaviour
         r = mesh.GetComponent<Renderer>();
     }
     
-    void Update()
-    {
-        //if (IsPlayerReady)
-        //{
-        //    r.material = m_green;
-        //}
-    }
     #endregion
 
     public void Sleep()
