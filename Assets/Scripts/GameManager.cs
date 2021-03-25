@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     public bool randomizeOtherRoles = false;
     private bool teller = true;
     private bool witch = false;
-    private bool hunter = false;
+    private bool hunter = true;
     private int wait = 0;
 
     //PRIVATE
@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     private bool hunterTurnOngoing = false;
     private Player playerHunterChose = null;
     private bool checkedHunterDead = false;
+    private int hunterPlayerIndex;
 
     private bool killTurn = false;
 
@@ -285,6 +286,18 @@ public class GameManager : MonoBehaviour
 
                 if (!hunterTurnOngoing && !newMayorOngoing)
                 {
+                    killTurn = true;
+                }
+				if (killTurn)
+				{
+                    Debug.Log("Kill Turn");
+                    for (int i = 0; i < playersKilledThisTurn.Count; i++)
+                    {
+                        KillPlayer(playersKilledThisTurn[i]);
+                    }
+                    playersKilledThisTurn.Clear();
+                    killTurn = false;
+                    CalculatePlayersAlive();
                     votingTime = true;
                 }
 
@@ -330,12 +343,17 @@ public class GameManager : MonoBehaviour
                     {
                         if (playersKilledThisTurn[i].IsMayor)
                         {
-                            oldMayor = Players[i];
+                            oldMayor = playersKilledThisTurn[i];
+                            //oldMayor = Players[i];
                             newMayorOngoing = true;
                         }
                     }
                 }
-                if (newMayorOngoing) NewMayor(oldMayor);
+                if (newMayorOngoing)
+                {
+                    NewMayor(oldMayor);
+                    turnText.text = "Choisissez un nouveau maire";
+                }
 
                 if(!hunterTurnOngoing && !newMayorOngoing && playersKilledThisTurn.Count != 0)
 				{
@@ -468,6 +486,10 @@ public class GameManager : MonoBehaviour
             {
                 wolves.Add(Players[i]);
             }
+            else if (Players[i].Role == "hunter")
+			{
+                hunterPlayerIndex = i;
+			}
         }
 
 
@@ -485,7 +507,7 @@ public class GameManager : MonoBehaviour
 		{
             roleTimer = true;
             //Demander de regarder l'écran au player
-            StartCoroutine("RoleDiscovery", 10f);
+            StartCoroutine("RoleDiscovery", 2f);
             player.SetRoleUI();
             player.RoleDisplayed = true;
         }
@@ -498,7 +520,7 @@ public class GameManager : MonoBehaviour
             player.transform.Find(nomSphere).gameObject.SetActive(false);
             //Demander de remettre le masque
             roleTimer = true;
-            StartCoroutine("RoleDiscovery", 5f);
+            StartCoroutine("RoleDiscovery", 3f);
         }
 
         /*
@@ -710,7 +732,7 @@ public class GameManager : MonoBehaviour
             {
                 if(voteType == "elimination")
 				{
-                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was elected as Mayor");
+                    Debug.Log("Everybody voted : Player " + eliminatedPlayer + "Was eliminated");
                     playersKilledThisTurn.Clear();
                     playersKilledThisTurn.Add(eliminatedPlayer);
                 }
@@ -1085,7 +1107,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("tour du chasseur");
         if (playerHunterChose == null)
         {
-            playerHunterChose = IndividualVote(Players[tellerPlayerIndex]);
+            playerHunterChose = IndividualVote(Players[hunterPlayerIndex]);
         }
         if (playerHunterChose != null)
         {

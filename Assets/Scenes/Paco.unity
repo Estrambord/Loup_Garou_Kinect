@@ -1415,7 +1415,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: -47.557846}
-  m_SizeDelta: {x: 94.9384, y: 95.11569}
+  m_SizeDelta: {x: 800, y: 95.11569}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &227465430
 MonoBehaviour:
@@ -1450,7 +1450,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: cela
+  m_Text: 
 --- !u!222 &227465431
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4009,7 +4009,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Initialisaion du jeu
+  m_Text: Initialisation du jeu
 --- !u!1 &766091353
 GameObject:
   m_ObjectHideFlags: 0
