@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -109,31 +110,10 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-        #region Vote du village
-
-        /*for (int i = 3; i < Players.Count; i++)
-        {
-            Players[i].Die();
-        }*/
-
-        /*if (Input.GetKeyDown(KeyCode.F))
-        {
-            votingTime = true;
-            electedPlayer = null;
-            Debug.Log("It's Time to elect a new Mayor !");
-        }
-		if (votingTime)
-		{
-            VoteVillage("elimination");
-            //VoteVillage("election");
-        }*/
-
-        #endregion
+        if (Input.GetKeyDown(KeyCode.R)) SceneManager.LoadScene(0);
 
 
-
-        if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
+		if (beforeGameStart) //initialisation du jeu, avant la premiere nuit
         {
             dayText.text = "Initialisation";
             //Son d'introduction
