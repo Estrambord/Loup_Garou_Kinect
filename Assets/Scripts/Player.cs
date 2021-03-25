@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
     [System.NonSerialized] public bool hasVoted = false;
     protected bool isAwake = true;
     [SerializeField] private string role = "citizen";
+    public bool voteActivated = false;
     public string Role
     {
         get { return role; }
@@ -149,70 +150,19 @@ public class Player : MonoBehaviour
     }
 
 
-
-
-    //Méthodeà déplacer dans le GameManager pour avoir accès à tous les joueurs
-    public virtual void SpecialVote(Player player)
-    {
-
-        switch (this.Role)
-        {
-            case ("witch"):
-                if (remainingPotionsString.Contains("life"))
-                {
-                    //Activer les potions grabbable
-                    remainingPotions[0].SetActive(true);
-                }
-                if (remainingPotionsString.Contains("dead"))
-                {
-                    //Activer les potions grabbable
-                    remainingPotions[1].SetActive(true);
-                }
-                //Demander de choisir une potion (son)
-                //Au trigger de la marmite faire
-                if (marmite.isChosen)
-                {
-                    if (marmite.chosen == "life")
-                    {
-                        //foreach(Player player in Players){
-                        //  if player.canDie == true{
-                        //      player.canDie = false;
-                        //  }
-                        //}
-                    }
-                    else
-                    {
-                        ActivateVote();
-                        //Tuer player sur qui est la voix
-                        DeactivateVote();
-                    }
-                }
-
-                //Si la potion est lâchée, réinitialiser la position (GrabScript)
-
-                break;
-            case ("hunter"):
-                break;
-            case ("teller"):
-                break;
-            case ("wolf"):
-                break;
-        }
-        //le script de vote des personnages à rôles spéciaux
-
-    }
-
     public void ActivateVote()
     {
         //Activer le vote à la main
         handClick.enabled = true;
         interactionManager.enabled = true;
+        voteActivated = true;
     }
 
     public void DeactivateVote()
     {
         handClick.enabled = false;
         interactionManager.enabled = false;
+        voteActivated = false;
     }
 
     public void ActivateGrabDrop()
@@ -231,11 +181,11 @@ public class Player : MonoBehaviour
     public void SetRoleUI()
     {
         Debug.Log("Setting role UI");
-        roleText.enabled = true;
+        roleText.gameObject.SetActive(true);
         roleText.text = Role;
         //AFFICHER UI SELON LE PERSONNAGE
-        string nomSphere = "Sphere (" + gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
-        transform.Find(nomSphere).gameObject.SetActive(true);
+        /*string nomSphere = "Sphere (" + gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
+        transform.Find(nomSphere).gameObject.SetActive(true);*/
     }
 
     public void SetUI(string s)

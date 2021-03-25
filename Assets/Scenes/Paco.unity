@@ -1968,6 +1968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -4008,7 +4009,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Tour de ___
+  m_Text: Initialisaion du jeu
 --- !u!1 &766091353
 GameObject:
   m_ObjectHideFlags: 0
@@ -4978,6 +4979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -6779,6 +6781,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -7685,6 +7688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -9571,6 +9575,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -10347,6 +10352,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -10756,6 +10762,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -10984,6 +10991,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -11365,6 +11373,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -11564,6 +11573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -12598,6 +12608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
@@ -13221,6 +13232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAlive: 1
   role: citizen
+  voteActivated: 0
   remainingPotions: []
   remainingPotionsString: []
   voice: {fileID: 0}
