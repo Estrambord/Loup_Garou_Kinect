@@ -19,7 +19,7 @@ public class EnvironementControl : MonoBehaviour
     private void Update()
     {
         //SwitchTime = true to launch sun sequence
-        if (Input.GetKeyDown(KeyCode.Z)) SwitchTime = true;
+        //if (Input.GetKeyDown(KeyCode.Z)) SwitchTime = true;
 
         if (switchTime && isDay)
         {

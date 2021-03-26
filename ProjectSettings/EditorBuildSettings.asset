@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Clip Video/Clip VIdeo.unity
-    guid: 295c6d1b0441ca446b1342169eda457c
+    path: Assets/Scenes/Gwennou.unity
+    guid: 73565429ee166974fa46057f567b713f
   m_configObjects: {}

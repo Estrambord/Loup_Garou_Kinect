@@ -21,20 +21,29 @@ public class SoundManager : MonoBehaviour
     private AudioClip ambientDay, ambientNight, trackLGWin, trackVillageWon;
     [SerializeField]
     private AudioSource audioSource, ambientSource;
+    [SerializeField]
+    private EnvironementControl environementControl;
 
-    private bool villageAwake = true;
+	private bool audioFinished = false;
 
-    private void Start()
+	public bool AudioFinished
+	{
+		get { return audioFinished; }
+		set { audioFinished = value; }
+	}
+
+	private void Start()
     {
         ambientSource.loop = true;
         /***Exemple***/
+        /*
         PlayNarration(0); //Intro
         PlaySFX(0);
         PlaySFX(1);
         PlayInstruction(0); //Levez un bras au-dessus de votre tête pour indiquer que vous êtes prêts
         PlaySFX(2);
+
         PlayNarration(1); //C’est la nuit, tout le village s’endort
-       
         PlayInstruction(1); //Placez votre masque sur vos yeux
         PlayInstruction(2); //Vous allez à présent découvrir tout à tour vos rôles
 
@@ -54,6 +63,7 @@ public class SoundManager : MonoBehaviour
         PlayerAndAction(9, 0); //Joueur 1 - se réveille
         PlayInstruction(6); //Instruction voyante
         PlayerAndAction(9, 1); //Joueur 1 - se rendors
+        */
     }
 
     private AudioClip Combine(params AudioClip[] clips)
@@ -94,22 +104,26 @@ public class SoundManager : MonoBehaviour
         return result;
     }
 
-    public void SwitchAmbientTime()
+    public void SwitchAmbientTime(bool isDay)
     {
-        ambientSource.Stop();
-        if (villageAwake)
+        environementControl.SwitchTime = true;
+        
+        if (isDay)
         {
             PlaySFX(1);
+            PlayNarration(2); //C'est le matin
+            ambientSource.Stop();
             ambientSource.clip = ambientDay;
-            villageAwake = false;
+            ambientSource.Play();
         }
         else
         {
             PlaySFX(2);
+            PlayNarration(1); //C’est la nuit, tout le village s’endort
+            ambientSource.Stop();
             ambientSource.clip = ambientNight;
-            villageAwake = true;
+            ambientSource.Play();
         }
-        ambientSource.Play();
     }
 
     public void PlayGameOver(bool villageWon)
@@ -119,17 +133,21 @@ public class SoundManager : MonoBehaviour
         if (villageWon)
         {
             ambientSource.clip = trackVillageWon;
+            ambientSource.pitch = 1f;
         }
         else
         {
             ambientSource.clip = trackLGWin;
+            ambientSource.pitch = 1f;
         }
+        ambientSource.volume = 0.5f;
         ambientSource.Play();
     }
 
     public void PlaySFX(int id)
     {
         StartCoroutine(PlayClipASAP(Combine(sfxList[id])));
+        //StartCoroutine(PlayClipASAP(sfxList[id]));
     }
 
     public void PlayInstruction(int id)
@@ -171,10 +189,24 @@ public class SoundManager : MonoBehaviour
         PlayClipASAP(Combine(instructionList[12], nameList[playerId], conjonctionList[0], nameList[role]));
     }
 
+    public void WaitEndVocal()
+	{
+        StartCoroutine(WaitingEndVocal());
+	}
+
     IEnumerator PlayClipASAP(AudioClip nextClip)
     {
         yield return new WaitWhile(() => audioSource.isPlaying);
-        audioSource.PlayOneShot(nextClip);
+        //audioSource.PlayOneShot(nextClip);
+        audioSource.clip = nextClip;
+        audioSource.Play();
+    }
+
+    IEnumerator WaitingEndVocal()
+	{
+        AudioFinished = false;
+        yield return new WaitWhile(() => audioSource.isPlaying);
+        AudioFinished = true;
     }
 
     /*

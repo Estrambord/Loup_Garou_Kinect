@@ -123,8 +123,8 @@ public class HandClickScript : MonoBehaviour
 								clickedObjectOffset = hit.point - clickedObject.transform.position;
 
 								// set selection material
-								clickedObjectMaterial = clickedObject.GetComponent<Renderer>().material;
-								clickedObject.GetComponent<Renderer>().material = selectedObjectMaterial;
+								/*clickedObjectMaterial = clickedObject.GetComponent<Renderer>().material;
+								clickedObject.GetComponent<Renderer>().material = selectedObjectMaterial;*/
 								/*tops = clickedObject.gameObject.transform.Find("Tops").gameObject;
 								topsMat = tops.GetComponent<SkinnedMeshRenderer>().materials[0];
 								clickedObjectMaterial = topsMat;*/
@@ -163,7 +163,7 @@ public class HandClickScript : MonoBehaviour
 				if(isReleased)
 				{
 					// restore the object's material and stop dragging the object
-					clickedObject.GetComponent<Renderer>().material = clickedObjectMaterial;
+					//clickedObject.GetComponent<Renderer>().material = clickedObjectMaterial;
 					//clickedObject.transform.Find("Tops").gameObject.GetComponent<SkinnedMeshRenderer>().materials[0] = clickedObjectMaterial;
 					
 

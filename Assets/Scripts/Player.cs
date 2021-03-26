@@ -19,8 +19,7 @@ public class Player : MonoBehaviour
 
     #region Player variables
     public bool isAlive = true;
-    [System.NonSerialized] public int nbVote = 0;
-    protected bool isMayor = false;
+    public int nbVote = 0;
     [System.NonSerialized] public bool hasVoted = false;
     protected bool isAwake = true;
     [SerializeField] private string role = "citizen";
@@ -30,7 +29,14 @@ public class Player : MonoBehaviour
         get { return role; }
         set { role = value; }
     }
-    public bool IsMayor { get; set; } = false;
+	public bool isMayor = false;
+
+	public bool IsMayor
+	{
+		get { return isMayor; }
+		set { isMayor = value; }
+	}
+
     protected bool canDie;
     protected bool roleVisible;
     protected float votingCountdown;
@@ -41,37 +47,27 @@ public class Player : MonoBehaviour
     public HandClickScript handClick;
     public InteractionManager interactionManager;
     public GrabDropScript grabDrop;
-    public Marmite marmite;
     #endregion
 
+    #region Assets variables
+    public Marmite marmite;
+    public GameObject capHunter;
+    public GameObject capWitch;
+    public GameObject capTeller;
+    public GameObject maskWolf;
+    public GameObject starMayor;
+    #endregion
 
     #region Prototype Variables
-    public GameObject voteUI;
     public TMPro.TMP_Text roleText;
-    public TMPro.TMP_Text player;
 
     public bool RoleDiscovered { get; set; } = false;
     public bool RoleDisplayed { get; set; } = false;
 
-	public Material m_yellow;
-    public Material m_red;
-    public Material m_flesh;
-    public Material m_dead;
-    public Material m_green;
-
-    public GameObject mesh;
-
     private Renderer r { get; set; }
-
-    public GameObject lifePotionButton;
-    public GameObject deathPotionButton;
-
-    public bool LifePotionUsed { get; set; } = false;
-    public bool lifePotionUsedThisTurn { get; set; } = false;
-    public bool DeathPotionUsed { get; set; } = false;
-    public bool deathPotionUsedThisTurn { get; set; } = false;
-    public Material deathMaterial;
-
+    public Material m_dead;
+    public Material m_flesh;
+    public GameObject mesh;
     #endregion
 
     #endregion
@@ -93,7 +89,7 @@ public class Player : MonoBehaviour
     
     #endregion
 
-    public void Sleep()
+    /*public void Sleep()
     {
         //endort un player
         roleText.enabled = false;
@@ -107,16 +103,13 @@ public class Player : MonoBehaviour
         roleText.enabled = true;
         player.enabled = false;
         isAwake = true;
-    }
+    }*/
 
     public void Die()
     {
         r.material = m_dead;
         isAlive = false;
-
-        //canDie = true;
-        //enabled = false;
-        mesh.GetComponent<Renderer>().material = deathMaterial;
+        //mesh.GetComponent<Renderer>().material = m_dead;
     }
 
     public void Revive()
@@ -175,25 +168,89 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Setting role UI");
         roleText.gameObject.SetActive(true);
-        roleText.text = Role;
+        ActivateRole();
+		switch (Role)
+		{
+            case "teller":
+                roleText.text = "Voyante";
+                break;
+            case "wolf":
+                roleText.text = "Loup-garou";
+                break;
+            case "hunter":
+                roleText.text = "Chasseur";
+                break;
+            case "citizen":
+                roleText.text = "Villageois";
+                break;
+            case "witch":
+                roleText.text = "Sorciere";
+                break;
+		}
+        //roleText.text = Role;
+
         //AFFICHER UI SELON LE PERSONNAGE
         /*string nomSphere = "Sphere (" + gameObject.GetComponent<AvatarController>().playerIndex.ToString() + ")";
         transform.Find(nomSphere).gameObject.SetActive(true);*/
     }
 
+    public void ActivateRole()
+	{
+        switch (Role)
+		{
+            case "teller":
+                capTeller.SetActive(true);
+                break;
+            case "wolf":
+                maskWolf.SetActive(true);
+                break;
+            case "witch":
+                capWitch.SetActive(true);
+                break;
+            case "hunter":
+                capHunter.SetActive(true);
+                break;
+        }
+	}
+
+    public void DeactivateRole()
+    {
+        switch (Role)
+        {
+            case "teller":
+                capTeller.SetActive(false);
+                break;
+            case "wolf":
+                maskWolf.SetActive(false);
+                break;
+            case "witch":
+                capWitch.SetActive(false);
+                break;
+            case "hunter":
+                capHunter.SetActive(false);
+                break;
+        }
+    }
+
+    public void ActivateMayor()
+	{
+        if (IsMayor)
+		{
+            starMayor.SetActive(true);
+		}
+	}
+
+    public void DeactivateMayor()
+    {
+        if (IsMayor)
+        {
+            starMayor.SetActive(false);
+        }
+    }
+
     public void SetUI(string s)
     {
         roleText.text = s;
-    }
-
-    public void MayorYellow()
-    {
-        r.material = m_yellow;
-    }
-
-    public void MakeRed()
-    {
-        r.material = m_red;
     }
 
     public void MakeFlesh()
@@ -205,27 +262,5 @@ public class Player : MonoBehaviour
 	{
         r.material = m_dead;
 	}
-
-    public void ToggleWitchUI(bool b, bool isAPlayerDead)
-    {
-        if (b)
-        {
-            SetRoleUI();
-            if (!LifePotionUsed && isAPlayerDead)
-            {
-                lifePotionButton.SetActive(b);
-            }
-            if (!DeathPotionUsed)
-            {
-                deathPotionButton.SetActive(b);
-            }
-        }
-        else
-        {
-            SetUI("citizen :)");
-            lifePotionButton.SetActive(b);
-            deathPotionButton.SetActive(b);
-        }
-    }
     #endregion
 }
